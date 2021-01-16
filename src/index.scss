@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito+Sans:ital,wght@0,800;1,400&display=swap");
+
+// font-family: 'Montserrat', sans-serif;
+// font-family: 'Nunito Sans', sans-serif;
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #dcdcdc;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    line-height: 1.2rem;
+}
+
+a {
+    color: #e73854;
+
+    &:hover {
+        color: #e73854;
+        text-decoration: underline;
+    }
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+/** SEMANTIC UI OVERRIDES **/
+.ui {
+    .form {
+        font-size: 1rem;
+        line-height: 1.2rem;
+
+        .field {
+            margin-bottom: 0.7rem;
+        }
+    }
+    .list {
+        a.item {
+            color: #e73854;
+
+            &:hover {
+                color: #e73854;
+                text-decoration: underline;
+            }
+        }
+    }
+    p.errors {
+        text-align: left;
+        margin-bottom: 0rem;
+        margin-top: 0.3rem;
+        padding-left: 10px;
+        font-size: 0.9rem;
+
+        i {
+            color: #e73854;
+        }
+    }
+    .input {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+    }
+    .button {
+        background: #e73854;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+}
+
+/** MISC **/
+.margin0 {
+    margin: 0;
+}
