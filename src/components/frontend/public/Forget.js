@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button, Form, Grid, Icon, Image, Message } from "semantic-ui-react";
-import { userLogin } from "../../../redux/actions/users";
+import { forgetPassword } from "../../../redux/actions/users";
 
 import Footer from "./Footer";
 
@@ -10,7 +10,7 @@ const Login = (props) => {
     const { register, handleSubmit, errors } = useForm();
     const notifications = useSelector((state) => state.notifications);
     const dispatch = useDispatch();
-    const onSubmit = (data) => dispatch(userLogin(data));
+    const onSubmit = (data) => dispatch(forgetPassword(data));
 
     return (
         <>
@@ -59,40 +59,12 @@ const Login = (props) => {
                             )}
                         </div>
 
-                        <div className="field">
-                            <div className="ui fluid left icon input">
-                                <input
-                                    name="password"
-                                    type="password"
-                                    placeholder="Password"
-                                    ref={register({
-                                        required: "Password is required.",
-                                        minLength: {
-                                            value: 8,
-                                            message:
-                                                "Password must be minimum of 8 characters.",
-                                        },
-                                    })}
-                                />
-                                <i aria-hidden="true" className="lock icon"></i>
-                            </div>
-                            {errors.password && (
-                                <p className="errors">
-                                    <Icon name="arrow circle right" />{" "}
-                                    {errors.password.message}
-                                </p>
-                            )}
-                        </div>
-
                         <Button fluid size="small">
-                            Login
+                            Submit
                         </Button>
                     </Form>
-                    <p className="margin0" align="left">
-                        <a href="/forget">Forgot Password</a>
-                    </p>
                     <p align="left">
-                        Need account? <a href="/signup">Sign Up</a>
+                        Have account? <a href="/login">Login</a>
                     </p>
                 </Grid.Column>
             </Grid>

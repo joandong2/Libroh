@@ -26,6 +26,23 @@ code {
         monospace;
 }
 
+/** HEADER **/
+.header {
+    .dropdown {
+        margin-left: 30px;
+    }
+}
+
+.books {
+    .book {
+        margin-bottom: 20px;
+
+        img {
+            height: 210px;
+        }
+    }
+}
+
 /** SEMANTIC UI OVERRIDES **/
 .ui {
     .form {
@@ -65,6 +82,13 @@ code {
         background: #e73854;
         color: #fff;
         margin-bottom: 10px;
+    }
+    .label {
+        background: #e73854;
+        color: #fff;
+    }
+    .dropdown {
+        font-size: 1rem;
     }
 }
 

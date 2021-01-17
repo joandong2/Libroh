@@ -2,15 +2,18 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button, Form, Grid, Icon, Image, Message } from "semantic-ui-react";
-import { userLogin } from "../../../redux/actions/users";
+import { resetPassword } from "../../../redux/actions/users";
 
 import Footer from "./Footer";
 
 const Login = (props) => {
-    const { register, handleSubmit, errors } = useForm();
+    const params = new URLSearchParams(props.location.search);
+    const { register, handleSubmit, errors, watch } = useForm();
     const notifications = useSelector((state) => state.notifications);
     const dispatch = useDispatch();
-    const onSubmit = (data) => dispatch(userLogin(data));
+
+    const onSubmit = (data) =>
+        dispatch(resetPassword(params.get("token"), data.password));
 
     return (
         <>
@@ -39,29 +42,6 @@ const Login = (props) => {
                         <div className="field">
                             <div className="ui fluid left icon input">
                                 <input
-                                    name="email"
-                                    placeholder="Email address"
-                                    ref={register({
-                                        required: "Email address is required.",
-                                        pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: "Invalid email address.",
-                                        },
-                                    })}
-                                />
-                                <i aria-hidden="true" className="user icon"></i>
-                            </div>
-                            {errors.email && (
-                                <p className="errors">
-                                    <Icon name="arrow circle right" />{" "}
-                                    {errors.email.message}
-                                </p>
-                            )}
-                        </div>
-
-                        <div className="field">
-                            <div className="ui fluid left icon input">
-                                <input
                                     name="password"
                                     type="password"
                                     placeholder="Password"
@@ -83,16 +63,41 @@ const Login = (props) => {
                                 </p>
                             )}
                         </div>
+                        <div className="field">
+                            <div className="ui fluid left icon input">
+                                <input
+                                    name="confirm_password"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    ref={register({
+                                        required:
+                                            "Confirm Password is required.",
+                                        minLength: {
+                                            value: 8,
+                                            message:
+                                                "Confirm Password must be minimum of 8 characters.",
+                                        },
+                                        validate: (value) =>
+                                            value === watch("password") ||
+                                            "Passwords don't match.",
+                                    })}
+                                />
+                                <i aria-hidden="true" className="lock icon"></i>
+                            </div>
+                            {errors.confirm_password && (
+                                <p className="errors">
+                                    <Icon name="arrow circle right" />{" "}
+                                    {errors.confirm_password.message}
+                                </p>
+                            )}
+                        </div>
 
                         <Button fluid size="small">
-                            Login
+                            Update Password
                         </Button>
                     </Form>
-                    <p className="margin0" align="left">
-                        <a href="/forget">Forgot Password</a>
-                    </p>
                     <p align="left">
-                        Need account? <a href="/signup">Sign Up</a>
+                        Have account? <a href="/login">Login</a>
                     </p>
                 </Grid.Column>
             </Grid>
