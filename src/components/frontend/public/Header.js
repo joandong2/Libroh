@@ -1,14 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-    Button,
-    Form,
-    Grid,
-    Icon,
-    Image,
-    Message,
-    Dropdown,
-} from "semantic-ui-react";
+import { Button, Grid, Icon, Image, Dropdown } from "semantic-ui-react";
 
 const trigger = (
     <span>

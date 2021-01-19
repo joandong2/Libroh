@@ -1,74 +1,29 @@
-import React from "react";
-import { Button, Grid, Icon, Image, Label } from "semantic-ui-react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Grid, Image } from "semantic-ui-react";
+import { getBooks } from "../../../redux/actions/books";
 
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
+console.log(getBooks);
+
 const Home = (props) => {
+    const notifications = useSelector((state) => state.notifications);
+    const books = useSelector((state) => state.books);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getBooks());
+    }, [dispatch]);
+
     return (
         <>
             <Header />
             <Grid padded columns={2} className="main-content">
                 <Grid.Row>
-                    <Grid.Column className="sidebar" width={3} align="left">
-                        <Label.Group>
-                            <Label as="a">
-                                Fun
-                                <Icon name="close" />
-                            </Label>
-                            <Label as="a">
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as="a">Smart</Label>
-                            <Label as="a">Insane</Label>
-                            <Label as="a">Exciting</Label>
-                            <Label as="a">
-                                Fun
-                                <Icon name="close" />
-                            </Label>
-                            <Label as="a">
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as="a">Smart</Label>
-                            <Label as="a">Insane</Label>
-                            <Label as="a">Exciting</Label>
-                            <Label as="a">
-                                Fun
-                                <Icon name="close" />
-                            </Label>
-                            <Label as="a">
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as="a">Smart</Label>
-                            <Label as="a">Insane</Label>
-                            <Label as="a">Exciting</Label>
-                            <Label as="a">
-                                Fun
-                                <Icon name="close" />
-                            </Label>
-                            <Label as="a">
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as="a">Smart</Label>
-                            <Label as="a">Insane</Label>
-                            <Label as="a">Exciting</Label>
-                            <Label as="a">
-                                Fun
-                                <Icon name="close" />
-                            </Label>
-                            <Label as="a">
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as="a">Smart</Label>
-                            <Label as="a">Insane</Label>
-                            <Label as="a">Exciting</Label>
-                        </Label.Group>
-                    </Grid.Column>
+                    <Sidebar />
                     <Grid.Column className="content" width={13} align="left">
                         <Grid columns={10} className="books">
                             <Grid.Row>

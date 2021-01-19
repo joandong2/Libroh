@@ -3,26 +3,20 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 export const START = "START";
 export const SUCCESS = "SUCCESS";
 export const FAILED = "FAILED";
-export const GET_USER = "GET_USER";
-export const GET_USERS = "GET_USERS";
+export const GET_BOOK = "GET_BOOK";
+export const GET_BOOKS = "GET_BOOKS";
+export const GET_CATEGORIES = "GET_CATEGORIES";
 
-export const userLogin = (values) => (dispatch) => {
+export const getBook = (id) => (dispatch) => {
     dispatch({ type: START });
 
     axiosWithAuth()
-        .post("/users/login", {
-            email: values.email,
-            password: values.password,
-        })
+        .get(`/books/${id}`)
         .then((res) => {
-            //console.log(res);
             dispatch({ type: SUCCESS, payload: res.data.message });
-            // setTimeout(() => {
-            //     window.location.replace("/");
-            // }, 2000);
+            dispatch({ type: GET_BOOK, payload: res.data.book });
         })
         .catch((err) => {
-            //console.log("err", err.response.status);
             dispatch({
                 type: FAILED,
                 payload: err.response.data.message
@@ -32,16 +26,16 @@ export const userLogin = (values) => (dispatch) => {
         });
 };
 
-export const userSignup = (values) => (dispatch) => {
+export const getBooks = () => (dispatch) => {
     dispatch({ type: START });
 
     axiosWithAuth()
-        .post("/users/register", values)
+        .get(`/books/`)
         .then((res) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
+            dispatch({ type: GET_BOOKS, payload: res.data.books });
         })
         .catch((err) => {
-            //console.log("err", err.response.status);
             dispatch({
                 type: FAILED,
                 payload: err.response.data.message
@@ -51,35 +45,14 @@ export const userSignup = (values) => (dispatch) => {
         });
 };
 
-export const forgetPassword = (email) => (dispatch) => {
+export const getCategories = () => (dispatch) => {
     dispatch({ type: START });
 
     axiosWithAuth()
-        .put("/users/forgot-password", email)
+        .get(`/books/`)
         .then((res) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
-        })
-        .catch((err) => {
-            //console.log("err", err.response.status);
-            dispatch({
-                type: FAILED,
-                payload: err.response.data.message
-                    ? err.response.data.message
-                    : "Internal server issues. Please try again.",
-            });
-        });
-};
-
-export const resetPassword = (token, password) => (dispatch) => {
-    dispatch({ type: START });
-
-    axiosWithAuth()
-        .put("/users/reset-password", {
-            resetToken: token,
-            password: password,
-        })
-        .then((res) => {
-            dispatch({ type: SUCCESS, payload: res.data.message });
+            dispatch({ type: GET_BOOKS, payload: res.data.books });
         })
         .catch((err) => {
             dispatch({

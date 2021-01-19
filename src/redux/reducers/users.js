@@ -2,9 +2,6 @@ import { GET_USER, GET_USERS } from "../actions/users";
 
 const initialState = {
     user: null,
-    isLoading: false,
-    isLoaded: false,
-    message: null,
 };
 
 export function users(state = initialState, action) {
@@ -12,16 +9,12 @@ export function users(state = initialState, action) {
         case GET_USER:
             return {
                 ...state,
-                isLoading: true,
-                isLoaded: false,
+                user: action.payload,
             };
         case GET_USERS:
             return {
                 ...state,
-                isLoading: false,
-                isLoaded: true,
-                user: action.payload.user,
-                message: action.payload.message,
+                user: action.payload,
             };
         default:
             return state;
