@@ -7,11 +7,11 @@ export const GET_BOOK = "GET_BOOK";
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 
-export const getBook = (id) => (dispatch) => {
+export const getBook = (title) => (dispatch) => {
     dispatch({ type: START });
 
     axiosWithAuth()
-        .get(`/books/${id}`)
+        .get(`/books/${title}`)
         .then((res) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
             dispatch({ type: GET_BOOK, payload: res.data.book });
@@ -26,11 +26,12 @@ export const getBook = (id) => (dispatch) => {
         });
 };
 
-export const getBooks = () => (dispatch) => {
+export const getBooks = (category) => (dispatch) => {
     dispatch({ type: START });
 
+    console.log("category", category);
     axiosWithAuth()
-        .get(`/books/`)
+        .get(category === undefined ? `/books` : `/books/category/${category}`)
         .then((res) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
             dispatch({ type: GET_BOOKS, payload: res.data.books });

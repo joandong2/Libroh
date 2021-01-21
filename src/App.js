@@ -7,6 +7,7 @@ import Login from "./components/frontend/public/Login.js";
 import Signup from "./components/frontend/public/Signup.js";
 import Forget from "./components/frontend/public/Forget.js";
 import Reset from "./components/frontend/public/Reset.js";
+import Book from "./components/frontend/public/Book.js";
 
 const App = () => {
     return (
@@ -16,6 +17,11 @@ const App = () => {
                     <Route
                         exact
                         path="/"
+                        render={(props) => <Home {...props} />}
+                    />
+                    <Route
+                        exact
+                        path="/category/:category"
                         render={(props) => <Home {...props} />}
                     />
                     <Route
@@ -44,6 +50,11 @@ const App = () => {
                         render={(props) => {
                             <Reset {...props} />;
                         }}
+                    />
+                    <Route
+                        exact
+                        path="/:title"
+                        render={(props) => <Book {...props} />}
                     />
                     {/* 
                     <PrivateRoute exact path="/articles" component={Articles} /> */}

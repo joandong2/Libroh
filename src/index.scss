@@ -44,6 +44,20 @@ code {
 }
 
 /** SEMANTIC UI OVERRIDES **/
+.App .ui {
+    .label {
+        background: #e73854;
+        color: #fff;
+
+        &:hover {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+            background-image: none;
+            color: #000000;
+            text-decoration: none;
+        }
+    }
+}
 
 .ui {
     .grid.column .book {
@@ -86,6 +100,14 @@ code {
         background: #e73854;
         color: #fff;
         margin-bottom: 10px;
+
+        &:hover {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+            background-image: none;
+            color: #000000;
+            text-decoration: none;
+        }
     }
     .label {
         background: #e73854;
