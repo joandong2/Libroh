@@ -26,11 +26,7 @@ const Login = (props) => {
                     <p align="center">
                         <Image src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png" />
                     </p>
-                    {notifications.loading && (
-                        <p align="center">
-                            <Image src="//res.cloudinary.com/johnoblenda/image/upload/v1609117808/libroh/preload_xscule.gif" />
-                        </p>
-                    )}
+                    {notifications.loading && <div className="loader"></div>}
 
                     {notifications.message && (
                         <Message color="red" size="small">

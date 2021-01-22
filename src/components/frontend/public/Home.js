@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image } from "semantic-ui-react";
+import { Grid, Image, Label } from "semantic-ui-react";
 import { getBooks } from "../../../redux/actions/books";
 
 import Header from "./Header";
@@ -24,29 +24,42 @@ const Home = (props) => {
                     <Sidebar />
                     <Grid.Column className="content" width={13} align="left">
                         <Grid columns={10} className="books">
-                            <Grid.Row>
-                                {notifications.loading ? (
-                                    <h1>Loading</h1>
-                                ) : (
-                                    books &&
-                                    books.map((book) => {
-                                        return (
-                                            <Grid.Column
-                                                className="book"
-                                                key={book.id}
-                                            >
-                                                <Image src={book.cover} />
-                                                <a
-                                                    href={`http://localhost:3000/${book.slug}`}
-                                                    className="title"
+                            {notifications.loading ? (
+                                <Grid.Row
+                                    style={{ height: "10vh" }}
+                                    verticalAlign="middle"
+                                >
+                                    <div className="loader"></div>
+                                </Grid.Row>
+                            ) : (
+                                <Grid.Row>
+                                    {books &&
+                                        books.map((book) => {
+                                            return (
+                                                <Grid.Column
+                                                    className="book"
+                                                    key={book.id}
                                                 >
-                                                    {book.title}
-                                                </a>
-                                            </Grid.Column>
-                                        );
-                                    })
-                                )}
-                            </Grid.Row>
+                                                    <Image src={book.cover} />
+                                                    <a
+                                                        href={`http://localhost:3000/${book.slug}`}
+                                                        className="title"
+                                                    >
+                                                        {book.title}
+                                                    </a>
+
+                                                    <Label
+                                                        size="small"
+                                                        content={
+                                                            book.author_name
+                                                        }
+                                                        icon="user circle"
+                                                    />
+                                                </Grid.Column>
+                                            );
+                                        })}
+                                </Grid.Row>
+                            )}
                         </Grid>
                     </Grid.Column>
                 </Grid.Row>

@@ -4,6 +4,7 @@ const initialState = {
     book: null,
     books: null,
     categories: null,
+    totalPages: null,
 };
 
 export function books(state = initialState, action) {
@@ -16,7 +17,8 @@ export function books(state = initialState, action) {
         case GET_BOOKS:
             return {
                 ...state,
-                books: action.payload,
+                books: action.payload.books,
+                totalPages: parseInt(action.payload.total_pages),
             };
         case GET_CATEGORIES:
             return {

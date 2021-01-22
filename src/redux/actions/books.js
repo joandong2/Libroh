@@ -28,13 +28,12 @@ export const getBook = (title) => (dispatch) => {
 
 export const getBooks = (category) => (dispatch) => {
     dispatch({ type: START });
-
-    console.log("category", category);
     axiosWithAuth()
         .get(category === undefined ? `/books` : `/books/category/${category}`)
         .then((res) => {
+            console.log(res);
             dispatch({ type: SUCCESS, payload: res.data.message });
-            dispatch({ type: GET_BOOKS, payload: res.data.books });
+            dispatch({ type: GET_BOOKS, payload: res.data });
         })
         .catch((err) => {
             dispatch({

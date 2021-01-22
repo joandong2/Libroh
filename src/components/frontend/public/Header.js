@@ -32,6 +32,9 @@ const Header = () => {
                     <Image src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png" />
                 </Grid.Column>
                 <Grid.Column textAlign="right" verticalAlign="middle">
+                    <Button as="a" compact href="/">
+                        <Icon name="home" /> Home
+                    </Button>
                     <Button as="a" compact href="/donate">
                         <Icon name="periscope" /> Donate a book
                     </Button>
