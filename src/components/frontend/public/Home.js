@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label } from "semantic-ui-react";
+import { Grid, Image, Label, Pagination } from "semantic-ui-react";
 import { getBooks } from "../../../redux/actions/books";
 
 import Header from "./Header";
@@ -8,13 +8,14 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
 const Home = (props) => {
+    const [pageNum, setPageNum] = useState(1);
     const notifications = useSelector((state) => state.notifications);
-    const books = useSelector((state) => state.books.books);
+    const books = useSelector((state) => state.books);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getBooks(props.match.params.category));
-    }, [dispatch, props.match.params.category]);
+        dispatch(getBooks(props.match.params.category, pageNum));
+    }, [dispatch, props.match.params.category, pageNum]);
 
     return (
         <>
@@ -33,8 +34,8 @@ const Home = (props) => {
                                 </Grid.Row>
                             ) : (
                                 <Grid.Row>
-                                    {books &&
-                                        books.map((book) => {
+                                    {books.books &&
+                                        books.books.map((book) => {
                                             return (
                                                 <Grid.Column
                                                     className="book"
@@ -61,6 +62,20 @@ const Home = (props) => {
                                 </Grid.Row>
                             )}
                         </Grid>
+                        {books.books && (
+                            <Pagination
+                                boundaryRange={0}
+                                defaultActivePage={pageNum}
+                                ellipsisItem={null}
+                                firstItem={null}
+                                lastItem={null}
+                                siblingRange={1}
+                                totalPages={books.totalPages}
+                                onPageChange={(event, data) =>
+                                    setPageNum(data.activePage)
+                                }
+                            />
+                        )}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

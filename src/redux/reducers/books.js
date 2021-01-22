@@ -18,7 +18,11 @@ export function books(state = initialState, action) {
             return {
                 ...state,
                 books: action.payload.books,
-                totalPages: parseInt(action.payload.total_pages),
+                totalPages: parseInt(
+                    (
+                        action.payload.total_books / action.payload.page_limit
+                    ).toFixed()
+                ),
             };
         case GET_CATEGORIES:
             return {
