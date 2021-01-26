@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Grid, Icon, Image, Dropdown } from "semantic-ui-react";
+import cookies from "js-cookies";
 
 const trigger = (
     <span>
@@ -32,23 +33,28 @@ const Header = () => {
                     <Image src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png" />
                 </Grid.Column>
                 <Grid.Column textAlign="right" verticalAlign="middle">
-                    <Button as="a" compact href="/">
-                        <Icon name="home" /> Home
-                    </Button>
-                    <Button as="a" compact href="/donate">
-                        <Icon name="periscope" /> Donate a book
-                    </Button>
-                    <Button as="a" compact href="/login">
-                        <Icon name="user" /> Login
-                    </Button>
-                    <Button as="a" compact href="/signup">
-                        <Icon name="periscope" /> Signup
-                    </Button>
-                    <Dropdown
-                        trigger={trigger}
-                        options={options}
-                        direction="left"
-                    />
+                    {!cookies.getItem("userAccess") ? (
+                        <>
+                            <Button as="a" compact href="/">
+                                <Icon name="home" /> Home
+                            </Button>
+                            <Button as="a" compact href="/donate">
+                                <Icon name="periscope" /> Donate a book
+                            </Button>
+                            <Button as="a" compact href="/login">
+                                <Icon name="user" /> Login
+                            </Button>
+                            <Button as="a" compact href="/signup">
+                                <Icon name="periscope" /> Signup
+                            </Button>
+                        </>
+                    ) : (
+                        <Dropdown
+                            trigger={trigger}
+                            options={options}
+                            direction="left"
+                        />
+                    )}
                 </Grid.Column>
             </Grid.Row>
         </Grid>

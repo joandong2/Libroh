@@ -1,6 +1,9 @@
 import React from "react";
 import "./App.css";
+import { useDispatch } from "react-redux";
+import { userLogout } from "./redux/actions/users";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import cookies from "js-cookies";
 
 import Home from "./components/frontend/public/Home.js";
 import Login from "./components/frontend/public/Login.js";
@@ -10,6 +13,7 @@ import Reset from "./components/frontend/public/Reset.js";
 import Book from "./components/frontend/public/Book.js";
 
 const App = () => {
+    const dispatch = useDispatch();
     return (
         <Router>
             <div className="App">
@@ -47,8 +51,9 @@ const App = () => {
                     <Route
                         exact
                         path="/logout"
-                        render={(props) => {
-                            <Reset {...props} />;
+                        render={() => {
+                            cookies.removeItem("userAccess");
+                            dispatch(userLogout());
                         }}
                     />
                     <Route

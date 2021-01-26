@@ -15,7 +15,6 @@ export const userLogin = (values) => (dispatch) => {
             password: values.password,
         })
         .then((res) => {
-            //console.log(res);
             dispatch({ type: SUCCESS, payload: res.data.message });
             // setTimeout(() => {
             //     window.location.replace("/");
@@ -82,6 +81,26 @@ export const resetPassword = (token, password) => (dispatch) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
         })
         .catch((err) => {
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};
+
+export const userLogout = () => (dispatch) => {
+    dispatch({ type: START });
+
+    axiosWithAuth()
+        .post("/users/logout")
+        .then((res) => {
+            dispatch({ type: SUCCESS, payload: res.data.message });
+            window.location.replace("/");
+        })
+        .catch((err) => {
+            //console.log("err", err.response.status);
             dispatch({
                 type: FAILED,
                 payload: err.response.data.message
