@@ -9,12 +9,17 @@ const trigger = (
             src="//res.cloudinary.com/johnoblenda/image/upload/v1606186222/libroh/pngtree-user-vector-avatar-png-image_1541962_i43ejo.jpg"
             avatar
         />{" "}
-        Hello, Bob
     </span>
 );
 
 const options = [
-    { key: "profile", text: "Edit Profile", icon: "user" },
+    {
+        key: "profile",
+        text: "Edit Profile",
+        icon: "user",
+        as: Link,
+        to: "/profile",
+    },
     { key: "my-books", text: "My Books", icon: "bookmark" },
     {
         key: "sign-out",
@@ -33,7 +38,7 @@ const Header = () => {
                     <Image src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png" />
                 </Grid.Column>
                 <Grid.Column textAlign="right" verticalAlign="middle">
-                    {!cookies.getItem("userAccess") ? (
+                    {!cookies.getItem("_user") ? (
                         <>
                             <Button as="a" compact href="/">
                                 <Icon name="home" /> Home
@@ -49,11 +54,16 @@ const Header = () => {
                             </Button>
                         </>
                     ) : (
-                        <Dropdown
-                            trigger={trigger}
-                            options={options}
-                            direction="left"
-                        />
+                        <>
+                            <Button as="a" compact href="/">
+                                <Icon name="home" /> Home
+                            </Button>
+                            <Dropdown
+                                trigger={trigger}
+                                options={options}
+                                direction="left"
+                            />
+                        </>
                     )}
                 </Grid.Column>
             </Grid.Row>

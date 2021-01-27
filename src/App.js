@@ -11,6 +11,9 @@ import Signup from "./components/frontend/public/Signup.js";
 import Forget from "./components/frontend/public/Forget.js";
 import Reset from "./components/frontend/public/Reset.js";
 import Book from "./components/frontend/public/Book.js";
+/* Protected*/
+import PrivateRoute from "./components/frontend/protected/PrivateRoute.js";
+import Profile from "./components/frontend/protected/Profile.js";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -18,6 +21,7 @@ const App = () => {
         <Router>
             <div className="App">
                 <Switch>
+                    <PrivateRoute exact path="/profile" component={Profile} />
                     <Route
                         exact
                         path="/"
@@ -57,12 +61,9 @@ const App = () => {
                         }}
                     />
                     <Route
-                        exact
                         path="/:title"
                         render={(props) => <Book {...props} />}
                     />
-                    {/* 
-                    <PrivateRoute exact path="/articles" component={Articles} /> */}
                 </Switch>
             </div>
         </Router>

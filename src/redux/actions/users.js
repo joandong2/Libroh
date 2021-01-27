@@ -109,3 +109,42 @@ export const userLogout = () => (dispatch) => {
             });
         });
 };
+
+export const getUser = (id) => (dispatch) => {
+    dispatch({ type: START });
+
+    axiosWithAuth()
+        .get(`/users/${id}`)
+        .then((res) => {
+            dispatch({ type: SUCCESS, payload: res.data.message });
+            dispatch({ type: GET_USER, payload: res.data });
+        })
+        .catch((err) => {
+            //console.log("err", err.response.status);
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};
+
+export const updateUser = (id, values) => (dispatch) => {
+    dispatch({ type: START });
+
+    axiosWithAuth()
+        .put(`/users/${id}`, values)
+        .then((res) => {
+            dispatch({ type: SUCCESS, payload: res.data.message });
+        })
+        .catch((err) => {
+            //console.log("err", err.response.status);
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};

@@ -9,7 +9,7 @@ export function users(state = initialState, action) {
         case GET_USER:
             return {
                 ...state,
-                user: action.payload,
+                user: action.payload.user[0],
             };
         case GET_USERS:
             return {
