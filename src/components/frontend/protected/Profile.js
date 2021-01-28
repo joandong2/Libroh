@@ -8,14 +8,7 @@ import Header from "../public/Header";
 import Footer from "../public/Footer";
 
 const Profile = (props) => {
-    const {
-        register,
-        handleSubmit,
-        errors,
-        watch,
-
-        setValue,
-    } = useForm();
+    const { register, handleSubmit, errors, watch, setValue } = useForm();
     const notifications = useSelector((state) => state.notifications);
     const user = useSelector((state) => state.users.user);
     const dispatch = useDispatch();

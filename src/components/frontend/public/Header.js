@@ -20,7 +20,13 @@ const options = [
         as: Link,
         to: "/profile",
     },
-    { key: "my-books", text: "My Books", icon: "bookmark" },
+    {
+        key: "my-books",
+        text: "My Books",
+        icon: "bookmark",
+        as: Link,
+        to: "/mybook",
+    },
     {
         key: "sign-out",
         text: "Sign Out",

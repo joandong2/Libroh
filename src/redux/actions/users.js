@@ -16,9 +16,9 @@ export const userLogin = (values) => (dispatch) => {
         })
         .then((res) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
-            // setTimeout(() => {
-            //     window.location.replace("/");
-            // }, 2000);
+            setTimeout(() => {
+                window.location.replace("/");
+            }, 1000);
         })
         .catch((err) => {
             //console.log("err", err.response.status);
