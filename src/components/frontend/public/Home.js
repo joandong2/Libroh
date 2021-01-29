@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label, Pagination } from "semantic-ui-react";
-import { getBooks } from "../../../redux/actions/books";
+import { Grid, Image, Label, Pagination, Icon } from "semantic-ui-react";
+import { getBooks, updateUserBook } from "../../../redux/actions/books";
+import cookies from "js-cookies";
 
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
@@ -20,6 +21,8 @@ const Home = (props) => {
     const paginationChange = (e) => {
         setPageNum(parseInt(e.target.innerText));
     };
+
+    console.log("pageNum", pageNum);
 
     return (
         <>
@@ -52,7 +55,6 @@ const Home = (props) => {
                                                     >
                                                         {book.title}
                                                     </a>
-
                                                     <Label
                                                         size="small"
                                                         content={
@@ -60,6 +62,35 @@ const Home = (props) => {
                                                         }
                                                         icon="user circle"
                                                     />
+
+                                                    {/* <Icon
+                                                        link
+                                                        name={`${
+                                                            book.users.includes(
+                                                                parseInt(
+                                                                    cookies.getItem(
+                                                                        "_user"
+                                                                    )
+                                                                )
+                                                            )
+                                                                ? `bookmark`
+                                                                : `bookmark outline`
+                                                        }`}
+                                                        size="big"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            dispatch(
+                                                                updateUserBook(
+                                                                    book.id,
+                                                                    parseInt(
+                                                                        cookies.getItem(
+                                                                            "_user"
+                                                                        )
+                                                                    )
+                                                                )
+                                                            );
+                                                        }}
+                                                    /> */}
                                                 </Grid.Column>
                                             );
                                         })}
