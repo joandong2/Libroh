@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import { Button, Form, Grid, Image, Label } from "semantic-ui-react";
+import { Grid, Image, Label } from "semantic-ui-react";
 import cookies from "js-cookies";
-import { getUser, updateUser } from "../../../redux/actions/users";
+import { updateUser } from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
@@ -22,9 +21,9 @@ const MyBook = (props) => {
 
     useEffect(() => {}, []);
 
-    const onSubmit = (data) => {
-        dispatch(updateUser(userId, data));
-    };
+    // const onSubmit = (data) => {
+    //     dispatch(updateUser(userId, data));
+    // };
 
     return (
         <>

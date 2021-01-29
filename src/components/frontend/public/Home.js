@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Image, Label, Pagination, Icon } from "semantic-ui-react";
-import { getBooks, updateUserBook } from "../../../redux/actions/books";
+import { getBooks } from "../../../redux/actions/books";
+import { getUser, updateUserBook } from "../../../redux/actions/users";
 import cookies from "js-cookies";
 
 import Header from "../public/Header";
@@ -12,17 +13,19 @@ const Home = (props) => {
     const [pageNum, setPageNum] = useState(1);
     const notifications = useSelector((state) => state.notifications);
     const books = useSelector((state) => state.books);
+    const user = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getBooks(props.match.params.category, pageNum));
+        dispatch(getUser(parseInt(cookies.getItem("_user"))));
     }, [dispatch, props.match.params.category, pageNum]);
 
     const paginationChange = (e) => {
         setPageNum(parseInt(e.target.innerText));
     };
 
-    console.log("pageNum", pageNum);
+    // console.log("user", user.user);
 
     return (
         <>
@@ -62,35 +65,38 @@ const Home = (props) => {
                                                         }
                                                         icon="user circle"
                                                     />
-
-                                                    {/* <Icon
-                                                        link
-                                                        name={`${
-                                                            book.users.includes(
-                                                                parseInt(
-                                                                    cookies.getItem(
-                                                                        "_user"
+                                                    {user.user && (
+                                                        <>
+                                                            <h1>{book.id}</h1>
+                                                            <Icon
+                                                                key={book.id}
+                                                                link
+                                                                name={`${
+                                                                    user.user.saved_books.includes(
+                                                                        book.id
                                                                     )
-                                                                )
-                                                            )
-                                                                ? `bookmark`
-                                                                : `bookmark outline`
-                                                        }`}
-                                                        size="big"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            dispatch(
-                                                                updateUserBook(
-                                                                    book.id,
-                                                                    parseInt(
-                                                                        cookies.getItem(
-                                                                            "_user"
+                                                                        ? `bookmark`
+                                                                        : `bookmark outline`
+                                                                }`}
+                                                                size="big"
+                                                                onClick={(
+                                                                    e
+                                                                ) => {
+                                                                    e.preventDefault();
+                                                                    dispatch(
+                                                                        updateUserBook(
+                                                                            parseInt(
+                                                                                cookies.getItem(
+                                                                                    "_user"
+                                                                                )
+                                                                            ),
+                                                                            book.id
                                                                         )
-                                                                    )
-                                                                )
-                                                            );
-                                                        }}
-                                                    /> */}
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </>
+                                                    )}
                                                 </Grid.Column>
                                             );
                                         })}

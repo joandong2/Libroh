@@ -148,3 +148,21 @@ export const updateUser = (id, values) => (dispatch) => {
             });
         });
 };
+
+export const updateUserBook = (id, book_id) => (dispatch) => {
+    dispatch({ type: START });
+    axiosWithAuth()
+        .patch(`/users/${id}/books`, { book_id: book_id })
+        .then((res) => {
+            dispatch({ type: GET_USER, payload: res.data });
+            dispatch({ type: SUCCESS, payload: res.data.message });
+        })
+        .catch((err) => {
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};

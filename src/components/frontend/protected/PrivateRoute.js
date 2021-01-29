@@ -22,7 +22,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                             window.location.reload();
                         })
                         .catch((err) => {
-                            console.log(err);
+                            window.location.replace("/error");
                         });
                 }
 
