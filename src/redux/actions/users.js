@@ -5,6 +5,7 @@ export const SUCCESS = "SUCCESS";
 export const FAILED = "FAILED";
 export const GET_USER = "GET_USER";
 export const GET_USERS = "GET_USERS";
+export const GET_BOOKS = "GET_BOOKS";
 
 export const userLogin = (values) => (dispatch) => {
     dispatch({ type: START });
@@ -118,6 +119,27 @@ export const getUser = (id) => (dispatch) => {
         .then((res) => {
             dispatch({ type: SUCCESS, payload: res.data.message });
             dispatch({ type: GET_USER, payload: res.data });
+        })
+        .catch((err) => {
+            //console.log("err", err.response.status);
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};
+
+export const getUserBook = (id) => (dispatch) => {
+    dispatch({ type: START });
+
+    axiosWithAuth()
+        .get(`/users/${id}/books`)
+        .then((res) => {
+            dispatch({ type: SUCCESS, payload: res.data.message });
+            dispatch({ type: GET_USER, payload: res.data });
+            dispatch({ type: GET_BOOKS, payload: res.data });
         })
         .catch((err) => {
             //console.log("err", err.response.status);

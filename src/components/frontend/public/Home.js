@@ -34,7 +34,7 @@ const Home = (props) => {
                 <Grid.Row>
                     <Sidebar />
                     <Grid.Column className="content" width={13} align="left">
-                        <Grid columns={10} className="books">
+                        <Grid columns={9} className="books">
                             {notifications.loading ? (
                                 <Grid.Row
                                     style={{ height: "10vh" }}
@@ -51,52 +51,63 @@ const Home = (props) => {
                                                     className="book"
                                                     key={book.id}
                                                 >
-                                                    <Image src={book.cover} />
-                                                    <a
-                                                        href={`http://localhost:3000/${book.slug}`}
-                                                        className="title"
+                                                    <p align="center">
+                                                        <Image
+                                                            src={book.cover}
+                                                        />
+                                                    </p>
+                                                    <p
+                                                        align="center"
+                                                        className="author"
                                                     >
-                                                        {book.title}
-                                                    </a>
-                                                    <Label
-                                                        size="small"
-                                                        content={
-                                                            book.author_name
-                                                        }
-                                                        icon="user circle"
-                                                    />
-                                                    {user.user && (
-                                                        <>
-                                                            <h1>{book.id}</h1>
-                                                            <Icon
-                                                                key={book.id}
-                                                                link
-                                                                name={`${
-                                                                    user.user.saved_books.includes(
+                                                        <Label size="tiny">
+                                                            <Icon name="user" />{" "}
+                                                            {book.author_name}
+                                                        </Label>
+                                                    </p>
+                                                    <p
+                                                        align="center"
+                                                        className="book-title"
+                                                    >
+                                                        {user.user && (
+                                                            <>
+                                                                <Icon
+                                                                    key={
                                                                         book.id
-                                                                    )
-                                                                        ? `bookmark`
-                                                                        : `bookmark outline`
-                                                                }`}
-                                                                size="big"
-                                                                onClick={(
-                                                                    e
-                                                                ) => {
-                                                                    e.preventDefault();
-                                                                    dispatch(
-                                                                        updateUserBook(
-                                                                            parseInt(
-                                                                                cookies.getItem(
-                                                                                    "_user"
-                                                                                )
-                                                                            ),
+                                                                    }
+                                                                    link
+                                                                    name={`${
+                                                                        user.user.saved_books.includes(
                                                                             book.id
                                                                         )
-                                                                    );
-                                                                }}
-                                                            />
-                                                        </>
-                                                    )}
+                                                                            ? `bookmark`
+                                                                            : `bookmark outline`
+                                                                    }`}
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        e.preventDefault();
+                                                                        dispatch(
+                                                                            updateUserBook(
+                                                                                parseInt(
+                                                                                    cookies.getItem(
+                                                                                        "_user"
+                                                                                    )
+                                                                                ),
+                                                                                book.id
+                                                                            )
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            </>
+                                                        )}
+                                                        <a
+                                                            href={`http://localhost:3000/${book.slug}`}
+                                                            className="title"
+                                                        >
+                                                            {book.title}
+                                                        </a>
+                                                    </p>
                                                 </Grid.Column>
                                             );
                                         })}

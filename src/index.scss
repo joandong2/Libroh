@@ -111,8 +111,20 @@ code {
     .book {
         margin-bottom: 20px;
 
+        .book-title {
+            font-size: 1.1rem;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .author {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
         img {
             height: 210px;
+            width: 100%;
         }
     }
 }
@@ -130,6 +142,11 @@ code {
             color: #000000;
             text-decoration: none;
         }
+    }
+
+    .pagination.menu {
+        padding: 0;
+        margin-left: 15px;
     }
 }
 

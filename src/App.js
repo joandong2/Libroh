@@ -11,6 +11,7 @@ import Signup from "./components/frontend/public/Signup.js";
 import Forget from "./components/frontend/public/Forget.js";
 import Reset from "./components/frontend/public/Reset.js";
 import Book from "./components/frontend/public/Book.js";
+import Error from "./components/frontend/public/Error.js";
 /* Protected*/
 import PrivateRoute from "./components/frontend/protected/PrivateRoute.js";
 import Profile from "./components/frontend/protected/Profile.js";
@@ -65,6 +66,10 @@ const App = () => {
                     <Route
                         path="/:title"
                         render={(props) => <Book {...props} />}
+                    />
+                    <Route
+                        path="/error"
+                        render={(props) => <Error {...props} />}
                     />
                 </Switch>
             </div>

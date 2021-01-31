@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Image, Label } from "semantic-ui-react";
 import cookies from "js-cookies";
-import { updateUser } from "../../../redux/actions/users";
+import { getUser, getUserBook } from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
@@ -10,20 +10,13 @@ import Footer from "../public/Footer";
 const MyBook = (props) => {
     const notifications = useSelector((state) => state.notifications);
     const books = useSelector((state) => state.books);
+    const user = useSelector((state) => state.users);
+
     const dispatch = useDispatch();
-    let userId = cookies.getItem("_user");
 
-    // useEffect(() => {
-    //     if (userId) {
-    //         dispatch(getUser(userId));
-    //     }
-    // }, [dispatch, userId]);
-
-    useEffect(() => {}, []);
-
-    // const onSubmit = (data) => {
-    //     dispatch(updateUser(userId, data));
-    // };
+    useEffect(() => {
+        dispatch(getUserBook(parseInt(cookies.getItem("_user"))));
+    }, [dispatch]);
 
     return (
         <>
@@ -33,6 +26,7 @@ const MyBook = (props) => {
                     <Sidebar />
                     <Grid.Column className="content" width={13} align="left">
                         <Grid columns={10} className="books">
+                            <h1>My Book</h1>
                             {notifications.loading ? (
                                 <Grid.Row
                                     style={{ height: "10vh" }}
