@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label } from "semantic-ui-react";
+import { Grid, Image, Label, Icon } from "semantic-ui-react";
 import cookies from "js-cookies";
-import { getUser, getUserBook } from "../../../redux/actions/users";
+import {
+    getUser,
+    getUserBook,
+    updateUserBook,
+} from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
@@ -26,7 +30,7 @@ const MyBook = (props) => {
                     <Sidebar />
                     <Grid.Column className="content" width={13} align="left">
                         <Grid columns={10} className="books">
-                            <h1>My Book</h1>
+                            <h4>Saved Books</h4>
                             {notifications.loading ? (
                                 <Grid.Row
                                     style={{ height: "10vh" }}
@@ -38,28 +42,72 @@ const MyBook = (props) => {
                                 <Grid.Row>
                                     {books.books &&
                                         books.books.map((book) => {
-                                            return (
+                                            return user.user.saved_books.includes(
+                                                book.id
+                                            ) ? (
                                                 <Grid.Column
                                                     className="book"
                                                     key={book.id}
                                                 >
-                                                    <Image src={book.cover} />
-                                                    <a
-                                                        href={`http://localhost:3000/${book.slug}`}
-                                                        className="title"
+                                                    <p align="center">
+                                                        <Image
+                                                            src={book.cover}
+                                                        />
+                                                    </p>
+                                                    <p
+                                                        align="center"
+                                                        className="author"
                                                     >
-                                                        {book.title}
-                                                    </a>
-
-                                                    <Label
-                                                        size="small"
-                                                        content={
-                                                            book.author_name
-                                                        }
-                                                        icon="user circle"
-                                                    />
+                                                        <Label size="tiny">
+                                                            <Icon name="user" />{" "}
+                                                            {book.author_name}
+                                                        </Label>
+                                                    </p>
+                                                    <p
+                                                        align="center"
+                                                        className="book-title"
+                                                    >
+                                                        {user.user && (
+                                                            <>
+                                                                <Icon
+                                                                    key={
+                                                                        book.id
+                                                                    }
+                                                                    link
+                                                                    name={`${
+                                                                        user.user.saved_books.includes(
+                                                                            book.id
+                                                                        )
+                                                                            ? `bookmark`
+                                                                            : `bookmark outline`
+                                                                    }`}
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        e.preventDefault();
+                                                                        dispatch(
+                                                                            updateUserBook(
+                                                                                parseInt(
+                                                                                    cookies.getItem(
+                                                                                        "_user"
+                                                                                    )
+                                                                                ),
+                                                                                book.id
+                                                                            )
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            </>
+                                                        )}
+                                                        <a
+                                                            href={`http://localhost:3000/${book.slug}`}
+                                                            className="title"
+                                                        >
+                                                            {book.title}
+                                                        </a>
+                                                    </p>
                                                 </Grid.Column>
-                                            );
+                                            ) : null;
                                         })}
                                 </Grid.Row>
                             )}
