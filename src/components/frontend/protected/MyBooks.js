@@ -2,11 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Image, Label, Icon } from "semantic-ui-react";
 import cookies from "js-cookies";
-import {
-    getUser,
-    getUserBook,
-    updateUserBook,
-} from "../../../redux/actions/users";
+import { getUserBook, updateUserBook } from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
