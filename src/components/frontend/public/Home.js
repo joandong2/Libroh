@@ -25,8 +25,6 @@ const Home = (props) => {
         setPageNum(parseInt(e.target.innerText));
     };
 
-    // console.log("user", user.user);
-
     return (
         <>
             <Header />
@@ -50,25 +48,18 @@ const Home = (props) => {
                                                 <Grid.Column
                                                     className="book"
                                                     key={book.id}
+                                                    align="center"
                                                 >
-                                                    <p align="center">
-                                                        <Image
-                                                            src={book.cover}
-                                                        />
-                                                    </p>
-                                                    <p
-                                                        align="center"
+                                                    <Image src={book.cover} />
+
+                                                    <Label
                                                         className="author"
+                                                        as="a"
                                                     >
-                                                        <Label size="tiny">
-                                                            <Icon name="user" />{" "}
-                                                            {book.author_name}
-                                                        </Label>
-                                                    </p>
-                                                    <p
-                                                        align="center"
-                                                        className="book-title"
-                                                    >
+                                                        {book.author_name}
+                                                    </Label>
+
+                                                    <p className="book-title">
                                                         {user.user && (
                                                             <>
                                                                 <Icon

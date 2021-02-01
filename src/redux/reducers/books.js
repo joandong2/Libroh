@@ -27,7 +27,7 @@ export function books(state = initialState, action) {
         case GET_CATEGORIES:
             return {
                 ...state,
-                books: action.payload,
+                categories: action.payload,
             };
         default:
             return state;

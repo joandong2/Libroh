@@ -48,3 +48,21 @@ export const getBooks = (category, pageNum) => (dispatch) => {
             });
         });
 };
+
+export const getCategories = () => (dispatch) => {
+    dispatch({ type: START });
+    axiosWithAuth()
+        .get("/categories")
+        .then((res) => {
+            dispatch({ type: SUCCESS, payload: res.data.message });
+            dispatch({ type: GET_CATEGORIES, payload: res.data });
+        })
+        .catch((err) => {
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};

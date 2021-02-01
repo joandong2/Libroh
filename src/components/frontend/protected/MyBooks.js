@@ -25,8 +25,8 @@ const MyBook = (props) => {
                 <Grid.Row>
                     <Sidebar />
                     <Grid.Column className="content" width={13} align="left">
-                        <Grid columns={10} className="books">
-                            <h4>Saved Books</h4>
+                        <h4>Saved Books</h4>
+                        <Grid columns={9} className="books">
                             {notifications.loading ? (
                                 <Grid.Row
                                     style={{ height: "10vh" }}
