@@ -15,7 +15,9 @@ const MyBook = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUserBook(parseInt(cookies.getItem("_user"))));
+        if (cookies.getItem("_user")) {
+            dispatch(getUserBook(parseInt(cookies.getItem("_user"))));
+        }
     }, [dispatch]);
 
     return (

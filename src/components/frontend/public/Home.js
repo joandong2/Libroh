@@ -18,7 +18,9 @@ const Home = (props) => {
 
     useEffect(() => {
         dispatch(getBooks(props.match.params.category, pageNum));
-        dispatch(getUser(parseInt(cookies.getItem("_user"))));
+        if (cookies.getItem("_user")) {
+            dispatch(getUser(parseInt(cookies.getItem("_user"))));
+        }
     }, [dispatch, props.match.params.category, pageNum]);
 
     const paginationChange = (e) => {

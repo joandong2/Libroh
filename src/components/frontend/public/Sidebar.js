@@ -4,7 +4,7 @@ import { Grid, Label } from "semantic-ui-react";
 import { getCategories } from "../../../redux/actions/books";
 
 const Sidebar = () => {
-    const notifications = useSelector((state) => state.notifications);
+    //const notifications = useSelector((state) => state.notifications);
     const categories = useSelector((state) => state.books.categories);
     const dispatch = useDispatch();
 
