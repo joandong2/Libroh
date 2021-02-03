@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button, Form, Grid, Icon, Image, Message } from "semantic-ui-react";
 import { userLogin } from "../../../redux/actions/users";
@@ -7,21 +7,33 @@ import { userLogin } from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Footer from "../public/Footer";
 
-const Login = (props) => {
+const Donate = (props) => {
     const { register, handleSubmit, errors } = useForm();
     const notifications = useSelector((state) => state.notifications);
-    const dispatch = useDispatch();
-    const onSubmit = (data) => dispatch(userLogin(data));
+    const onSubmit = (data) => {
+        console.log(data);
+    };
 
     return (
         <>
             <Header />
             <Grid
                 textAlign="center"
-                style={{ height: "70vh" }}
+                style={{ height: "60vh" }}
                 verticalAlign="middle"
             >
                 <Grid.Column style={{ maxWidth: 450 }}>
+                    <div className="contact">
+                        <Icon name="home circle right" /> Dona Maria Subd.
+                        <br /> Pala-o Iligan City
+                        <br /> Philippines 9200
+                        <br />
+                        <br /> <Icon name="phone circle right" /> +63 908 935
+                        6662
+                        <br /> <Icon name="mail circle right" />{" "}
+                        libroh.ph@gmail.com
+                    </div>
+
                     <div className="loader-wrapper" align="center">
                         {notifications.loading && (
                             <div className="loader"></div>
@@ -38,17 +50,34 @@ const Login = (props) => {
                         <div className="field">
                             <div className="ui fluid left icon input">
                                 <input
+                                    name="name"
+                                    placeholder="Name"
+                                    ref={register({
+                                        required: "Name is required.",
+                                    })}
+                                />
+                                <i aria-hidden="true" className="user icon"></i>
+                            </div>
+                            {errors.name && (
+                                <p className="errors">
+                                    <Icon name="arrow circle right" />{" "}
+                                    {errors.name.message}
+                                </p>
+                            )}
+                        </div>
+                        <div className="field">
+                            <div className="ui fluid left icon input">
+                                <input
                                     name="email"
                                     placeholder="Email address"
                                     ref={register({
-                                        required: "Email address is required.",
                                         pattern: {
                                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                             message: "Invalid email address.",
                                         },
                                     })}
                                 />
-                                <i aria-hidden="true" className="user icon"></i>
+                                <i aria-hidden="true" className="mail icon"></i>
                             </div>
                             {errors.email && (
                                 <p className="errors">
@@ -57,42 +86,36 @@ const Login = (props) => {
                                 </p>
                             )}
                         </div>
-
                         <div className="field">
                             <div className="ui fluid left icon input">
                                 <input
-                                    name="password"
-                                    type="password"
-                                    placeholder="Password"
+                                    name="phone"
+                                    placeholder="Phone Number"
                                     ref={register({
-                                        required: "Password is required.",
-                                        minLength: {
-                                            value: 8,
-                                            message:
-                                                "Password must be minimum of 8 characters.",
+                                        required: "Email address is required.",
+                                        pattern: {
+                                            value: /[0-9]*/i,
+                                            message: "Invalid phone number.",
                                         },
                                     })}
                                 />
-                                <i aria-hidden="true" className="lock icon"></i>
+                                <i
+                                    aria-hidden="true"
+                                    className="phone icon"
+                                ></i>
                             </div>
-                            {errors.password && (
+                            {errors.phone && (
                                 <p className="errors">
                                     <Icon name="arrow circle right" />{" "}
-                                    {errors.password.message}
+                                    {errors.phone.message}
                                 </p>
                             )}
                         </div>
 
                         <Button fluid size="small">
-                            Login
+                            Donate
                         </Button>
                     </Form>
-                    <p className="margin0" align="left">
-                        <a href="/forget">Forgot Password</a>
-                    </p>
-                    <p align="left">
-                        Need account? <a href="/signup">Sign Up</a>
-                    </p>
                 </Grid.Column>
             </Grid>
             <Footer />
@@ -100,4 +123,4 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default Donate;

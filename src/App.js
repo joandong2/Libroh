@@ -12,6 +12,7 @@ import Forget from "./components/frontend/public/Forget.js";
 import Reset from "./components/frontend/public/Reset.js";
 import Book from "./components/frontend/public/Book.js";
 import Error from "./components/frontend/public/Error.js";
+import Donate from "./components/frontend/public/Donate";
 /* Protected*/
 import PrivateRoute from "./components/frontend/protected/PrivateRoute.js";
 import Profile from "./components/frontend/protected/Profile.js";
@@ -54,6 +55,11 @@ const App = () => {
                         exact
                         path="/reset-password"
                         render={(props) => <Reset {...props} />}
+                    />
+                    <Route
+                        exact
+                        path="/donate"
+                        render={(props) => <Donate {...props} />}
                     />
                     <Route
                         exact

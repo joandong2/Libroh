@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { Button, Form, Grid, Icon, Image, Message } from "semantic-ui-react";
 import { resetPassword } from "../../../redux/actions/users";
 
-import Footer from "./Footer";
+import Header from "../public/Header";
+import Footer from "../public/Footer";
 
 const Login = (props) => {
     const params = new URLSearchParams(props.location.search);
@@ -17,9 +18,10 @@ const Login = (props) => {
 
     return (
         <>
+            <Header />
             <Grid
                 textAlign="center"
-                style={{ height: "80vh" }}
+                style={{ height: "70vh" }}
                 verticalAlign="middle"
             >
                 <Grid.Column style={{ maxWidth: 450 }}>
