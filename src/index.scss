@@ -131,10 +131,13 @@ code {
 }
 
 .contact {
-    text-align: left;
     font-size: 1.1rem;
     line-height: 1.2rem;
     margin-bottom: 20px;
+
+    i {
+        color: #e73854;
+    }
 }
 
 /** SEMANTIC UI OVERRIDES **/
@@ -156,9 +159,16 @@ code {
         padding: 0;
         margin-left: 10px;
     }
+
+    .list > .item > .icon + .content {
+        text-align: left;
+    }
 }
 
 .ui {
+    textarea {
+        padding-left: 2.67142857em !important;
+    }
     .grid.column .book {
         margin-bottom: 20px;
     }

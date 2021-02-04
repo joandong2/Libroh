@@ -188,3 +188,21 @@ export const updateUserBook = (id, book_id) => (dispatch) => {
             });
         });
 };
+
+export const donateBook = (values) => (dispatch) => {
+    //console.log("val", values);
+    dispatch({ type: START });
+    axiosWithAuth()
+        .post(`/users/donate`, values)
+        .then((res) => {
+            dispatch({ type: SUCCESS, payload: res.data.message });
+        })
+        .catch((err) => {
+            dispatch({
+                type: FAILED,
+                payload: err.response.data.message
+                    ? err.response.data.message
+                    : "Internal server issues. Please try again.",
+            });
+        });
+};
