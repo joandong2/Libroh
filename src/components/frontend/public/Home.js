@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label, Pagination, Icon } from "semantic-ui-react";
+import {
+    Grid,
+    Image,
+    Label,
+    Pagination,
+    Icon,
+    Rating,
+} from "semantic-ui-react";
 import { getBooks } from "../../../redux/actions/books";
 import { getUser, updateUserBook } from "../../../redux/actions/users";
 import cookies from "js-cookies";
@@ -101,6 +108,12 @@ const Home = (props) => {
                                                             {book.title}
                                                         </a>
                                                     </p>
+                                                    <h1>{book.ratings}</h1>
+                                                    <Rating
+                                                        maxRating={5}
+                                                        value={book.ratings}
+                                                        // onRate={this.handleRate}
+                                                    />
                                                 </Grid.Column>
                                             );
                                         })}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label } from "semantic-ui-react";
+import { Grid, Image, Label, Rating } from "semantic-ui-react";
 import { getBook } from "../../../redux/actions/books";
 
 import Header from "./Header";
@@ -56,6 +56,13 @@ const Book = (props) => {
                                                                 book.author_name
                                                             }
                                                             icon="user circle"
+                                                        />
+                                                        <Rating
+                                                            maxRating={5}
+                                                            value={book.ratings}
+                                                            // onRate={
+                                                            //     this.handleRate
+                                                            // }
                                                         />
                                                     </Grid.Column>
                                                 );
