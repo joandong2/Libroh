@@ -40,8 +40,12 @@ const Header = () => {
     return (
         <Grid padded columns={2} className="header">
             <Grid.Row>
-                <Grid.Column>
-                    <Image src="https://res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png" />
+                <Grid.Column align="left">
+                    <Image
+                        as="a"
+                        href="/"
+                        src="https://res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png"
+                    />
                 </Grid.Column>
                 <Grid.Column textAlign="right" verticalAlign="middle">
                     {!cookies.getItem("_user") ? (

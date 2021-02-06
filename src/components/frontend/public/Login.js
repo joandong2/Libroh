@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Button, Form, Grid, Icon, Image, Message } from "semantic-ui-react";
+import { Button, Form, Grid, Icon, Message } from "semantic-ui-react";
 import { userLogin } from "../../../redux/actions/users";
 
 import Header from "../public/Header";

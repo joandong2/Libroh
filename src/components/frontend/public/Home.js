@@ -108,11 +108,12 @@ const Home = (props) => {
                                                             {book.title}
                                                         </a>
                                                     </p>
-                                                    <h1>{book.ratings}</h1>
                                                     <Rating
+                                                        defaultRating={parseFloat(
+                                                            book.ratings
+                                                        ).toFixed(0)}
                                                         maxRating={5}
-                                                        value={book.ratings}
-                                                        // onRate={this.handleRate}
+                                                        disabled
                                                     />
                                                 </Grid.Column>
                                             );
