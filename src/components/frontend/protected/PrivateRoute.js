@@ -22,6 +22,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                             window.location.reload();
                         })
                         .catch((err) => {
+                            //console.log(err);
+                            // if 403 redirect to login page
                             window.location.replace("/error");
                         });
                 }

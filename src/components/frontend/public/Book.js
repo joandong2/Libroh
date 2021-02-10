@@ -12,7 +12,7 @@ import Footer from "./Footer";
 const Book = (props) => {
     const notifications = useSelector((state) => state.notifications);
     const book = useSelector((state) => state.books.book);
-    const user = useSelector((state) => state.users);
+    //const user = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
     useEffect(() => {

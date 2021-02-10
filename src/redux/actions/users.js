@@ -137,6 +137,7 @@ export const getUserBook = (id) => (dispatch) => {
     axiosWithAuth()
         .get(`/users/${id}/books`)
         .then((res) => {
+            console.log(res);
             dispatch({ type: SUCCESS, payload: res.data.message });
             dispatch({ type: GET_USER, payload: res.data });
             dispatch({ type: GET_BOOKS, payload: res.data });

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label, Icon } from "semantic-ui-react";
+import { Grid, Image, Label, Icon, Rating } from "semantic-ui-react";
 import cookies from "js-cookies";
 import { getUserBook, updateUserBook } from "../../../redux/actions/users";
 import Header from "../public/Header";
@@ -47,24 +47,15 @@ const MyBook = (props) => {
                                                     className="book"
                                                     key={book.id}
                                                 >
-                                                    <p align="center">
-                                                        <Image
-                                                            src={book.cover}
-                                                        />
-                                                    </p>
-                                                    <p
-                                                        align="center"
+                                                    <Image src={book.cover} />
+
+                                                    <Label
                                                         className="author"
+                                                        as="a"
                                                     >
-                                                        <Label size="tiny">
-                                                            <Icon name="user" />{" "}
-                                                            {book.author_name}
-                                                        </Label>
-                                                    </p>
-                                                    <p
-                                                        align="center"
-                                                        className="book-title"
-                                                    >
+                                                        {book.author_name}
+                                                    </Label>
+                                                    <p className="book-title">
                                                         {user.user && (
                                                             <>
                                                                 <Icon
@@ -104,6 +95,13 @@ const MyBook = (props) => {
                                                             {book.title}
                                                         </a>
                                                     </p>
+                                                    <Rating
+                                                        defaultRating={parseFloat(
+                                                            book.ratings
+                                                        ).toFixed(0)}
+                                                        maxRating={5}
+                                                        disabled
+                                                    />
                                                 </Grid.Column>
                                             ) : null;
                                         })}
