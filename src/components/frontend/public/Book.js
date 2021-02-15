@@ -12,7 +12,7 @@ import Footer from "./Footer";
 const Book = (props) => {
     const notifications = useSelector((state) => state.notifications);
     const book = useSelector((state) => state.books.book);
-    //const user = useSelector((state) => state.users);
+    const user = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -96,13 +96,46 @@ const Book = (props) => {
                                                         <p>
                                                             {book.description}
                                                         </p>
-                                                        <Rating
-                                                            defaultRating={parseFloat(
-                                                                book.ratings
-                                                            ).toFixed(0)}
+
+                                                        {user.user &&
+                                                            user.user.books_rated.map(
+                                                                (el) => {
+                                                                    return el.book_id ===
+                                                                        book.id ? (
+                                                                        <Rating
+                                                                            defaultRating={
+                                                                                el.book_id ===
+                                                                                book.id
+                                                                                    ? el.rating
+                                                                                    : null
+                                                                            }
+                                                                            maxRating={
+                                                                                5
+                                                                            }
+                                                                            onRate={
+                                                                                handleRate
+                                                                            }
+                                                                        />
+                                                                    ) : null;
+                                                                }
+                                                            )}
+
+                                                        {/* <Rating
+                                                            defaultRating={
+
+                                                                el.book_id ===
+                                                                        book.id
+                                                                        ? parseFloat(
+                                                                            el.book.rating
+                                                                        ).toFixed(0)
+                                                                        : null;
+
+                                                            
+                                                        
+                                                        }
                                                             maxRating={5}
                                                             onRate={handleRate}
-                                                        />
+                                                        /> */}
                                                     </Grid.Column>
                                                 </>
                                             );
