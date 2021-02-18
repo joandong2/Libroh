@@ -95,6 +95,13 @@ const MyBook = (props) => {
                                                             {book.title}
                                                         </a>
                                                     </p>
+                                                    <Rating
+                                                        defaultRating={parseFloat(
+                                                            book.ratings
+                                                        ).toFixed(0)}
+                                                        maxRating={5}
+                                                        disabled
+                                                    />
                                                 </Grid.Column>
                                             ) : null;
                                         })}

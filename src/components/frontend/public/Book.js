@@ -98,44 +98,15 @@ const Book = (props) => {
                                                         </p>
 
                                                         {user.user &&
-                                                            user.user.books_rated.map(
+                                                            user.user.books_rated.filter(
                                                                 (el) => {
-                                                                    return el.book_id ===
-                                                                        book.id ? (
-                                                                        <Rating
-                                                                            defaultRating={
-                                                                                el.book_id ===
-                                                                                book.id
-                                                                                    ? el.rating
-                                                                                    : null
-                                                                            }
-                                                                            maxRating={
-                                                                                5
-                                                                            }
-                                                                            onRate={
-                                                                                handleRate
-                                                                            }
-                                                                        />
-                                                                    ) : null;
+                                                                    return console.log(
+                                                                        "status",
+                                                                        el.book_id ===
+                                                                            book.id
+                                                                    );
                                                                 }
                                                             )}
-
-                                                        {/* <Rating
-                                                            defaultRating={
-
-                                                                el.book_id ===
-                                                                        book.id
-                                                                        ? parseFloat(
-                                                                            el.book.rating
-                                                                        ).toFixed(0)
-                                                                        : null;
-
-                                                            
-                                                        
-                                                        }
-                                                            maxRating={5}
-                                                            onRate={handleRate}
-                                                        /> */}
                                                     </Grid.Column>
                                                 </>
                                             );
@@ -152,3 +123,11 @@ const Book = (props) => {
 };
 
 export default Book;
+
+{
+    /* <Rating
+    defaultRating={el.book_id === book.id ? el.rating : null}
+    maxRating={5}
+    onRate={handleRate}
+/>; */
+}
