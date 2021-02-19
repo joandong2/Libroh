@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Image, Label, Rating } from "semantic-ui-react";
-import { getBook } from "../../../redux/actions/books";
+import { getBook, updateBookRatingByUser } from "../../../redux/actions/books";
 import { getUser } from "../../../redux/actions/users";
 import cookies from "js-cookies";
 
@@ -10,6 +10,8 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
 const Book = (props) => {
+    const [userRating, setUserRating] = useState(0);
+    const [localLoading, setLocalLoading] = useState(true);
     const notifications = useSelector((state) => state.notifications);
     const book = useSelector((state) => state.books.book);
     const user = useSelector((state) => state.users);
@@ -22,9 +24,32 @@ const Book = (props) => {
         }
     }, [dispatch, props.match.params.title]);
 
-    const handleRate = (e, { rating, maxRating }) => {
-        console.log(e);
-        console.log("rating", rating);
+    useEffect(() => {
+        if (book && user.user && user.user.books_rated) {
+            user.user.books_rated.map((el) => {
+                return el.book_id === book[0].id
+                    ? setUserRating(el.rating)
+                    : null;
+            });
+            setLocalLoading(false);
+        }
+    }, [book, user.user]);
+
+    const handleRate = async (e, { rating }) => {
+        //console.log(e);
+        e.preventDefault();
+        if (book && user.user) {
+            await dispatch(
+                updateBookRatingByUser(
+                    book[0].slug,
+                    book[0].id,
+                    user.user.id,
+                    rating
+                )
+            );
+            //window.location.reload();
+        }
+        //console.log("rating", book[0]);
     };
 
     return (
@@ -96,17 +121,29 @@ const Book = (props) => {
                                                         <p>
                                                             {book.description}
                                                         </p>
-
-                                                        {user.user &&
-                                                            user.user.books_rated.filter(
-                                                                (el) => {
-                                                                    return console.log(
-                                                                        "status",
-                                                                        el.book_id ===
-                                                                            book.id
-                                                                    );
-                                                                }
-                                                            )}
+                                                        {!user.user ? (
+                                                            <Rating
+                                                                defaultRating={parseInt(
+                                                                    book.ratings
+                                                                )}
+                                                                maxRating={5}
+                                                                disabled
+                                                            />
+                                                        ) : (
+                                                            !localLoading && (
+                                                                <Rating
+                                                                    defaultRating={parseInt(
+                                                                        userRating
+                                                                    )}
+                                                                    maxRating={
+                                                                        5
+                                                                    }
+                                                                    onRate={
+                                                                        handleRate
+                                                                    }
+                                                                />
+                                                            )
+                                                        )}
                                                     </Grid.Column>
                                                 </>
                                             );
@@ -123,11 +160,3 @@ const Book = (props) => {
 };
 
 export default Book;
-
-{
-    /* <Rating
-    defaultRating={el.book_id === book.id ? el.rating : null}
-    maxRating={5}
-    onRate={handleRate}
-/>; */
-}
