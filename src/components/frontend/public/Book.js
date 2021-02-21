@@ -36,7 +36,6 @@ const Book = (props) => {
     }, [book, user.user]);
 
     const handleRate = async (e, { rating }) => {
-        //console.log(e);
         e.preventDefault();
         if (book && user.user) {
             await dispatch(
@@ -47,9 +46,7 @@ const Book = (props) => {
                     rating
                 )
             );
-            //window.location.reload();
         }
-        //console.log("rating", book[0]);
     };
 
     return (
