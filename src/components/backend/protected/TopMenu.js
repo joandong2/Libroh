@@ -7,70 +7,139 @@ import { Dropdown, Menu, Icon, MenuItem } from "semantic-ui-react";
 // import Header from "../public/Header";
 // import Footer from "../public/Footer";
 
-const TopMenu = (props) => {
-    //const { register, handleSubmit, errors } = useForm();
-    //const notifications = useSelector((state) => state.notifications);
-    //const dispatch = useDispatch();
-    //const onSubmit = (data) => dispatch(userLogin(data));
+const TopMenu = props => {
+  //const { register, handleSubmit, errors } = useForm();
+  //const notifications = useSelector((state) => state.notifications);
+  //const dispatch = useDispatch();
+  //const onSubmit = (data) => dispatch(userLogin(data));
 
-    return (
-        <>
-            <Menu compact>
-                <Menu.Item href='/admin/dashboard'>
-                    <Icon name="home" /> Home
-                </Menu.Item>
-                <Dropdown simple item 
-                trigger={<><Icon name="book" /> Books</>} 
-                options={[
-                    {
-                        key: "show-books",
-                        text: "Show All Books",
-                        icon: "pause",
-                        as: Link,
-                        to: "/admin/books",
-                    },
-                    {
-                        key: "add-book",
-                        text: "Add Book",
-                        icon: "book",
-                        as: Link,
-                        to: "/admin/add-book",
-                    },
-                    
-                ]}/>
-                <Dropdown simple item 
-                trigger={<><Icon name="user" /> User</>} 
-                options={[
-                    {
-                        key: "show-users",
-                        text: "Show All Users",
-                        icon: "user circle",
-                        as: Link,
-                        to: "/admin/users",
-                    },
-                    {
-                        key: "add-user",
-                        text: "Add User",
-                        icon: "user",
-                        as: Link,
-                        to: "/admin/add-user",
-                    },
-                    
-                ]}/>
-                <Dropdown simple item 
-                trigger={<><Icon name="align justify" /> Settings</>} 
-                options={[
-                    {
-                        key: "general",
-                        text: "General",
-                        icon: "cog",
-                        as: Link,
-                        to: "/admin/general-setting",
-                    },
-                ]}/>
-            </Menu>
-        </>
-    );
+  return (
+    <>
+      <Menu compact>
+        <Menu.Item href="/admin/dashboard">
+          <Icon name="home" /> Home
+        </Menu.Item>
+        <Dropdown
+          simple
+          item
+          trigger={
+            <>
+              <Icon name="book" /> Books
+            </>
+          }
+          options={[
+            {
+              key: "show-books",
+              text: "Show All Books",
+              icon: "pause",
+              as: Link,
+              to: "/admin/books"
+            },
+            {
+              key: "add-book",
+              text: "Add Book",
+              icon: "book",
+              as: Link,
+              to: "/admin/add-book"
+            }
+          ]}
+        />
+        <Dropdown
+          simple
+          item
+          trigger={
+            <>
+              <Icon name="user" /> User
+            </>
+          }
+          options={[
+            {
+              key: "show-users",
+              text: "Show All Users",
+              icon: "user circle",
+              as: Link,
+              to: "/admin/users"
+            },
+            {
+              key: "add-user",
+              text: "Add User",
+              icon: "user",
+              as: Link,
+              to: "/admin/add-user"
+            }
+          ]}
+        />
+        <Dropdown
+          simple
+          item
+          trigger={
+            <>
+              <Icon name="user" /> Authors
+            </>
+          }
+          options={[
+            {
+              key: "show-authors",
+              text: "Show All Authors",
+              icon: "user circle",
+              as: Link,
+              to: "/admin/authors"
+            },
+            {
+              key: "add-author",
+              text: "Add Author",
+              icon: "user",
+              as: Link,
+              to: "/admin/add-author"
+            }
+          ]}
+        />
+        <Dropdown
+          simple
+          item
+          trigger={
+            <>
+              <Icon name="user" /> Publishers
+            </>
+          }
+          options={[
+            {
+              key: "show-publisher",
+              text: "Show All Publisherss",
+              icon: "user circle",
+              as: Link,
+              to: "/admin/publishers"
+            },
+            {
+              key: "add-publisher",
+              text: "Add Publisher",
+              icon: "user",
+              as: Link,
+              to: "/admin/add-publisher"
+            }
+          ]}
+        />
+        <Dropdown
+          simple
+          item
+          trigger={
+            <>
+              <Icon name="align justify" /> Settings
+            </>
+          }
+          options={[
+            {
+              key: "general",
+              text: "General",
+              icon: "cog",
+              as: Link,
+              to: "/admin/general-setting"
+            }
+          ]}
+        />
+      </Menu>
+    </>
+  );
 };
 
 export default TopMenu;

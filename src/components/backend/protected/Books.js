@@ -7,7 +7,8 @@ import {
   Icon,
   List,
   Rating,
-  Button
+  Button,
+  Image
 } from "semantic-ui-react";
 import Header from "./Header";
 import { getBooks } from "../../../redux/actions/books";
@@ -43,7 +44,7 @@ const Books = props => {
         <Grid container>
           <Grid.Row columns={2}>
             <Grid.Column align="left" width={16}>
-              <Table celled>
+              <Table celled compact>
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>ISBN</Table.HeaderCell>
@@ -72,7 +73,9 @@ const Books = props => {
                                 disabled
                               />
                             </Table.Cell>
-                            <Table.Cell>{book.title}</Table.Cell>
+                            <Table.Cell>
+                              <Image src={book.cover} avatar /> {book.title}
+                            </Table.Cell>
                             <Table.Cell>{book.total_pages}</Table.Cell>
                             <Table.Cell>{book.author_name}</Table.Cell>
                             <Table.Cell>{book.publisher_name}</Table.Cell>
@@ -98,7 +101,7 @@ const Books = props => {
 
                 <Table.Footer>
                   <Table.Row>
-                    <Table.HeaderCell colSpan="7">
+                    <Table.HeaderCell colSpan="8">
                       <Menu floated="right" pagination>
                         <Menu.Item as="a" icon>
                           <Icon name="chevron left" />
