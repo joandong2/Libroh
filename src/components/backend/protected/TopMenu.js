@@ -2,7 +2,7 @@ import React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { Dropdown, Menu, Icon } from "semantic-ui-react";
+import { Dropdown, Menu, Icon, MenuItem } from "semantic-ui-react";
 
 // import Header from "../public/Header";
 // import Footer from "../public/Footer";
@@ -16,6 +16,9 @@ const TopMenu = (props) => {
     return (
         <>
             <Menu compact>
+                <Menu.Item href='/admin/dashboard'>
+                    <Icon name="home" /> Home
+                </Menu.Item>
                 <Dropdown simple item 
                 trigger={<><Icon name="book" /> Books</>} 
                 options={[

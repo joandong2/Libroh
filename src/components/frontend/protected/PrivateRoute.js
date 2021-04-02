@@ -4,36 +4,36 @@ import cookies from "js-cookies";
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const accessSession = cookies.getItem("_accessSession");
-    const refreshSession = cookies.getItem("_refreshSession");
+  const accessSession = cookies.getItem("_accessSession");
+  const refreshSession = cookies.getItem("_refreshSession");
 
-    return (
-        <Route
-            {...rest}
-            render={(props) => {
-                if (!accessSession && !refreshSession) {
-                    return <Redirect to="/login" />;
-                }
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        if (!accessSession && !refreshSession) {
+          return <Redirect to="/login" />;
+        }
 
-                if (!accessSession && refreshSession) {
-                    axiosWithAuth()
-                        .post("/users/refresh-tokens")
-                        .then((res) => {
-                            window.location.reload();
-                        })
-                        .catch((err) => {
-                            //console.log(err);
-                            // if 403 redirect to login page
-                            window.location.replace("/error");
-                        });
-                }
+        if (!accessSession && refreshSession) {
+          axiosWithAuth()
+            .post("/users/refresh-tokens")
+            .then(res => {
+              window.location.reload();
+            })
+            .catch(err => {
+              //console.log(err);
+              // if 403 redirect to login page
+              window.location.replace("/error");
+            });
+        }
 
-                if (accessSession) {
-                    return <Component {...props} />;
-                }
-            }}
-        />
-    );
+        if (accessSession) {
+          return <Component {...props} />;
+        }
+      }}
+    />
+  );
 };
 
 export default PrivateRoute;

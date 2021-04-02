@@ -20,6 +20,7 @@ import MyBook from "./components/frontend/protected/MyBooks";
 /* Admin */
 import AdminRoute from "./components/backend/protected/AdminRoute.js";
 import Dashboard from "./components/backend/protected/Dashboard.js";
+import Books from "./components/backend/protected/Books.js";
 import AdminLogin from "./components/backend/public/Login.js";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
                         render={(props) => <AdminLogin {...props} />}
                     />
                     <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
+                    <AdminRoute exact path="/admin/books" component={Books} />
                     <PrivateRoute exact path="/profile" component={Profile} />
                     <PrivateRoute exact path="/mybook" component={MyBook} />
                     <Route
