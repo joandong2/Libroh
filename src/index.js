@@ -6,7 +6,8 @@ import thunk from "redux-thunk";
 import { reducer } from "./redux/reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import "semantic-ui-css/semantic.min.css";
-import "./index.scss";
+import "./css/index.scss";
+import "./css/dashboard.scss";
 import App from "./App";
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

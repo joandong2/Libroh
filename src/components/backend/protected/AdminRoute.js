@@ -4,7 +4,7 @@ import cookies from "js-cookies";
 //import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 const AdminRoute = ({ component: Component, ...rest }) => {
-    const accessSession = cookies.getItem("_accessSession");
+    const accessSession = cookies.getItem("_adminAccessSession");
     const admin = cookies.getItem("_admin");
 
     return (
