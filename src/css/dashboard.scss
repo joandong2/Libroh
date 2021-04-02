@@ -1,39 +1,53 @@
 .wrapper {
-    //box-shadow: inset 0 -1px 0 0 rgb(101 109 119 / 16%);
-    .panel {
-        background-color: #fff;
-        border-bottom: 1px solid #dadada;
+  //box-shadow: inset 0 -1px 0 0 rgb(101 109 119 / 16%);
+  .panel {
+    background-color: #fff;
+    border-bottom: 1px solid #dadada;
 
-        .column .left-panel {
-            display: flex;
-        }
-
-        .ui.menu {
-            border: unset;
-            box-shadow: unset;
-            min-height: 1.85714286em;
-
-            .item:before {
-                display: none
-            }
-        }
+    .column .left-panel {
+      display: flex;
     }
 
+    .ui.menu {
+      border: unset;
+      box-shadow: unset;
+      min-height: 1.85714286em;
+
+      .item:before {
+        display: none;
+      }
+    }
+  }
 }
 
 .ui {
-    .page-title {
-        margin-top: 20px;
-        margin-bottom: 10px;
-        font-family: "Montserrat", sans-serif;
-    }
+  .page-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: "Montserrat", sans-serif;
+  }
 }
 
 .dashboard-boxes {
-    .page-title {
-        .header {
-            font-size: 1.0rem !important;
-            font-family: "Montserrat", sans-serif !important;
-        }
+  .page-title {
+    .header {
+      font-size: 1rem !important;
+      font-family: "Montserrat", sans-serif !important;
     }
+  }
+}
+
+.stats {
+  .left {
+    display: flex !important;
+    align-items: center;
+
+    p {
+      font-weight: bold;
+    }
+  }
+}
+
+.footer {
+  font-size: 0.9rem;
 }

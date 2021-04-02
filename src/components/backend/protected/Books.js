@@ -11,6 +11,7 @@ import {
   Image
 } from "semantic-ui-react";
 import Header from "./Header";
+import Footer from "./Footer";
 import { getBooks } from "../../../redux/actions/books";
 
 const Books = props => {
@@ -122,6 +123,8 @@ const Books = props => {
           </Grid.Row>
         </Grid>
       </Grid>
+
+      <Footer />
     </div>
   );
 };
