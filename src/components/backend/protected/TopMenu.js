@@ -2,7 +2,7 @@ import React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { Dropdown, Menu, Icon, MenuItem } from "semantic-ui-react";
+import { Dropdown, Menu, Icon } from "semantic-ui-react";
 
 // import Header from "../public/Header";
 // import Footer from "../public/Footer";

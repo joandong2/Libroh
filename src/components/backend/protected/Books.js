@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Grid,
   Table,
-  Menu,
+  Pagination,
   Icon,
   List,
   Rating,
@@ -16,13 +16,18 @@ import { getBooks } from "../../../redux/actions/books";
 
 const Books = props => {
   //const { register, handleSubmit, errors } = useForm();
-  const notifications = useSelector(state => state.notifications);
+  //const notifications = useSelector(state => state.notifications);
   const books = useSelector(state => state.books);
   const dispatch = useDispatch();
+  const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
-    dispatch(getBooks());
-  }, [dispatch]);
+    dispatch(getBooks(undefined, pageNum));
+  }, [dispatch, pageNum]);
+
+  const paginationChange = e => {
+    setPageNum(parseInt(e.target.innerText));
+  };
 
   console.log("books", books);
 
@@ -32,12 +37,7 @@ const Books = props => {
 
       <Grid padded className="title-box">
         <Grid container>
-          <h3 className="page-title">
-            Books{" "}
-            <Button compact as="Link" href="/admin/add-book">
-              Add Book
-            </Button>
-          </h3>
+          <h3 className="page-title">Books </h3>
         </Grid>
       </Grid>
 
@@ -62,59 +62,57 @@ const Books = props => {
                   {books.books &&
                     books.books.map(book => {
                       return (
-                        <>
-                          <Table.Row>
-                            <Table.Cell>{book.isbn}</Table.Cell>
-                            <Table.Cell>
-                              <Rating
-                                defaultRating={parseFloat(book.ratings).toFixed(
-                                  0
-                                )}
-                                maxRating={5}
-                                disabled
-                              />
-                            </Table.Cell>
-                            <Table.Cell>
-                              <Image src={book.cover} avatar /> {book.title}
-                            </Table.Cell>
-                            <Table.Cell>{book.total_pages}</Table.Cell>
-                            <Table.Cell>{book.author_name}</Table.Cell>
-                            <Table.Cell>{book.publisher_name}</Table.Cell>
-                            <Table.Cell>
-                              <List horizontal link>
-                                href={`/admin/book/${book.id}/edit`}
-                                <List.Item as="a">
-                                  <Icon name="edit" />
-                                </List.Item>
-                                <List.Item
-                                  as="a"
-                                  href={`/admin/book/${book.id}/delete`}
-                                >
-                                  <Icon name="delete" />
-                                </List.Item>
-                              </List>
-                            </Table.Cell>
-                          </Table.Row>
-                        </>
+                        <Table.Row key={book.id}>
+                          <Table.Cell>{book.isbn}</Table.Cell>
+                          <Table.Cell>
+                            <Rating
+                              defaultRating={parseFloat(book.ratings).toFixed(
+                                0
+                              )}
+                              maxRating={5}
+                              disabled
+                            />
+                          </Table.Cell>
+                          <Table.Cell>
+                            <Image src={book.cover} avatar /> {book.title}
+                          </Table.Cell>
+                          <Table.Cell>{book.total_pages}</Table.Cell>
+                          <Table.Cell>{book.author_name}</Table.Cell>
+                          <Table.Cell>{book.publisher_name}</Table.Cell>
+                          <Table.Cell>
+                            <List horizontal link>
+                              href={`/admin/book/${book.id}/edit`}
+                              <List.Item as="a">
+                                <Icon name="edit" />
+                              </List.Item>
+                              <List.Item
+                                as="a"
+                                href={`/admin/book/${book.id}/delete`}
+                              >
+                                <Icon name="delete" />
+                              </List.Item>
+                            </List>
+                          </Table.Cell>
+                        </Table.Row>
                       );
                     })}
                 </Table.Body>
 
                 <Table.Footer>
                   <Table.Row>
-                    <Table.HeaderCell colSpan="8">
-                      <Menu floated="right" pagination>
-                        <Menu.Item as="a" icon>
-                          <Icon name="chevron left" />
-                        </Menu.Item>
-                        <Menu.Item as="a">1</Menu.Item>
-                        <Menu.Item as="a">2</Menu.Item>
-                        <Menu.Item as="a">3</Menu.Item>
-                        <Menu.Item as="a">4</Menu.Item>
-                        <Menu.Item as="a" icon>
-                          <Icon name="chevron right" />
-                        </Menu.Item>
-                      </Menu>
+                    <Table.HeaderCell colSpan="8" align="right">
+                      {books.books && (
+                        <Pagination
+                          boundaryRange={0}
+                          onPageChange={paginationChange}
+                          defaultActivePage={pageNum}
+                          ellipsisItem={null}
+                          firstItem={null}
+                          lastItem={null}
+                          siblingRange={1}
+                          totalPages={books.totalPages}
+                        />
+                      )}
                     </Table.HeaderCell>
                   </Table.Row>
                 </Table.Footer>

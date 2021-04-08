@@ -1,7 +1,7 @@
 import React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Grid, Card, Image } from "semantic-ui-react";
+import { Grid, Image } from "semantic-ui-react";
 import TopMenu from "./TopMenu";
 
 // import Header from "../public/Header";

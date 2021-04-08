@@ -1,7 +1,7 @@
 import React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Grid, Card, Image, Icon } from "semantic-ui-react";
+import { Grid, Card, Icon } from "semantic-ui-react";
 import { Line } from "react-chartjs-2";
 import Header from "./Header";
 import Footer from "./Footer";
