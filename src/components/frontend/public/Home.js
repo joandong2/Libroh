@@ -30,8 +30,8 @@ const Home = props => {
     }
   }, [dispatch, props.match.params.category, pageNum]);
 
-  const paginationChange = e => {
-    setPageNum(parseInt(e.target.innerText));
+  const paginationChange = (e, { activePage }) => {
+    setPageNum(parseInt(activePage));
   };
 
   return (
@@ -106,7 +106,7 @@ const Home = props => {
                 <Pagination
                   boundaryRange={0}
                   onPageChange={paginationChange}
-                  defaultActivePage={pageNum}
+                  defaultActivePage={1}
                   ellipsisItem={null}
                   firstItem={null}
                   lastItem={null}

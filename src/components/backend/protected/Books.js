@@ -25,11 +25,12 @@ const Books = props => {
     dispatch(getBooks(undefined, pageNum));
   }, [dispatch, pageNum]);
 
-  const paginationChange = e => {
-    setPageNum(parseInt(e.target.innerText));
+  const paginationChange = (e, { activePage }) => {
+    //console.log(activePage);
+    setPageNum(parseInt(activePage));
   };
 
-  console.log("books", books);
+  //console.log("books", books);
 
   return (
     <div className="wrapper">
@@ -105,7 +106,7 @@ const Books = props => {
                         <Pagination
                           boundaryRange={0}
                           onPageChange={paginationChange}
-                          defaultActivePage={pageNum}
+                          defaultActivePage={1}
                           ellipsisItem={null}
                           firstItem={null}
                           lastItem={null}
