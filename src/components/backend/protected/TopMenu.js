@@ -40,7 +40,7 @@ const TopMenu = props => {
               text: "Add Book",
               icon: "book",
               as: Link,
-              to: "/admin/add-book"
+              to: "/admin/books/add"
             }
           ]}
         />

@@ -22,78 +22,54 @@ import AdminRoute from "./components/backend/protected/AdminRoute.js";
 import Dashboard from "./components/backend/protected/Dashboard.js";
 import Books from "./components/backend/protected/Books.js";
 import AdminLogin from "./components/backend/public/Login.js";
+import AddBook from "./components/backend/protected/AddBook.js";
 
 const App = () => {
-    const dispatch = useDispatch();
-    return (
-        <Router>
-            <div className="App">
-                <Switch>
-                    <Route
-                        exact
-                        path="/admin"
-                        render={(props) => <AdminLogin {...props} />}
-                    />
-                    <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
-                    <AdminRoute exact path="/admin/books" component={Books} />
-                    <PrivateRoute exact path="/profile" component={Profile} />
-                    <PrivateRoute exact path="/mybook" component={MyBook} />
-                    <Route
-                        exact
-                        path="/"
-                        render={(props) => <Home {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/category/:category"
-                        render={(props) => <Home {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/login"
-                        render={(props) => <Login {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/signup"
-                        render={(props) => <Signup {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/forget"
-                        render={(props) => <Forget {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/reset-password"
-                        render={(props) => <Reset {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/donate"
-                        render={(props) => <Donate {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/logout"
-                        render={() => {
-                            cookies.removeItem("userAccess");
-                            dispatch(userLogout());
-                        }}
-                    />
-                    <Route
-                        path="/:title"
-                        render={(props) => <Book {...props} />}
-                    />
-                    <Route
-                        path="/error"
-                        render={(props) => <Error {...props} />}
-                    />
-                    {/** ADMIN */}
-                </Switch>
-            </div>
-        </Router>
-    );
+  const dispatch = useDispatch();
+  return (
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route
+            exact
+            path="/admin"
+            render={props => <AdminLogin {...props} />}
+          />
+          <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
+          <AdminRoute exact path="/admin/books" component={Books} />
+          <AdminRoute exact path="/admin/books/add" component={AddBook} />
+          <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/mybook" component={MyBook} />
+          <Route exact path="/" render={props => <Home {...props} />} />
+          <Route
+            exact
+            path="/category/:category"
+            render={props => <Home {...props} />}
+          />
+          <Route exact path="/login" render={props => <Login {...props} />} />
+          <Route exact path="/signup" render={props => <Signup {...props} />} />
+          <Route exact path="/forget" render={props => <Forget {...props} />} />
+          <Route
+            exact
+            path="/reset-password"
+            render={props => <Reset {...props} />}
+          />
+          <Route exact path="/donate" render={props => <Donate {...props} />} />
+          <Route
+            exact
+            path="/logout"
+            render={() => {
+              cookies.removeItem("userAccess");
+              dispatch(userLogout());
+            }}
+          />
+          <Route path="/:title" render={props => <Book {...props} />} />
+          <Route path="/error" render={props => <Error {...props} />} />
+          {/** ADMIN */}
+        </Switch>
+      </div>
+    </Router>
+  );
 };
 
 export default App;

@@ -25,6 +25,29 @@
     margin-top: 20px;
     margin-bottom: 10px;
     font-family: "Montserrat", sans-serif;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+
+  .horizontal.list > .item {
+    margin-left: 0.3em;
+
+    button {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.ui.form {
+  textarea {
+    padding-left: 1em !important;
+  }
+
+  .form-error {
+    color: #e73854;
+    margin-top: 5px;
   }
 }
 
@@ -35,6 +58,22 @@
       font-family: "Montserrat", sans-serif !important;
     }
   }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(101, 109, 119, 0.16);
+  border-radius: 4px;
+  width: 98%;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: left;
 }
 
 .stats {

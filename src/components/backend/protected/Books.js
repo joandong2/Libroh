@@ -7,8 +7,8 @@ import {
   Icon,
   List,
   Rating,
-  Button,
-  Image
+  Image,
+  Button
 } from "semantic-ui-react";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -38,7 +38,12 @@ const Books = props => {
 
       <Grid padded className="title-box">
         <Grid container>
-          <h3 className="page-title">Books </h3>
+          <h3 className="page-title">
+            Books{" "}
+            <Button size="tiny" color="blue" as="a" href={`/admin/books/add`}>
+              Add New Book
+            </Button>
+          </h3>
         </Grid>
       </Grid>
 
@@ -82,15 +87,21 @@ const Books = props => {
                           <Table.Cell>{book.publisher_name}</Table.Cell>
                           <Table.Cell>
                             <List horizontal link>
-                              href={`/admin/book/${book.id}/edit`}
-                              <List.Item as="a">
-                                <Icon name="edit" />
+                              <List.Item
+                                as="a"
+                                href={`/admin/book/${book.id}/edit`}
+                              >
+                                <Button size="tiny" color="blue">
+                                  Edit
+                                </Button>
                               </List.Item>
                               <List.Item
                                 as="a"
                                 href={`/admin/book/${book.id}/delete`}
                               >
-                                <Icon name="delete" />
+                                <Button size="tiny" color="red">
+                                  Delete
+                                </Button>
                               </List.Item>
                             </List>
                           </Table.Cell>
