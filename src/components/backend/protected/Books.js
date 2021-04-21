@@ -4,7 +4,6 @@ import {
   Grid,
   Table,
   Pagination,
-  Icon,
   List,
   Rating,
   Image,

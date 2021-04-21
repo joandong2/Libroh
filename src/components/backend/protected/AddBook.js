@@ -1,46 +1,35 @@
-import React from "react";
-// import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { Grid, Form, Button } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
 
-import { getAuthors } from "../../../redux/actions/books";
-import { getPublishers } from "../../../redux/actions/books";
+import { getAuthors } from "../../../redux/actions/authors";
+import { getPublishers } from "../../../redux/actions/publishers";
 
 import Header from "./Header";
 import Footer from "./Footer";
 
-const options = [
-  { key: "m", text: "Male", value: "male" },
-  { key: "f", text: "Female", value: "female" },
-  { key: "o", text: "Other", value: "other" }
-];
-
 const AddBook = props => {
-  //const { register, handleSubmit, errors } = useForm();
-  //const notifications = useSelector((state) => state.notifications);
-  //const dispatch = useDispatch();
-  //const onSubmit = (data) => dispatch(userLogin(data));
+  //const notifications = useSelector(state => state.notifications);
+  const authors = useSelector(state => state.authors);
+  const publishers = useSelector(state => state.publishers);
+  const dispatch = useDispatch();
 
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit, watch } = useForm();
+  const watchAllFields = watch();
+
+  useEffect(() => {
+    dispatch(getPublishers());
+    dispatch(getAuthors());
+  }, [dispatch]);
 
   const onSubmit = (data, e) => {
     console.log("Submit event", e);
     alert(JSON.stringify(data));
   };
 
-  console.log(errors);
-
-  // isbn: "98983-98238-hh2",
-  // title: "Hello World",
-  // slug: "hello-world",
-  // description: "The red fox jump on the street.",
-  // total_pages: 1037,
-  // year: 1987,
-  // cover:
-  //     "https://res.cloudinary.com/johnoblenda/image/upload/v1605840344/libroh/9983887a68f91a927a95308eb9791e5b_tn82mf.png",
-  // author_id: 1,
-  // publisher_id: 1,
+  console.log("watchAllFields", watchAllFields);
 
   return (
     <div className="wrapper">
@@ -146,22 +135,32 @@ const AddBook = props => {
                 </Form.Field>
               </Form.Group>
               <Form.Group widths="equal">
-                <Form.Select
-                  name="author"
-                  label="Author"
-                  options={options}
-                  placeholder="Author"
-                  ref={register({ maxLength: 100 })}
-                  error={errors.author ? true : false}
-                />
-                <Form.Select
-                  name="publisher"
-                  label="Publisher"
-                  options={options}
-                  placeholder="Publisher"
-                  ref={register({ maxLength: 100 })}
-                  error={errors.publisher ? true : false}
-                />
+                <Form.Field>
+                  <label htmlFor="name">Authors</label>
+                  <select name="authors" id="authors" ref={register()}>
+                    {authors.authors &&
+                      authors.authors.map(author => {
+                        return (
+                          <option key={author.id} value={author.id}>
+                            {author.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </Form.Field>
+                <Form.Field>
+                  <label htmlFor="name">Publishers</label>
+                  <select name="publishers" id="publishers" ref={register()}>
+                    {publishers.publishers &&
+                      publishers.publishers.map(publisher => {
+                        return (
+                          <option key={publisher.id} value={publisher.id}>
+                            {publisher.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </Form.Field>
               </Form.Group>{" "}
               <Button type="submit">Submit</Button>
             </Form>
