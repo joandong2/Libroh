@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Grid, Form, Button } from "semantic-ui-react";
+import { Grid, Form, Button, Dropdown } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
 
 import { getAuthors } from "../../../redux/actions/authors";
@@ -15,21 +15,44 @@ const AddBook = props => {
   const authors = useSelector(state => state.authors);
   const publishers = useSelector(state => state.publishers);
   const dispatch = useDispatch();
+  const [dropDownValues, setDropDownValues] = useState({
+    author: "",
+    publisher: ""
+  });
 
   const { register, errors, handleSubmit, watch } = useForm();
-  const watchAllFields = watch();
+  const titleFieldValue = watch(["title"]);
 
   useEffect(() => {
     dispatch(getPublishers());
     dispatch(getAuthors());
   }, [dispatch]);
 
+  const authorsObject =
+    authors.authors &&
+    authors.authors.map(author => {
+      return { key: author.id, value: author.id, text: author.name };
+    });
+
+  const publishersObject =
+    publishers.publishers &&
+    publishers.publishers.map(publisher => {
+      return { key: publisher.id, value: publisher.id, text: publisher.name };
+    });
+
+  const handleDropDown = (e, data) => {
+    setDropDownValues({
+      ...dropDownValues,
+      [data.name]: data.value
+    });
+  };
+
   const onSubmit = (data, e) => {
-    console.log("Submit event", e);
+    console.log("Submit event", e.target.authors);
     alert(JSON.stringify(data));
   };
 
-  console.log("watchAllFields", watchAllFields);
+  console.log(dropDownValues);
 
   return (
     <div className="wrapper">
@@ -45,40 +68,45 @@ const AddBook = props => {
         <Grid container>
           <div className="card">
             <Form onSubmit={handleSubmit(onSubmit)}>
-              <Form.Group widths="equal">
-                <Form.Field>
-                  <label htmlFor="name">ISBN</label>
-                  <input
-                    type="text"
-                    name="isbn"
-                    placeholder="ISBN"
-                    id="isbn"
-                    ref={register({
-                      required: "ISBN is required.",
-                      minLength: {
-                        value: 8,
-                        message: "Password must have at least 8 characters"
-                      }
-                    })}
-                  />
-                  {errors.isbn && (
-                    <p className="form-error">{errors.isbn.message}</p>
-                  )}
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="name">Book Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    id="title"
-                    ref={register({ required: "Title is required." })}
-                  />
-                  {errors.title && (
-                    <p className="form-error">{errors.title.message}</p>
-                  )}
-                </Form.Field>
-              </Form.Group>
+              <Form.Field>
+                <label htmlFor="name">Book Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  id="title"
+                  ref={register({ required: "Title is required." })}
+                />
+                {errors.title && (
+                  <p className="form-error">{errors.title.message}</p>
+                )}
+
+                <p className="slug">
+                  slug:{"  "}
+                  {titleFieldValue.title !== undefined
+                    ? titleFieldValue.title.toLowerCase().split(" ").join("-")
+                    : ""}
+                </p>
+              </Form.Field>
+              <Form.Field>
+                <label htmlFor="name">ISBN</label>
+                <input
+                  type="text"
+                  name="isbn"
+                  placeholder="ISBN"
+                  id="isbn"
+                  ref={register({
+                    required: "ISBN is required.",
+                    minLength: {
+                      value: 8,
+                      message: "Password must have at least 8 characters"
+                    }
+                  })}
+                />
+                {errors.isbn && (
+                  <p className="form-error">{errors.isbn.message}</p>
+                )}
+              </Form.Field>
               <Form.Field>
                 <label htmlFor="description">Description</label>
                 <textarea
@@ -92,21 +120,6 @@ const AddBook = props => {
                 )}
               </Form.Field>
               <Form.Group widths="equal">
-                <Form.Field>
-                  <label htmlFor="name">Slug</label>
-                  <input
-                    type="text"
-                    name="slug"
-                    placeholder="Slug"
-                    id="sug"
-                    ref={register({
-                      required: "Slug is required."
-                    })}
-                  />
-                  {errors.slug && (
-                    <p className="form-error">{errors.slug.message}</p>
-                  )}
-                </Form.Field>
                 <Form.Field>
                   <label htmlFor="name">Total Pages</label>
                   <input
@@ -123,7 +136,7 @@ const AddBook = props => {
                 <Form.Field>
                   <label htmlFor="name">Year</label>
                   <input
-                    type="text"
+                    type="number"
                     name="year"
                     placeholder="Year"
                     id="year"
@@ -137,29 +150,29 @@ const AddBook = props => {
               <Form.Group widths="equal">
                 <Form.Field>
                   <label htmlFor="name">Authors</label>
-                  <select name="authors" id="authors" ref={register()}>
-                    {authors.authors &&
-                      authors.authors.map(author => {
-                        return (
-                          <option key={author.id} value={author.id}>
-                            {author.name}
-                          </option>
-                        );
-                      })}
-                  </select>
+                  <Dropdown
+                    name="author"
+                    id="authors"
+                    placeholder="Select Author"
+                    onChange={handleDropDown}
+                    fluid
+                    search
+                    selection
+                    options={authorsObject}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <label htmlFor="name">Publishers</label>
-                  <select name="publishers" id="publishers" ref={register()}>
-                    {publishers.publishers &&
-                      publishers.publishers.map(publisher => {
-                        return (
-                          <option key={publisher.id} value={publisher.id}>
-                            {publisher.name}
-                          </option>
-                        );
-                      })}
-                  </select>
+                  <Dropdown
+                    name="publisher"
+                    id="publisher"
+                    placeholder="Select Publisher"
+                    onChange={handleDropDown}
+                    fluid
+                    search
+                    selection
+                    options={publishersObject}
+                  />
                 </Form.Field>
               </Form.Group>{" "}
               <Button type="submit">Submit</Button>
