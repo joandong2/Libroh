@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Label, Image } from "semantic-ui-react";
+import { Row, Col } from "antd";
 import { getCategories } from "../../../redux/actions/books";
 
 const Sidebar = () => {
@@ -13,7 +14,7 @@ const Sidebar = () => {
   }, [dispatch]);
 
   return (
-    <Grid.Column className="sidebar" width={3} align="left">
+    <Col className="sidebar" span={5} align="left">
       <Label.Group>
         {categories &&
           categories.categories.map((category, index) => {
@@ -35,7 +36,7 @@ const Sidebar = () => {
         style={{ marginTop: "20px" }}
         src="https://media.sproutsocial.com/uploads/2018/05/Facebook-Ad-Examples.png"
       />
-    </Grid.Column>
+    </Col>
   );
 };
 

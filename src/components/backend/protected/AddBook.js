@@ -179,7 +179,9 @@ const AddBook = props => {
                   />
                 </Form.Field>
               </Form.Group>{" "}
-              <Button type="submit">Submit</Button>
+              <Button size="tiny" color="blue" type="submit">
+                Submit
+              </Button>
             </Form>
           </div>
         </Grid>

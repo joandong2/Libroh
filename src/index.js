@@ -5,16 +5,15 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { reducer } from "./redux/reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
-import "semantic-ui-css/semantic.min.css";
-import "./css/index.scss";
-import "./css/dashboard.scss";
+import "antd/dist/antd.css";
+import "./css/index.css"; // variables to override above
 import App from "./App";
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById("root")
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
 );

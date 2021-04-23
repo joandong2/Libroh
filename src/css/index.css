@@ -1,0 +1,25 @@
+/* .App {
+  padding: 10px;
+} */
+
+img {
+  width: 100%;
+}
+
+.logo img {
+  width: auto;
+}
+
+.ant-row {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding: 15px 10px;
+}
+
+.ant-col:first-child {
+  padding-left: 0 !important;
+}
+
+.ant-col:last-child {
+  padding-right: 0 !important;
+}
