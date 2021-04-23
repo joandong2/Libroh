@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 import { getAuthors } from "../../../redux/actions/authors";
 import { getPublishers } from "../../../redux/actions/publishers";
+import { postBook } from "../../../redux/actions/books";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -20,7 +21,7 @@ const AddBook = props => {
     publisher: ""
   });
 
-  const { register, errors, handleSubmit, watch } = useForm();
+  const { register, errors, handleSubmit, watch, reset } = useForm();
   const titleFieldValue = watch(["title"]);
 
   useEffect(() => {
@@ -48,11 +49,14 @@ const AddBook = props => {
   };
 
   const onSubmit = (data, e) => {
-    console.log("Submit event", e.target.authors);
-    alert(JSON.stringify(data));
+    //alert(JSON.stringify(data));
+    dispatch(postBook({ data, dropDownValues }));
+    setDropDownValues({
+      author: "",
+      publisher: ""
+    });
+    reset();
   };
-
-  console.log(dropDownValues);
 
   return (
     <div className="wrapper">

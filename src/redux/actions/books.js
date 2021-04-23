@@ -50,6 +50,35 @@ export const getBooks = (category, pageNum) => dispatch => {
     });
 };
 
+export const postBook = values => dispatch => {
+  dispatch({ type: START });
+
+  console.log("values", values);
+
+  axiosWithAuth()
+    .post(`/books/`, {
+      isbn: values.data.isbn,
+      title: values.data.title,
+      slug: values.data.title.toLowerCase().split(" ").join("-"),
+      description: values.data.description,
+      total_pages: values.data.total_pages,
+      year: values.data.year,
+      author_id: values.dropDownValues.author,
+      publisher_id: values.dropDownValues.publisher
+    })
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
 export const getCategories = () => dispatch => {
   dispatch({ type: START });
   axiosWithAuth()
