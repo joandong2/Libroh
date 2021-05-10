@@ -1,14 +1,13 @@
 import React from "react";
-import { Grid, List } from "semantic-ui-react";
+import { Row, Col } from "antd";
 
 const Footer = () => {
   return (
-    <Grid textAlign="center">
-      <List divided horizontal>
-        <List.Item>&copy; Libroh</List.Item>
-        <List.Item as="a">Privacy and Policy</List.Item>
-      </List>
-    </Grid>
+    <Row justify="center">
+      <p>
+        &copy; Libroh | <a href="#">Privacy and Policy</a>
+      </p>
+    </Row>
   );
 };
 

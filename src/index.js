@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 import { reducer } from "./redux/reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import "antd/dist/antd.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 import "./css/index.css"; // variables to override above
 import App from "./App";
 

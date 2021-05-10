@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid, Icon, Image, Dropdown } from "semantic-ui-react";
-import { Row, Col } from "antd";
+import { Icon, Image, Dropdown } from "semantic-ui-react";
+import { Row, Col, Button } from "antd";
 import cookies from "js-cookies";
 
 const trigger = (
@@ -48,20 +48,20 @@ const Header = () => {
           src="https://res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png"
         />
       </Col>
-      <Col span={12} align="right">
+      <Col span={12} align="right" className="navigation">
         {!cookies.getItem("_user") ? (
           <>
             <Button as="a" compact href="/">
-              <Icon name="home" /> Home
+              <i class="fas fa-home"></i> Home
             </Button>
             <Button as="a" compact href="/donate">
-              <Icon name="periscope" /> Donate a book
+              <i class="fas fa-envelope-open"></i> Donate a book
             </Button>
             <Button as="a" compact href="/login">
-              <Icon name="user" /> Login
+              <i class="fas fa-chevron-circle-right"></i> Login
             </Button>
             <Button as="a" compact href="/signup">
-              <Icon name="periscope" /> Signup
+              <i class="fas fa-align-left"></i> Signup
             </Button>
           </>
         ) : (

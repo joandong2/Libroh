@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Grid,
-  Image,
-  Label,
-  Pagination,
-  Icon,
-  Rating
-} from "semantic-ui-react";
-import { Row, Col, Layout } from "antd";
+import { Label, Icon, Rating } from "semantic-ui-react";
+import { Row, Col, Image, Pagination } from "antd";
 
 import { getBooks } from "../../../redux/actions/books";
 import { getUser, updateUserBook } from "../../../redux/actions/users";
@@ -32,8 +25,8 @@ const Home = props => {
     }
   }, [dispatch, props.match.params.category, pageNum]);
 
-  const paginationChange = (e, { activePage }) => {
-    setPageNum(parseInt(activePage));
+  const paginationChange = page => {
+    setPageNum(parseInt(page));
   };
 
   return (
@@ -51,8 +44,13 @@ const Home = props => {
               {books.books &&
                 books.books.map(book => {
                   return (
-                    <Col span={3} className="book" key={book.id} align="center">
-                      <Image src={book.cover} />
+                    <Col span={4} className="book" key={book.id} align="center">
+                      <Image
+                        width={180}
+                        height={280}
+                        src={book.cover}
+                        preview={false}
+                      />
 
                       <Label className="author" as="a">
                         {book.author_name}
@@ -99,15 +97,20 @@ const Home = props => {
             </Row>
           )}
           {books.books && (
+            // <Pagination
+            //   boundaryRange={0}
+            //   onPageChange={paginationChange}
+            //   defaultActivePage={1}
+            //   ellipsisItem={null}
+            //   firstItem={null}
+            //   lastItem={null}
+            //   siblingRange={1}
+            //   totalPages={books.totalPages}
+            // />
             <Pagination
-              boundaryRange={0}
-              onPageChange={paginationChange}
-              defaultActivePage={1}
-              ellipsisItem={null}
-              firstItem={null}
-              lastItem={null}
-              siblingRange={1}
-              totalPages={books.totalPages}
+              defaultCurrent={1}
+              total={books.totalPages * 10}
+              onChange={paginationChange}
             />
           )}
         </Col>

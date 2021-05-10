@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label, Rating } from "semantic-ui-react";
+import { Grid, Label, Rating } from "semantic-ui-react";
 import { getBook, updateBookRatingByUser } from "../../../redux/actions/books";
 import { getUser } from "../../../redux/actions/users";
-import { Row, Col } from "antd";
+import { Row, Col, Image } from "antd";
 import cookies from "js-cookies";
 
 import Header from "./Header";
@@ -61,7 +61,7 @@ const Book = props => {
                     return (
                       <div className="book">
                         <Col span={4} key={book.id}>
-                          <Image src={book.cover} />
+                          <Image width={200} src={book.cover} />
                         </Col>
                         <Col span={8}>
                           <h1

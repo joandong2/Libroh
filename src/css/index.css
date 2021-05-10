@@ -23,3 +23,32 @@ img {
 .ant-col:last-child {
   padding-right: 0 !important;
 }
+
+.navigation .ant-btn {
+  margin-right: 10px;
+  padding: 5px 15px;
+  background: #e73854;
+  border: 1px solid #e73854;
+}
+
+.navigation .ant-btn span {
+  color: #fff;
+}
+
+.navigation .ant-btn i {
+  margin-right: 5px;
+  color: #fff;
+}
+
+.sidebar .ant-badge {
+  border: 1px solid #e73854;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  background: #e73854;
+}
+
+.sidebar .ant-badge a {
+  color: #fff;
+  letter-spacing: 0.8px;
+}
