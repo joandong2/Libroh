@@ -96,23 +96,25 @@ const Home = props => {
                 })}
             </Row>
           )}
-          {books.books && (
-            // <Pagination
-            //   boundaryRange={0}
-            //   onPageChange={paginationChange}
-            //   defaultActivePage={1}
-            //   ellipsisItem={null}
-            //   firstItem={null}
-            //   lastItem={null}
-            //   siblingRange={1}
-            //   totalPages={books.totalPages}
-            // />
-            <Pagination
-              defaultCurrent={1}
-              total={books.totalPages * 10}
-              onChange={paginationChange}
-            />
-          )}
+          <Row gutter={16}>
+            {books.books && (
+              // <Pagination
+              //   boundaryRange={0}
+              //   onPageChange={paginationChange}
+              //   defaultActivePage={1}
+              //   ellipsisItem={null}
+              //   firstItem={null}
+              //   lastItem={null}
+              //   siblingRange={1}
+              //   totalPages={books.totalPages}
+              // />
+              <Pagination
+                defaultCurrent={1}
+                total={books.totalPages * 10}
+                onChange={paginationChange}
+              />
+            )}
+          </Row>
         </Col>
       </Row>
       <Footer />

@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Button, Form, Grid, Icon, Message } from "semantic-ui-react";
+import { Icon, Message } from "semantic-ui-react";
+import { Row, Col, Form, Button } from "antd";
 import { userLogin } from "../../../redux/actions/users";
 
 import Header from "../public/Header";
@@ -16,12 +17,8 @@ const Login = props => {
   return (
     <>
       <Header />
-      <Grid
-        textAlign="center"
-        style={{ height: "70vh" }}
-        verticalAlign="middle"
-      >
-        <Grid.Column style={{ maxWidth: 450 }}>
+      <Row justify="center">
+        <Col className="form-column">
           <div className="loader-wrapper" align="center">
             {notifications.loading && <div className="loader"></div>}
           </div>
@@ -32,9 +29,12 @@ const Login = props => {
             </Message>
           )}
 
-          <Form size="large" onSubmit={handleSubmit(onSubmit)}>
-            <div className="field">
-              <div className="ui fluid left icon input">
+          <Form
+            onSubmit={handleSubmit(onSubmit)}
+            className="ant-form ant-form-horizontal login-form"
+          >
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="email"
                   placeholder="Email address"
@@ -45,6 +45,7 @@ const Login = props => {
                       message: "Invalid email address."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="user icon"></i>
               </div>
@@ -55,8 +56,8 @@ const Login = props => {
               )}
             </div>
 
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="password"
                   type="password"
@@ -68,6 +69,7 @@ const Login = props => {
                       message: "Password must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="lock icon"></i>
               </div>
@@ -78,9 +80,15 @@ const Login = props => {
               )}
             </div>
 
-            <Button fluid size="small">
-              Login
-            </Button>
+            <div className="ant-form-item">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="ant-btn ant-btn-primary login-form-button"
+              >
+                Login
+              </Button>
+            </div>
           </Form>
           <p className="margin0" align="left">
             <a href="/forget">Forgot Password</a>
@@ -88,8 +96,8 @@ const Login = props => {
           <p align="left">
             Need account? <a href="/signup">Sign Up</a>
           </p>
-        </Grid.Column>
-      </Grid>
+        </Col>
+      </Row>
       <Footer />
     </>
   );

@@ -1,6 +1,6 @@
-/* .App {
-  padding: 10px;
-} */
+.margin0 {
+  margin: 0;
+}
 
 img {
   width: 100%;
@@ -9,6 +9,8 @@ img {
 .logo img {
   width: auto;
 }
+
+/** ANT TAGS **/
 
 .ant-row {
   margin-right: 0 !important;
@@ -23,6 +25,12 @@ img {
 .ant-col:last-child {
   padding-right: 0 !important;
 }
+
+.ant-pagination {
+  margin-left: 10px;
+}
+
+/** NAVIGATION & SIDEBAR **/
 
 .navigation .ant-btn {
   margin-right: 10px;
@@ -51,4 +59,27 @@ img {
 .sidebar .ant-badge a {
   color: #fff;
   letter-spacing: 0.8px;
+}
+
+/** FORMS **/
+
+.form-column {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 450px;
+  height: 70vh;
+  text-align: center;
+}
+
+.ant-form-item {
+  margin-bottom: 10px;
+}
+
+.ant-form .ant-btn {
+  width: 100%;
+  background: #e73854;
+  color: #fff;
+  border: 1px solid #e73854;
 }

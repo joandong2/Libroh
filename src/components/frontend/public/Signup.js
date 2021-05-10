@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Button, Form, Grid, Icon, Image, Message } from "semantic-ui-react";
+import { Icon, Image, Message } from "semantic-ui-react";
+import { Row, Col, Form, Button } from "antd";
 import { userSignup } from "../../../redux/actions/users";
 
 import Header from "../public/Header";
@@ -17,15 +18,8 @@ const Login = props => {
   return (
     <>
       <Header />
-      <Grid
-        textAlign="center"
-        style={{ height: "70vh" }}
-        verticalAlign="middle"
-      >
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <p align="center">
-            <Image src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png" />
-          </p>
+      <Row justify="center">
+        <Col className="form-column">
           <div className="loader-wrapper" align="center">
             {notifications.loading && <div className="loader"></div>}
           </div>
@@ -37,8 +31,8 @@ const Login = props => {
           )}
 
           <Form size="large" onSubmit={handleSubmit(onSubmit)}>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="name"
                   placeholder="Name"
@@ -49,6 +43,7 @@ const Login = props => {
                       message: "Name must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="user icon"></i>
               </div>
@@ -58,8 +53,8 @@ const Login = props => {
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="phone"
                   placeholder="Phone Number"
@@ -74,6 +69,7 @@ const Login = props => {
                       message: "Phone Number must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="phone icon"></i>
               </div>
@@ -83,8 +79,8 @@ const Login = props => {
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="address"
                   placeholder="Address"
@@ -95,8 +91,8 @@ const Login = props => {
                       message: "Address must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
-                <i aria-hidden="true" className="home icon"></i>
               </div>
               {errors.address && (
                 <p className="errors">
@@ -104,8 +100,8 @@ const Login = props => {
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="email"
                   placeholder="Email address"
@@ -116,6 +112,7 @@ const Login = props => {
                       message: "Invalid email address."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="mail icon"></i>
               </div>
@@ -126,8 +123,8 @@ const Login = props => {
               )}
             </div>
 
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="password"
                   type="password"
@@ -139,6 +136,7 @@ const Login = props => {
                       message: "Password must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="lock icon"></i>
               </div>
@@ -148,8 +146,8 @@ const Login = props => {
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="confirm_password"
                   type="password"
@@ -164,6 +162,7 @@ const Login = props => {
                     validate: value =>
                       value === watch("password") || "Passwords don't match."
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="lock icon"></i>
               </div>
@@ -175,15 +174,21 @@ const Login = props => {
               )}
             </div>
 
-            <Button fluid size="small">
-              Signup
-            </Button>
+            <div className="ant-form-item">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="ant-btn ant-btn-primary login-form-button"
+              >
+                Signup
+              </Button>
+            </div>
           </Form>
           <p align="left">
             Have account? <a href="/login">Login</a>
           </p>
-        </Grid.Column>
-      </Grid>
+        </Col>
+      </Row>
       <Footer />
     </>
   );
