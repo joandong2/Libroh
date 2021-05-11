@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Icon, Message } from "semantic-ui-react";
-import { Row, Col, Form, Button } from "antd";
+import { Row, Col, Form, Button, Alert } from "antd";
 import { userLogin } from "../../../redux/actions/users";
 
 import Header from "../public/Header";
@@ -24,13 +23,11 @@ const Login = props => {
           </div>
 
           {notifications.message && (
-            <Message color="red" size="small">
-              {notifications.message}
-            </Message>
+            <Alert message={notifications.message} type="warning" showIcon />
           )}
 
           <Form
-            onSubmit={handleSubmit(onSubmit)}
+            onFinish={handleSubmit(onSubmit)}
             className="ant-form ant-form-horizontal login-form"
           >
             <div className="ant-form-item">
@@ -51,7 +48,8 @@ const Login = props => {
               </div>
               {errors.email && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.email.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.email.message}
                 </p>
               )}
             </div>
@@ -71,11 +69,11 @@ const Login = props => {
                   })}
                   className="ant-input"
                 />
-                <i aria-hidden="true" className="lock icon"></i>
               </div>
               {errors.password && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.password.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.password.message}
                 </p>
               )}
             </div>

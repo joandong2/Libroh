@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Label, Icon, Rating } from "semantic-ui-react";
 import { Row, Col, Image, Pagination } from "antd";
-
 import { getBooks } from "../../../redux/actions/books";
 import { getUser, updateUserBook } from "../../../redux/actions/users";
 import cookies from "js-cookies";
@@ -98,16 +97,6 @@ const Home = props => {
           )}
           <Row gutter={16}>
             {books.books && (
-              // <Pagination
-              //   boundaryRange={0}
-              //   onPageChange={paginationChange}
-              //   defaultActivePage={1}
-              //   ellipsisItem={null}
-              //   firstItem={null}
-              //   lastItem={null}
-              //   siblingRange={1}
-              //   totalPages={books.totalPages}
-              // />
               <Pagination
                 defaultCurrent={1}
                 total={books.totalPages * 10}

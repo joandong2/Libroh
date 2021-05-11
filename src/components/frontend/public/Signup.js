@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Icon, Image, Message } from "semantic-ui-react";
-import { Row, Col, Form, Button } from "antd";
+import { Row, Col, Form, Button, Alert } from "antd";
 import { userSignup } from "../../../redux/actions/users";
 
 import Header from "../public/Header";
@@ -25,12 +25,10 @@ const Login = props => {
           </div>
 
           {notifications.message && (
-            <Message color="red" size="small">
-              {notifications.message}
-            </Message>
+            <Alert message={notifications.message} type="warning" />
           )}
 
-          <Form size="large" onSubmit={handleSubmit(onSubmit)}>
+          <Form size="large" onFinish={handleSubmit(onSubmit)}>
             <div className="ant-form-item">
               <div className="ant-form-item-control">
                 <input
@@ -49,7 +47,8 @@ const Login = props => {
               </div>
               {errors.name && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.name.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.name.message}
                 </p>
               )}
             </div>
@@ -75,7 +74,8 @@ const Login = props => {
               </div>
               {errors.phone && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.phone.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.phone.message}
                 </p>
               )}
             </div>
@@ -96,7 +96,8 @@ const Login = props => {
               </div>
               {errors.address && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.address.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.address.message}
                 </p>
               )}
             </div>
@@ -118,7 +119,8 @@ const Login = props => {
               </div>
               {errors.email && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.email.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.email.message}
                 </p>
               )}
             </div>
@@ -142,7 +144,8 @@ const Login = props => {
               </div>
               {errors.password && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.password.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.password.message}
                 </p>
               )}
             </div>
@@ -168,7 +171,7 @@ const Login = props => {
               </div>
               {errors.confirm_password && (
                 <p className="errors">
-                  <Icon name="arrow circle right" />{" "}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
                   {errors.confirm_password.message}
                 </p>
               )}
