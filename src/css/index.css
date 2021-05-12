@@ -1,3 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito+Sans:ital,wght@0,800;1,400&display=swap");
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f4f6fa;
+  font-family: "Montserrat", sans-serif;
+  text-rendering: optimizeLegibility;
+  font-size: 14px;
+  line-height: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+a {
+  font-size: 14px;
+}
+
 .margin0 {
   margin: 0;
 }
@@ -58,7 +76,11 @@ img {
 
 .sidebar .ant-badge a {
   color: #fff;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar .ant-badge-count {
+  background: #7d7d7d;
 }
 
 /** FORMS **/
@@ -166,4 +188,19 @@ img {
     box-shadow: 30px 0 0 #fff;
     margin-top: 0;
   }
+}
+
+/** Pages **/
+
+.book-title {
+  margin-top: 10px;
+}
+
+.book-title i {
+  margin-right: 10px;
+  color: #e73854;
+}
+
+.book-title a {
+  color: #e73854;
 }

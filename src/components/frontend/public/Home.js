@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Label, Icon, Rating } from "semantic-ui-react";
-import { Row, Col, Image, Pagination } from "antd";
+import { Row, Col, Image, Pagination, Rate } from "antd";
 import { getBooks } from "../../../redux/actions/books";
-import { getUser, updateUserBook } from "../../../redux/actions/users";
+import { getUser } from "../../../redux/actions/users";
 import cookies from "js-cookies";
 
 import Header from "../public/Header";
@@ -50,46 +49,32 @@ const Home = props => {
                         src={book.cover}
                         preview={false}
                       />
-
-                      <Label className="author" as="a">
-                        {book.author_name}
-                      </Label>
-
+                      <Rate
+                        disabled
+                        defaultValue={parseFloat(book.ratings).toFixed(0)}
+                      />
                       <p className="book-title">
-                        {user.user && (
-                          <Icon>
-                            <Icon
-                              key={book.id}
-                              link
-                              name={`${
-                                user.user.saved_books.includes(book.id)
-                                  ? `bookmark`
-                                  : `bookmark outline`
-                              }`}
-                              onClick={e => {
-                                e.preventDefault();
-                                dispatch(
-                                  updateUserBook(
-                                    parseInt(cookies.getItem("_user")),
-                                    book.id
-                                  )
-                                );
-                              }}
-                            />
-                          </Icon>
-                        )}
+                        {user.user &&
+                          user.user.saved_books &&
+                          user.user.saved_books.includes(book.id) && (
+                            <i class="fas fa-bookmark"></i>
+                            // onClick={e => {
+                            //   e.preventDefault();
+                            //   dispatch(
+                            //     updateUserBook(
+                            //       parseInt(cookies.getItem("_user")),
+                            //       book.id
+                            //     )
+                            //   );
+                            // }}
+                          )}
                         <a
                           href={`http://localhost:3000/${book.slug}`}
                           className="title"
                         >
                           {book.title}
-                        </a>
+                        </a>{" "}
                       </p>
-                      <Rating
-                        defaultRating={parseFloat(book.ratings).toFixed(0)}
-                        maxRating={5}
-                        disabled
-                      />
                     </Col>
                   );
                 })}

@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Icon, Image, Message } from "semantic-ui-react";
 import { Row, Col, Form, Button, Alert } from "antd";
 import { userSignup } from "../../../redux/actions/users";
 

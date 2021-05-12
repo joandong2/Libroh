@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Image, Label, Icon, Rating } from "semantic-ui-react";
+import { Row, Col, Image, Rate, Alert } from "antd";
 import cookies from "js-cookies";
-import { getUserBook, updateUserBook } from "../../../redux/actions/users";
+import { getUserBook } from "../../../redux/actions/users";
+import { updateBookRatingByUser } from "../../../redux/actions/books";
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
@@ -23,71 +24,73 @@ const MyBook = props => {
   return (
     <>
       <Header />
-      <Grid padded columns={2} className="main-content">
-        <Grid.Row>
-          <Sidebar />
-          <Grid.Column className="content" width={13} align="left">
-            <h4>Saved Books</h4>
-            <Grid columns={9} className="books">
-              {notifications.loading ? (
-                <Grid.Row style={{ height: "10vh" }} verticalAlign="middle">
-                  <div className="loader"></div>
-                </Grid.Row>
-              ) : (
-                <Grid.Row>
-                  {books.books &&
-                    books.books.map(book => {
-                      return user.user.saved_books.includes(book.id) ? (
-                        <Grid.Column className="book" key={book.id}>
-                          <Image src={book.cover} />
+      <Row gutter={32}>
+        <Sidebar />
+        <Col span={16} align="left">
+          <h4>Saved Books</h4>
+          {notifications.message && (
+            <Alert message={notifications.message} type="warning" showIcon />
+          )}
 
-                          <Label className="author" as="a">
-                            {book.author_name}
-                          </Label>
-                          <p className="book-title">
-                            {user.user && (
-                              <>
-                                <Icon
-                                  key={book.id}
-                                  link
-                                  name={`${
-                                    user.user.saved_books.includes(book.id)
-                                      ? `bookmark`
-                                      : `bookmark outline`
-                                  }`}
-                                  onClick={e => {
-                                    e.preventDefault();
-                                    dispatch(
-                                      updateUserBook(
-                                        parseInt(cookies.getItem("_user")),
-                                        book.id
-                                      )
-                                    );
-                                  }}
-                                />
-                              </>
-                            )}
-                            <a
-                              href={`http://localhost:3000/${book.slug}`}
-                              className="title"
-                            >
-                              {book.title}
-                            </a>
-                          </p>
-                          <Rating
-                            defaultRating={parseFloat(book.ratings).toFixed(0)}
-                            maxRating={5}
-                            disabled
-                          />
-                        </Grid.Column>
-                      ) : null;
-                    })}
-                </Grid.Row>
-              )}
-            </Grid>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+          {notifications.loading ? (
+            <Row style={{ height: "10vh" }} verticalAlign="middle">
+              <div className="loader"></div>
+            </Row>
+          ) : (
+            <Row gutter={16}>
+              {books.books &&
+                books.books.map(book => {
+                  return (
+                    <Col span={4} className="book" key={book.id} align="center">
+                      <Image
+                        width={180}
+                        height={280}
+                        src={book.cover}
+                        preview={false}
+                      />
+                      <Rate
+                        defaultValue={parseFloat(book.ratings).toFixed(0)}
+                        onChange={rating => {
+                          dispatch(
+                            updateBookRatingByUser(
+                              book.slug,
+                              book.id,
+                              parseInt(cookies.getItem("_user")),
+                              rating
+                            )
+                          );
+                        }}
+                        value={parseFloat(book.ratings).toFixed(0)}
+                      />
+                      <p className="book-title">
+                        {user.user &&
+                          user.user.saved_books &&
+                          user.user.saved_books.includes(book.id) && (
+                            <i class="fas fa-bookmark"></i>
+                            // onClick={e => {
+                            //   e.preventDefault();
+                            //   dispatch(
+                            //     updateUserBook(
+                            //       parseInt(cookies.getItem("_user")),
+                            //       book.id
+                            //     )
+                            //   );
+                            // }}
+                          )}
+                        <a
+                          href={`http://localhost:3000/${book.slug}`}
+                          className="title"
+                        >
+                          {book.title}
+                        </a>{" "}
+                      </p>
+                    </Col>
+                  );
+                })}
+            </Row>
+          )}
+        </Col>
+      </Row>
       <Footer />
     </>
   );

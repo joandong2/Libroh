@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Button, Form, Grid, Icon, Message } from "semantic-ui-react";
+import { Row, Col, Form, Button, Alert } from "antd";
 import cookies from "js-cookies";
 import { getUser, updateUser } from "../../../redux/actions/users";
 import Header from "../public/Header";
@@ -34,21 +34,19 @@ const Profile = props => {
   return (
     <>
       <Header />
-      <Grid textAlign="center" verticalAlign="middle">
-        <Grid.Column style={{ maxWidth: 450 }}>
+      <Row justify="center">
+        <Col className="form-column">
           <div className="loader-wrapper" align="center">
             {notifications.loading && <div className="loader"></div>}
           </div>
 
           {notifications.message && (
-            <Message color="red" size="small">
-              {notifications.message}
-            </Message>
+            <Alert message={notifications.message} type="warning" showIcon />
           )}
 
           <Form size="large" onSubmit={handleSubmit(onSubmit)}>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="name"
                   placeholder="Name"
@@ -59,17 +57,19 @@ const Profile = props => {
                       message: "Name must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="user icon"></i>
               </div>
               {errors.name && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.name.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.name.message}
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="phone"
                   placeholder="Phone Number"
@@ -84,17 +84,19 @@ const Profile = props => {
                       message: "Phone Number must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="phone icon"></i>
               </div>
               {errors.phone && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.phone.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.phone.message}
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="address"
                   placeholder="Address"
@@ -105,17 +107,19 @@ const Profile = props => {
                       message: "Address must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="home icon"></i>
               </div>
               {errors.address && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.address.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.address.message}
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="email"
                   placeholder="Email address"
@@ -127,13 +131,14 @@ const Profile = props => {
                       message: "Invalid email address."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="mail icon"></i>
               </div>
             </div>
             <p>Set new password</p>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="password"
                   type="password"
@@ -144,17 +149,19 @@ const Profile = props => {
                       message: "Password must be minimum of 8 characters."
                     }
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="lock icon"></i>
               </div>
               {errors.password && (
                 <p className="errors">
-                  <Icon name="arrow circle right" /> {errors.password.message}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
+                  {errors.password.message}
                 </p>
               )}
             </div>
-            <div className="field">
-              <div className="ui fluid left icon input">
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
                 <input
                   name="confirm_password"
                   type="password"
@@ -168,23 +175,30 @@ const Profile = props => {
                     validate: value =>
                       value === watch("password") || "Passwords don't match."
                   })}
+                  className="ant-input"
                 />
                 <i aria-hidden="true" className="lock icon"></i>
               </div>
               {errors.confirm_password && (
                 <p className="errors">
-                  <Icon name="arrow circle right" />{" "}
+                  <i class="fas fa-exclamation-triangle"></i>{" "}
                   {errors.confirm_password.message}
                 </p>
               )}
             </div>
 
-            <Button fluid size="small">
-              Update Profile
-            </Button>
+            <div className="ant-form-item">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="ant-btn ant-btn-primary login-form-button"
+              >
+                Login
+              </Button>
+            </div>
           </Form>
-        </Grid.Column>
-      </Grid>
+        </Col>
+      </Row>
       <Footer />
     </>
   );

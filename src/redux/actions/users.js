@@ -118,7 +118,7 @@ export const getUser = id => dispatch => {
     .get(`/users/${id}`)
     .then(res => {
       dispatch({ type: GET_USER, payload: res.data });
-      dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
     })
     .catch(err => {
       //console.log("err", err.response.status);
@@ -139,7 +139,7 @@ export const getUserBook = id => dispatch => {
     .then(res => {
       dispatch({ type: GET_USER, payload: res.data });
       dispatch({ type: GET_BOOKS, payload: res.data });
-      dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
     })
     .catch(err => {
       //console.log("err", err.response.status);

@@ -85,7 +85,7 @@ export const getCategories = () => dispatch => {
     .get("/categories")
     .then(res => {
       dispatch({ type: GET_CATEGORIES, payload: res.data });
-      dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
     })
     .catch(err => {
       dispatch({
@@ -98,21 +98,26 @@ export const getCategories = () => dispatch => {
 };
 
 export const updateBookRatingByUser = (
-  book_title,
+  book_slug,
   book_id,
   user_id,
   rating
 ) => dispatch => {
   dispatch({ type: START });
   axiosWithAuth()
-    .patch(`/books/${book_title}/rating`, {
+    .patch(`/books/${book_slug}/rating`, {
       book_id: book_id,
       user_id: user_id,
       rating: rating
     })
     .then(res => {
-      //dispatch({ type: SUCCESS, payload: res.data.message });
-      window.location.reload();
+      axiosWithAuth()
+        .get(`/users/${user_id}/books`)
+        .then(res => {
+          dispatch({ type: GET_BOOKS, payload: res.data });
+        });
+
+      dispatch({ type: SUCCESS, payload: res.data.message });
     })
     .catch(err => {
       dispatch({
