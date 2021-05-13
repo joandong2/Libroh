@@ -204,3 +204,11 @@ img {
 .book-title a {
   color: #e73854;
 }
+
+.single-book .ant-rate {
+  margin-bottom: 10px;
+}
+
+.single-book .tags {
+  margin-bottom: 10px;
+}

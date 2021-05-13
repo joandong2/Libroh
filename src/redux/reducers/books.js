@@ -4,7 +4,8 @@ const initialState = {
   book: null,
   books: null,
   categories: null,
-  totalPages: null
+  totalPages: null,
+  limit: null
 };
 
 export function books(state = initialState, action) {
@@ -18,9 +19,8 @@ export function books(state = initialState, action) {
       return {
         ...state,
         books: action.payload.books,
-        totalPages: parseInt(
-          (action.payload.total_books / action.payload.page_limit).toFixed()
-        )
+        totalPages: parseInt(action.payload.total_books),
+        limit: parseInt(action.payload.page_limit)
       };
     case GET_CATEGORIES:
       return {

@@ -7,14 +7,14 @@ export const GET_BOOK = "GET_BOOK";
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 
-export const getBook = title => dispatch => {
+export const getBook = slug => dispatch => {
   dispatch({ type: START });
 
   axiosWithAuth()
-    .get(`/books/${title}`)
+    .get(`/books/${slug}`)
     .then(res => {
       dispatch({ type: GET_BOOK, payload: res.data.book });
-      dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
     })
     .catch(err => {
       dispatch({
@@ -38,7 +38,7 @@ export const getBooks = (category, pageNum) => dispatch => {
     )
     .then(res => {
       dispatch({ type: GET_BOOKS, payload: res.data });
-      dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
     })
     .catch(err => {
       dispatch({
@@ -52,8 +52,6 @@ export const getBooks = (category, pageNum) => dispatch => {
 
 export const postBook = values => dispatch => {
   dispatch({ type: START });
-
-  console.log("values", values);
 
   axiosWithAuth()
     .post(`/books/`, {
@@ -97,34 +95,30 @@ export const getCategories = () => dispatch => {
     });
 };
 
-export const updateBookRatingByUser = (
-  book_slug,
-  book_id,
-  user_id,
-  rating
-) => dispatch => {
-  dispatch({ type: START });
-  axiosWithAuth()
-    .patch(`/books/${book_slug}/rating`, {
-      book_id: book_id,
-      user_id: user_id,
-      rating: rating
-    })
-    .then(res => {
-      axiosWithAuth()
-        .get(`/users/${user_id}/books`)
-        .then(res => {
-          dispatch({ type: GET_BOOKS, payload: res.data });
-        });
+export const updateBookRatingByUser =
+  (book_slug, book_id, user_id, rating) => dispatch => {
+    dispatch({ type: START });
+    axiosWithAuth()
+      .patch(`/books/${book_slug}/rating`, {
+        book_id: book_id,
+        user_id: user_id,
+        rating: rating
+      })
+      .then(res => {
+        axiosWithAuth()
+          .get(`/users/${user_id}/books`)
+          .then(res => {
+            dispatch({ type: GET_BOOKS, payload: res.data });
+          });
 
-      dispatch({ type: SUCCESS, payload: res.data.message });
-    })
-    .catch(err => {
-      dispatch({
-        type: FAILED,
-        payload: err.response.data.message
-          ? err.response.data.message
-          : "Internal server issues. Please try again."
+        dispatch({ type: SUCCESS, payload: res.data.message });
+      })
+      .catch(err => {
+        dispatch({
+          type: FAILED,
+          payload: err.response.data.message
+            ? err.response.data.message
+            : "Internal server issues. Please try again."
+        });
       });
-    });
-};
+  };

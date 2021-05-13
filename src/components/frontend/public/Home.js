@@ -84,7 +84,8 @@ const Home = props => {
             {books.books && (
               <Pagination
                 defaultCurrent={1}
-                total={books.totalPages * 10}
+                pageSize={books.limit}
+                total={parseInt(books.totalPages)}
                 onChange={paginationChange}
               />
             )}
