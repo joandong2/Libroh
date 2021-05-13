@@ -67,15 +67,6 @@ const MyBook = props => {
                           user.user.saved_books &&
                           user.user.saved_books.includes(book.id) && (
                             <i class="fas fa-bookmark"></i>
-                            // onClick={e => {
-                            //   e.preventDefault();
-                            //   dispatch(
-                            //     updateUserBook(
-                            //       parseInt(cookies.getItem("_user")),
-                            //       book.id
-                            //     )
-                            //   );
-                            // }}
                           )}
                         <a
                           href={`http://localhost:3000/${book.slug}`}

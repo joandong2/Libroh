@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBook, updateBookRatingByUser } from "../../../redux/actions/books";
-import { getUser } from "../../../redux/actions/users";
-import { Row, Col, Image, Rate, Alert, Tag } from "antd";
+import { getUser, updateUserBook } from "../../../redux/actions/users";
+import { Row, Col, Image, Rate, Alert, Tag, Button } from "antd";
 import cookies from "js-cookies";
 
 import Header from "./Header";
@@ -10,8 +10,6 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
 const Book = props => {
-  console.log(props.match.params.title);
-
   const notifications = useSelector(state => state.notifications);
   const book = useSelector(state => state.books.book);
   const user = useSelector(state => state.users);
@@ -24,7 +22,11 @@ const Book = props => {
     }
   }, [dispatch, props.match.params.title]);
 
-  console.log("book", book);
+  const bookmarkBook = e => {
+    e.preventDefault();
+    //console.log(book[0].id);
+    dispatch(updateUserBook(parseInt(cookies.getItem("_user")), book[0].id));
+  };
 
   return (
     <>
@@ -59,12 +61,6 @@ const Book = props => {
                               );
                             })}
                           </div>
-                          <h1
-                            href={`http://localhost:3000/${book.slug}`}
-                            className="title"
-                          >
-                            {book.title}
-                          </h1>
                           {!user.user
                             ? book.ratings == null && (
                                 <Rate
@@ -92,6 +88,33 @@ const Book = props => {
                                   value={parseFloat(book.ratings).toFixed(0)}
                                 />
                               )}
+                          <h1
+                            href={`http://localhost:3000/${book.slug}`}
+                            className="title"
+                          >
+                            {book.title}
+                          </h1>
+                          {user.user && user.user.saved_books ? (
+                            user.user.saved_books.includes(book.id) ? (
+                              <Button
+                                size="small"
+                                type="primary"
+                                danger
+                                onClick={bookmarkBook}
+                              >
+                                Remove from list
+                              </Button>
+                            ) : (
+                              <Button
+                                size="small"
+                                type="primary"
+                                onClick={bookmarkBook}
+                              >
+                                Add to list
+                              </Button>
+                            )
+                          ) : null}
+
                           <p
                             style={{
                               marginBottom: 0
