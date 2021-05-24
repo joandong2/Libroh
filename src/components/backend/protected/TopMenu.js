@@ -17,19 +17,24 @@ const TopMenu = props => {
   return (
     <>
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item key="home">
-          <Image
-            preview={false}
-            src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png"
-            height="40"
-            width="40"
-          />
+        <Menu.Item key="home">Libroh</Menu.Item>
+        <Menu.Item key="dashboard">
+          <i class="fas fa-border-all"></i>{" "}
+          <a href="/admin/dashboard" rel="noopener noreferrer">
+            Dashboard
+          </a>
         </Menu.Item>
         <Menu.Item key="books">
-          <i class="fas fa-book"></i> Books
+          <i class="fas fa-book"></i>{" "}
+          <a href="/admin/books" rel="noopener noreferrer">
+            Books
+          </a>
         </Menu.Item>
         <Menu.Item key="authors">
-          <i class="fas fa-user"></i> Authors
+          <i class="fas fa-user"></i>{" "}
+          <a href="/admin/authors" rel="noopener noreferrer">
+            Authors
+          </a>
         </Menu.Item>
         <SubMenu
           key="publishers"
