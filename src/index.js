@@ -8,6 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import "antd/dist/antd.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./css/index.css"; // variables to override above
+import "./css/dashboard.css"; // variables to override above
 import App from "./App";
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

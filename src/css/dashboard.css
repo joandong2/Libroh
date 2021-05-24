@@ -1,0 +1,15 @@
+.dashboard .header-wrapper {
+  background: #fff;
+}
+
+.dashboard .ant-menu {
+  background: none;
+  border: unset;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.dashboard .ant-menu-horizontal {
+  line-height: normal;
+}

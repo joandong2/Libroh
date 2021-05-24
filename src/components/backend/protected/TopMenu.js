@@ -1,142 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { Dropdown, Menu, Icon } from "semantic-ui-react";
+import { Menu, Image } from "antd";
 
 // import Header from "../public/Header";
 // import Footer from "../public/Footer";
 
 const TopMenu = props => {
-  //const { register, handleSubmit, errors } = useForm();
-  //const notifications = useSelector((state) => state.notifications);
-  //const dispatch = useDispatch();
-  //const onSubmit = (data) => dispatch(userLogin(data));
+  const [current, setCurrent] = useState("mail");
+  const { SubMenu } = Menu;
+
+  const handleClick = e => {
+    setCurrent(e.key);
+  };
 
   return (
     <>
-      <Menu compact>
-        <Menu.Item href="/admin/dashboard">
-          <Icon name="home" /> Home
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+        <Menu.Item key="home">
+          <Image
+            preview={false}
+            src="//res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png"
+            height="40"
+            width="40"
+          />
         </Menu.Item>
-        <Dropdown
-          simple
-          item
-          trigger={
-            <>
-              <Icon name="book" /> Books
-            </>
-          }
-          options={[
-            {
-              key: "show-books",
-              text: "Show All Books",
-              icon: "pause",
-              as: Link,
-              to: "/admin/books"
-            },
-            {
-              key: "add-book",
-              text: "Add Book",
-              icon: "book",
-              as: Link,
-              to: "/admin/books/add"
-            }
-          ]}
-        />
-        <Dropdown
-          simple
-          item
-          trigger={
-            <>
-              <Icon name="user" /> User
-            </>
-          }
-          options={[
-            {
-              key: "show-users",
-              text: "Show All Users",
-              icon: "user circle",
-              as: Link,
-              to: "/admin/users"
-            },
-            {
-              key: "add-user",
-              text: "Add User",
-              icon: "user",
-              as: Link,
-              to: "/admin/add-user"
-            }
-          ]}
-        />
-        <Dropdown
-          simple
-          item
-          trigger={
-            <>
-              <Icon name="user" /> Authors
-            </>
-          }
-          options={[
-            {
-              key: "show-authors",
-              text: "Show All Authors",
-              icon: "user circle",
-              as: Link,
-              to: "/admin/authors"
-            },
-            {
-              key: "add-author",
-              text: "Add Author",
-              icon: "user",
-              as: Link,
-              to: "/admin/add-author"
-            }
-          ]}
-        />
-        <Dropdown
-          simple
-          item
-          trigger={
-            <>
-              <Icon name="user" /> Publishers
-            </>
-          }
-          options={[
-            {
-              key: "show-publisher",
-              text: "Show All Publisherss",
-              icon: "user circle",
-              as: Link,
-              to: "/admin/publishers"
-            },
-            {
-              key: "add-publisher",
-              text: "Add Publisher",
-              icon: "user",
-              as: Link,
-              to: "/admin/add-publisher"
-            }
-          ]}
-        />
-        <Dropdown
-          simple
-          item
-          trigger={
-            <>
-              <Icon name="align justify" /> Settings
-            </>
-          }
-          options={[
-            {
-              key: "general",
-              text: "General",
-              icon: "cog",
-              as: Link,
-              to: "/admin/general-setting"
-            }
-          ]}
-        />
+        <Menu.Item key="books">
+          <i class="fas fa-book"></i> Books
+        </Menu.Item>
+        <Menu.Item key="authors">
+          <i class="fas fa-user"></i> Authors
+        </Menu.Item>
+        <SubMenu
+          key="publishers"
+          title=" Publishers"
+          icon={<i class="fas fa-users-cog"></i>}
+        >
+          <Menu.Item key="publisher:1">Option 1</Menu.Item>
+          <Menu.Item key="publisher:2">Option 2</Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="settings"
+          title=" Settings"
+          icon={<i class="fas fa-tools"></i>}
+        >
+          <Menu.Item key="setting:1">Option 1</Menu.Item>
+          <Menu.Item key="setting:2">Option 2</Menu.Item>
+        </SubMenu>
       </Menu>
     </>
   );
