@@ -105,7 +105,14 @@ const Books = props => {
               Add New
             </Button>
           </h3>
-          <Table columns={columns} dataSource={data} />
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={{
+              pageSizeOptions: ["25", "50"],
+              showSizeChanger: true
+            }}
+          />
           <Footer />
         </Col>
       </Row>

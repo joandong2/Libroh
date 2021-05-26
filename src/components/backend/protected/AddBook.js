@@ -1,193 +1,295 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Grid, Form, Button, Dropdown } from "semantic-ui-react";
+import { Row, Col, Form, Button, Alert, Select } from "antd";
 import { useForm } from "react-hook-form";
 
 import { getAuthors } from "../../../redux/actions/authors";
 import { getPublishers } from "../../../redux/actions/publishers";
-import { postBook } from "../../../redux/actions/books";
+import {
+  postBook,
+  getCategories,
+  getBooks
+} from "../../../redux/actions/books";
 
 import Header from "./Header";
 import Footer from "./Footer";
 
 const AddBook = props => {
-  //const notifications = useSelector(state => state.notifications);
+  const notifications = useSelector(state => state.notifications);
   const authors = useSelector(state => state.authors);
   const publishers = useSelector(state => state.publishers);
+  const books = useSelector(state => state.books);
   const dispatch = useDispatch();
   const [dropDownValues, setDropDownValues] = useState({
     author: "",
-    publisher: ""
+    publisher: "",
+    categories: [1]
   });
 
   const { register, errors, handleSubmit, watch, reset } = useForm();
-  const titleFieldValue = watch(["title"]);
 
   useEffect(() => {
+    dispatch(getCategories());
     dispatch(getPublishers());
     dispatch(getAuthors());
   }, [dispatch]);
 
-  const authorsObject =
-    authors.authors &&
-    authors.authors.map(author => {
-      return { key: author.id, value: author.id, text: author.name };
-    });
-
-  const publishersObject =
-    publishers.publishers &&
-    publishers.publishers.map(publisher => {
-      return { key: publisher.id, value: publisher.id, text: publisher.name };
-    });
-
-  const handleDropDown = (e, data) => {
+  const handleDropDown = e => {
     setDropDownValues({
       ...dropDownValues,
-      [data.name]: data.value
+      [e.target.name]: e.target.value
     });
+  };
+
+  const handleCheckbox = e => {
+    let value = parseInt(e.target.value);
+    if (dropDownValues.categories.includes(value)) {
+      setDropDownValues({
+        ...dropDownValues,
+        categories: dropDownValues.categories.filter(e => e !== value)
+      });
+    } else {
+      setDropDownValues({
+        ...dropDownValues,
+        categories: [...dropDownValues.categories, value]
+      });
+    }
   };
 
   const onSubmit = (data, e) => {
     //alert(JSON.stringify(data));
     dispatch(postBook({ data, dropDownValues }));
     setDropDownValues({
-      author: "",
-      publisher: ""
+      author: 0,
+      publisher: 0
     });
     reset();
   };
 
+  console.log("val", dropDownValues);
+
   return (
-    <div className="wrapper">
-      <Header />
+    <div className="dashboard">
+      <div className="header-wrapper">
+        <Col span={17} offset={3}>
+          <Header />
+        </Col>
+      </div>
+      <Row>
+        <Col span={17} offset={3}>
+          {/* <div className="loader-wrapper" align="center">
+              {notifications.loading && <div className="loader"></div>}
+            </div> */}
 
-      <Grid padded className="title-box">
-        <Grid container>
-          <h3 className="page-title">Add Book</h3>
-        </Grid>
-      </Grid>
+          {notifications.message && (
+            <Alert message={notifications.message} type="warning" showIcon />
+          )}
+          <h3 className="page-title">Add New Book</h3>
 
-      <Grid padded>
-        <Grid container>
-          <div className="card">
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <Form.Field>
-                <label htmlFor="name">Book Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Title"
-                  id="title"
-                  ref={register({ required: "Title is required." })}
-                />
+          <Col span={12} align="left">
+            <Form
+              onFinish={handleSubmit(onSubmit)}
+              className="ant-form ant-form-horizontal login-form"
+            >
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <input
+                    name="title"
+                    placeholder="Book Title"
+                    ref={register({
+                      required: "Book Title is required."
+                    })}
+                    className="ant-input"
+                  />
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
                 {errors.title && (
-                  <p className="form-error">{errors.title.message}</p>
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.title.message}
+                  </p>
                 )}
+              </div>
 
-                <p className="slug">
-                  slug:{"  "}
-                  {titleFieldValue.title !== undefined
-                    ? titleFieldValue.title.toLowerCase().split(" ").join("-")
-                    : ""}
-                </p>
-              </Form.Field>
-              <Form.Field>
-                <label htmlFor="name">ISBN</label>
-                <input
-                  type="text"
-                  name="isbn"
-                  placeholder="ISBN"
-                  id="isbn"
-                  ref={register({
-                    required: "ISBN is required.",
-                    minLength: {
-                      value: 8,
-                      message: "Password must have at least 8 characters"
-                    }
-                  })}
-                />
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <input
+                    name="isbn"
+                    placeholder="ISBN"
+                    ref={register({
+                      required: "ISBN is required."
+                    })}
+                    className="ant-input"
+                  />
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
                 {errors.isbn && (
-                  <p className="form-error">{errors.isbn.message}</p>
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.isbn.message}
+                  </p>
                 )}
-              </Form.Field>
-              <Form.Field>
-                <label htmlFor="description">Description</label>
-                <textarea
-                  name="description"
-                  label="Description"
-                  placeholder="Description"
-                  ref={register({ required: "Description is required." })}
-                ></textarea>
+              </div>
+
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <textarea
+                    rows="4"
+                    cols="50"
+                    name="description"
+                    placeholder="Description"
+                    ref={register({
+                      required: "description is required."
+                    })}
+                    className="ant-input"
+                  />
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
                 {errors.description && (
-                  <p className="form-error">{errors.description.message}</p>
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.description.message}
+                  </p>
                 )}
-              </Form.Field>
-              <Form.Group widths="equal">
-                <Form.Field>
-                  <label htmlFor="name">Total Pages</label>
+              </div>
+
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
                   <input
                     type="number"
                     name="total_pages"
                     placeholder="Total Pages"
-                    id="total_pages"
-                    ref={register({ required: "Total Pages is required." })}
+                    ref={register({
+                      required: "Total Pages is required."
+                    })}
+                    className="ant-input"
                   />
-                  {errors.total_pages && (
-                    <p className="form-error">{errors.total_pages.message}</p>
-                  )}
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="name">Year</label>
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
+                {errors.total_pages && (
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.total_pages.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
                   <input
                     type="number"
                     name="year"
                     placeholder="Year"
-                    id="year"
-                    ref={register({ required: "Year is required." })}
+                    ref={register({
+                      required: "Year is required."
+                    })}
+                    className="ant-input"
                   />
-                  {errors.year && (
-                    <p className="form-error">{errors.year.message}</p>
-                  )}
-                </Form.Field>
-              </Form.Group>
-              <Form.Group widths="equal">
-                <Form.Field>
-                  <label htmlFor="name">Authors</label>
-                  <Dropdown
-                    name="author"
-                    id="authors"
-                    placeholder="Select Author"
-                    onChange={handleDropDown}
-                    fluid
-                    search
-                    selection
-                    options={authorsObject}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="name">Publishers</label>
-                  <Dropdown
-                    name="publisher"
-                    id="publisher"
-                    placeholder="Select Publisher"
-                    onChange={handleDropDown}
-                    fluid
-                    search
-                    selection
-                    options={publishersObject}
-                  />
-                </Form.Field>
-              </Form.Group>{" "}
-              <Button size="tiny" color="blue" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </div>
-        </Grid>
-      </Grid>
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
+                {errors.year && (
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.year.message}
+                  </p>
+                )}
+              </div>
 
-      <Footer />
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <select
+                    name="author"
+                    className="ant-input"
+                    onChange={handleDropDown}
+                  >
+                    <option value="" disabled selected>
+                      Select author
+                    </option>
+                    {authors.authors &&
+                      authors.authors.map(author => (
+                        <option value={author.id}>{author.name}</option>
+                      ))}
+                  </select>
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
+                {errors.authors && (
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.authors.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <select
+                    name="publisher"
+                    className="ant-input"
+                    onChange={handleDropDown}
+                  >
+                    <option value="" disabled selected>
+                      Select publisher
+                    </option>
+                    {publishers.publishers &&
+                      publishers.publishers.map(publisher => (
+                        <option value={publisher.id}>{publisher.name}</option>
+                      ))}
+                  </select>
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
+                {errors.publisher && (
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.publisher.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <legend>Categories</legend>
+                  <Row style={{ padding: "0" }}>
+                    {books.categories &&
+                      books.categories.categories.map(category => (
+                        <Col span={24}>
+                          <input
+                            type="checkbox"
+                            name={category.name}
+                            value={category.id}
+                            defaultChecked={
+                              category.slug === "uncategorized" ? true : false
+                            }
+                            onChange={handleCheckbox}
+                          />
+                          <label> {category.name}</label>
+                        </Col>
+                      ))}
+                  </Row>
+                </div>
+                {errors.publisher && (
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.publisher.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="ant-form-item">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="ant-btn ant-btn-primary login-form-button"
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Col>
+
+          <Footer />
+        </Col>
+      </Row>
     </div>
   );
 };
