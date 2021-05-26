@@ -190,6 +190,10 @@ img {
   }
 }
 
+.ant-tag {
+  margin-bottom: 10px;
+}
+
 /** Pages **/
 
 .book-title {

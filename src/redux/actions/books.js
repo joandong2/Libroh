@@ -62,7 +62,8 @@ export const postBook = values => dispatch => {
       total_pages: values.data.total_pages,
       year: values.data.year,
       author_id: values.dropDownValues.author,
-      publisher_id: values.dropDownValues.publisher
+      publisher_id: values.dropDownValues.publisher,
+      categories: values.dropDownValues.categories
     })
     .then(res => {
       dispatch({ type: SUCCESS, payload: res.data.message });

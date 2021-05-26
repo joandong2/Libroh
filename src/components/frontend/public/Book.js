@@ -61,33 +61,56 @@ const Book = props => {
                               );
                             })}
                           </div>
-                          {!user.user
-                            ? book.ratings == null && (
-                                <Rate
-                                  disabled
-                                  defaultValue={parseInt(
-                                    book.ratings.toFixed(0)
-                                  )}
-                                />
-                              )
-                            : book.ratings != null && (
-                                <Rate
-                                  defaultValue={parseFloat(
-                                    book.ratings
-                                  ).toFixed(0)}
-                                  onChange={rating => {
-                                    dispatch(
-                                      updateBookRatingByUser(
-                                        book.slug,
-                                        book.id,
-                                        parseInt(cookies.getItem("_user")),
-                                        rating
-                                      )
-                                    );
-                                  }}
-                                  value={parseFloat(book.ratings).toFixed(0)}
-                                />
-                              )}
+
+                          {user.user != null ? (
+                            book.ratings == null ? (
+                              <Rate
+                                defaultValue={parseInt(book.ratings.toFixed(0))}
+                                onChange={rating => {
+                                  dispatch(
+                                    updateBookRatingByUser(
+                                      book.slug,
+                                      book.id,
+                                      parseInt(cookies.getItem("_user")),
+                                      rating
+                                    )
+                                  );
+                                }}
+                              />
+                            ) : (
+                              <Rate
+                                defaultValue={parseFloat(book.ratings).toFixed(
+                                  0
+                                )}
+                                onChange={rating => {
+                                  dispatch(
+                                    updateBookRatingByUser(
+                                      book.slug,
+                                      book.id,
+                                      parseInt(cookies.getItem("_user")),
+                                      rating
+                                    )
+                                  );
+                                }}
+                                value={parseFloat(book.ratings).toFixed(0)}
+                              />
+                            )
+                          ) : (
+                            ""
+                          )}
+                          {user.user == null ? (
+                            book.ratings == null ? (
+                              <Tag color="#f50">No Ratings</Tag>
+                            ) : (
+                              <Rate
+                                disabled
+                                value={parseFloat(book.ratings).toFixed(0)}
+                              />
+                            )
+                          ) : (
+                            ""
+                          )}
+
                           <h1
                             href={`http://localhost:3000/${book.slug}`}
                             className="title"

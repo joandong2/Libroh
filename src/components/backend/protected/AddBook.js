@@ -58,11 +58,12 @@ const AddBook = props => {
   };
 
   const onSubmit = (data, e) => {
-    //alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
     dispatch(postBook({ data, dropDownValues }));
     setDropDownValues({
-      author: 0,
-      publisher: 0
+      author: "",
+      publisher: "",
+      categories: [1]
     });
     reset();
   };
@@ -78,16 +79,16 @@ const AddBook = props => {
       </div>
       <Row>
         <Col span={17} offset={3}>
-          {/* <div className="loader-wrapper" align="center">
-              {notifications.loading && <div className="loader"></div>}
-            </div> */}
-
-          {notifications.message && (
-            <Alert message={notifications.message} type="warning" showIcon />
-          )}
           <h3 className="page-title">Add New Book</h3>
 
           <Col span={12} align="left">
+            <div className="loader-wrapper" align="center">
+              {notifications.loading && <div className="loader"></div>}
+            </div>
+
+            {notifications.message && (
+              <Alert message={notifications.message} type="warning" showIcon />
+            )}
             <Form
               onFinish={handleSubmit(onSubmit)}
               className="ant-form ant-form-horizontal login-form"
@@ -140,7 +141,7 @@ const AddBook = props => {
                     name="description"
                     placeholder="Description"
                     ref={register({
-                      required: "description is required."
+                      required: "Description is required."
                     })}
                     className="ant-input"
                   />
