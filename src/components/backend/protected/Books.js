@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Table, Avatar, Space, Button } from "antd";
+import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
 import Header from "./Header";
 import Footer from "./Footer";
-import { getBooks } from "../../../redux/actions/books";
+import { getBooks, deleteBookById } from "../../../redux/actions/books";
 
 const Books = props => {
   //const { register, handleSubmit, errors } = useForm();
   const notifications = useSelector(state => state.notifications);
   const books = useSelector(state => state.books);
   const dispatch = useDispatch();
-  //const [pageNum, setPageNum] = useState(1);
+  const [delConfirm, setDelConfirm] = useState(false);
+  const [delBook, setDelBook] = useState();
 
   useEffect(() => {
     dispatch(getBooks(undefined, undefined));
@@ -62,7 +63,11 @@ const Books = props => {
           <Button
             size="small"
             type="danger"
-            href={`/admin/book/${record.id}/delete`}
+            //href={`/admin/book/${record.id}/delete`}
+            onClick={() => {
+              setDelBook(record.id);
+              setDelConfirm(true);
+            }}
           >
             Delete
           </Button>
@@ -83,12 +88,10 @@ const Books = props => {
       publisher: book.publisher_name
     }));
 
-  // const paginationChange = (e, { activePage }) => {
-  //   //console.log(activePage);
-  //   setPageNum(parseInt(activePage));
-  // };
-
-  //console.log("books", books);
+  const deleteBook = id => {
+    dispatch(deleteBookById(id));
+    setDelConfirm(false);
+  };
 
   return (
     <div className="dashboard">
@@ -105,6 +108,15 @@ const Books = props => {
               Add New
             </Button>
           </h3>
+          <Col span={12} offset={3}>
+            <div className="loader-wrapper" align="center">
+              {notifications.loading && <div className="loader"></div>}
+            </div>
+
+            {notifications.message && (
+              <Alert message={notifications.message} type="warning" showIcon />
+            )}
+          </Col>
           <Table
             columns={columns}
             dataSource={data}
@@ -115,6 +127,16 @@ const Books = props => {
           />
           <Footer />
         </Col>
+        <Modal
+          title="Modal"
+          visible={delConfirm}
+          onOk={() => deleteBook(delBook)}
+          onCancel={() => setDelConfirm(false)}
+          okText="Ok"
+          cancelText="Cancel"
+        >
+          Delete Book? {delBook}
+        </Modal>
       </Row>
     </div>
   );

@@ -123,3 +123,25 @@ export const updateBookRatingByUser =
         });
       });
   };
+
+export const deleteBookById = book_id => dispatch => {
+  dispatch({ type: START });
+  axiosWithAuth()
+    .delete(`/books/${book_id}/`)
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+      axiosWithAuth()
+        .get(`/books`)
+        .then(res => {
+          dispatch({ type: GET_BOOKS, payload: res.data });
+        });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};

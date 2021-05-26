@@ -38,6 +38,11 @@ const App = () => {
           <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
           <AdminRoute exact path="/admin/books" component={Books} />
           <AdminRoute exact path="/admin/books/add" component={AddBook} />
+          <AdminRoute
+            exact
+            path="/admin/books/:id/delete"
+            component={AddBook}
+          />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/mybook" component={MyBook} />
           <Route exact path="/" render={props => <Home {...props} />} />
