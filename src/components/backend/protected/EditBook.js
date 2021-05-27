@@ -6,30 +6,35 @@ import { useForm } from "react-hook-form";
 
 import { getAuthors } from "../../../redux/actions/authors";
 import { getPublishers } from "../../../redux/actions/publishers";
-import { postBook, getAllCategories } from "../../../redux/actions/books";
+import {
+  getBook,
+  updateBook,
+  getAllCategories
+} from "../../../redux/actions/books";
 
 import Header from "./Header";
 import Footer from "./Footer";
 
-const AddBook = props => {
+const EditBook = props => {
   const notifications = useSelector(state => state.notifications);
   const authors = useSelector(state => state.authors);
   const publishers = useSelector(state => state.publishers);
   const books = useSelector(state => state.books);
   const dispatch = useDispatch();
-  const [dropDownValues, setDropDownValues] = useState({
-    author: "",
-    publisher: "",
-    categories: [1]
-  });
-
   const { register, errors, handleSubmit, watch, reset } = useForm();
 
   useEffect(() => {
+    dispatch(getBook(props.match.params.slug));
     dispatch(getAllCategories());
     dispatch(getPublishers());
     dispatch(getAuthors());
-  }, [dispatch]);
+  }, [dispatch, props.match.params.slug]);
+
+  const [dropDownValues, setDropDownValues] = useState({
+    author: books.book !== null ? books.book[0].author_id : "",
+    publisher: books.book !== null ? books.book[0].publisher_id : "",
+    categories: books.book !== null ? books.book[0].category_ids : [1]
+  });
 
   const handleDropDown = e => {
     setDropDownValues({
@@ -55,16 +60,11 @@ const AddBook = props => {
 
   const onSubmit = (data, e) => {
     // alert(JSON.stringify(data));
-    dispatch(postBook({ data, dropDownValues }));
-    setDropDownValues({
-      author: "",
-      publisher: "",
-      categories: [1]
-    });
-    reset();
+    // alert(JSON.stringify(dropDownValues));
+    dispatch(updateBook(props.match.params.slug, { data, dropDownValues }));
   };
 
-  console.log("val", dropDownValues);
+  console.log("dropdown", dropDownValues);
 
   return (
     <div className="dashboard">
@@ -98,6 +98,7 @@ const AddBook = props => {
                       required: "Book Title is required."
                     })}
                     className="ant-input"
+                    value={books.book !== null ? books.book[0].title : null}
                   />
                   <i aria-hidden="true" className="user icon"></i>
                 </div>
@@ -118,6 +119,9 @@ const AddBook = props => {
                       required: "ISBN is required."
                     })}
                     className="ant-input"
+                    defaultValue={
+                      books.book !== null ? books.book[0].isbn : null
+                    }
                   />
                   <i aria-hidden="true" className="user icon"></i>
                 </div>
@@ -140,6 +144,9 @@ const AddBook = props => {
                       required: "Description is required."
                     })}
                     className="ant-input"
+                    defaultValue={
+                      books.book !== null ? books.book[0].description : null
+                    }
                   />
                   <i aria-hidden="true" className="user icon"></i>
                 </div>
@@ -161,6 +168,9 @@ const AddBook = props => {
                       required: "Total Pages is required."
                     })}
                     className="ant-input"
+                    defaultValue={
+                      books.book !== null ? books.book[0].total_pages : null
+                    }
                   />
                   <i aria-hidden="true" className="user icon"></i>
                 </div>
@@ -182,6 +192,9 @@ const AddBook = props => {
                       required: "Year is required."
                     })}
                     className="ant-input"
+                    defaultValue={
+                      books.book !== null ? books.book[0].year : null
+                    }
                   />
                   <i aria-hidden="true" className="user icon"></i>
                 </div>
@@ -205,7 +218,17 @@ const AddBook = props => {
                     </option>
                     {authors.authors &&
                       authors.authors.map(author => (
-                        <option value={author.id}>{author.name}</option>
+                        <option
+                          value={author.id}
+                          selected={
+                            books.book !== null &&
+                            books.book[0].author_name === author.name
+                              ? "selected"
+                              : null
+                          }
+                        >
+                          {author.name}
+                        </option>
                       ))}
                   </select>
                   <i aria-hidden="true" className="user icon"></i>
@@ -230,7 +253,17 @@ const AddBook = props => {
                     </option>
                     {publishers.publishers &&
                       publishers.publishers.map(publisher => (
-                        <option value={publisher.id}>{publisher.name}</option>
+                        <option
+                          value={publisher.id}
+                          selected={
+                            books.book !== null &&
+                            books.book[0].publisher_name === publisher.name
+                              ? "selected"
+                              : null
+                          }
+                        >
+                          {publisher.name}
+                        </option>
                       ))}
                   </select>
                   <i aria-hidden="true" className="user icon"></i>
@@ -255,7 +288,13 @@ const AddBook = props => {
                             name={category.name}
                             value={category.id}
                             defaultChecked={
-                              category.slug === "uncategorized" ? true : false
+                              //category.slug === "uncategorized" ? true : false
+                              books.book !== null &&
+                              books.book[0].category_slug.includes(
+                                category.slug
+                              )
+                                ? true
+                                : false
                             }
                             onChange={handleCheckbox}
                           />
@@ -291,4 +330,4 @@ const AddBook = props => {
   );
 };
 
-export default AddBook;
+export default EditBook;

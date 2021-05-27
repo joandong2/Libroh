@@ -56,7 +56,16 @@ const Books = props => {
           <Button
             size="small"
             type="primary"
-            href={`/admin/book/${record.id}/edit`}
+            href={`/${record.slug}`}
+            target="_blank"
+            rel="noopener"
+          >
+            View
+          </Button>
+          <Button
+            size="small"
+            type="primary"
+            href={`/admin/books/${record.slug}/edit`}
           >
             Edit
           </Button>
@@ -83,6 +92,7 @@ const Books = props => {
       id: book.id,
       isbn: book.isbn,
       title: book.title,
+      slug: book.slug,
       cover: book.cover,
       author: book.author_name,
       publisher: book.publisher_name
@@ -108,7 +118,7 @@ const Books = props => {
               Add New
             </Button>
           </h3>
-          <Col span={12} offset={3}>
+          <Col span={12}>
             <div className="loader-wrapper" align="center">
               {notifications.loading && <div className="loader"></div>}
             </div>
@@ -135,7 +145,7 @@ const Books = props => {
           okText="Ok"
           cancelText="Cancel"
         >
-          Delete Book? {delBook}
+          Delete Book?
         </Modal>
       </Row>
     </div>

@@ -78,10 +78,59 @@ export const postBook = values => dispatch => {
     });
 };
 
+export const updateBook = (slug, values) => dispatch => {
+  dispatch({ type: START });
+
+  console.log("slugggg", slug);
+  console.log("va", values);
+
+  axiosWithAuth()
+    .patch(`/books/${slug}`, {
+      isbn: values.data.isbn,
+      // title: values.data.title,
+      // slug: values.data.title.toLowerCase().split(" ").join("-"),
+      description: values.data.description,
+      total_pages: values.data.total_pages,
+      year: values.data.year,
+      author_id: values.dropDownValues.author,
+      publisher_id: values.dropDownValues.publisher,
+      categories: values.dropDownValues.categories
+    })
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
 export const getCategories = () => dispatch => {
   dispatch({ type: START });
   axiosWithAuth()
     .get("/categories")
+    .then(res => {
+      dispatch({ type: GET_CATEGORIES, payload: res.data });
+      dispatch({ type: SUCCESS });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
+export const getAllCategories = () => dispatch => {
+  dispatch({ type: START });
+  axiosWithAuth()
+    .get("/categories/all")
     .then(res => {
       dispatch({ type: GET_CATEGORIES, payload: res.data });
       dispatch({ type: SUCCESS });
