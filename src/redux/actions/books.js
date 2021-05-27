@@ -81,9 +81,6 @@ export const postBook = values => dispatch => {
 export const updateBook = (slug, values) => dispatch => {
   dispatch({ type: START });
 
-  console.log("slugggg", slug);
-  console.log("va", values);
-
   axiosWithAuth()
     .patch(`/books/${slug}`, {
       isbn: values.data.isbn,

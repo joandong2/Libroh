@@ -20,6 +20,11 @@ const EditBook = props => {
   const authors = useSelector(state => state.authors);
   const publishers = useSelector(state => state.publishers);
   const books = useSelector(state => state.books);
+  const [dropDownValues, setDropDownValues] = useState({
+    author: "",
+    publisher: "",
+    categories: [1]
+  });
   const dispatch = useDispatch();
   const { register, errors, handleSubmit, watch, reset } = useForm();
 
@@ -30,11 +35,15 @@ const EditBook = props => {
     dispatch(getAuthors());
   }, [dispatch, props.match.params.slug]);
 
-  const [dropDownValues, setDropDownValues] = useState({
-    author: books.book !== null ? books.book[0].author_id : "",
-    publisher: books.book !== null ? books.book[0].publisher_id : "",
-    categories: books.book !== null ? books.book[0].category_ids : [1]
-  });
+  useEffect(() => {
+    if (books.book !== null) {
+      setDropDownValues({
+        author: books.book[0].author_id,
+        publisher: books.book[0].publisher_id,
+        categories: books.book[0].category_ids
+      });
+    }
+  }, [books.book]);
 
   const handleDropDown = e => {
     setDropDownValues({
@@ -63,8 +72,6 @@ const EditBook = props => {
     // alert(JSON.stringify(dropDownValues));
     dispatch(updateBook(props.match.params.slug, { data, dropDownValues }));
   };
-
-  console.log("dropdown", dropDownValues);
 
   return (
     <div className="dashboard">
