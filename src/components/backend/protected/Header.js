@@ -19,8 +19,10 @@ const Header = props => {
         <Col align="left" span={16}>
           <TopMenu />
         </Col>
-        <Col span={4} align="right" className="navigation">
-          right
+        <Col span={8} align="right" className="navigation">
+          <a rel="noopener noreferrer" href="/admin/logout">
+            Logout
+          </a>
         </Col>
       </Row>
     </>

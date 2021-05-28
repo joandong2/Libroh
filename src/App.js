@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { userLogout } from "./redux/actions/users";
+import { adminLogout } from "./redux/actions/admins";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import cookies from "js-cookies";
 
@@ -18,12 +19,14 @@ import PrivateRoute from "./components/frontend/protected/PrivateRoute.js";
 import Profile from "./components/frontend/protected/Profile.js";
 import MyBook from "./components/frontend/protected/MyBooks";
 /* Admin */
+import AdminLogin from "./components/backend/public/Login.js";
 import AdminRoute from "./components/backend/protected/AdminRoute.js";
 import Dashboard from "./components/backend/protected/Dashboard.js";
-import Books from "./components/backend/protected/Books.js";
-import AdminLogin from "./components/backend/public/Login.js";
-import AddBook from "./components/backend/protected/AddBook.js";
-import EditBook from "./components/backend/protected/EditBook";
+import Books from "./components/backend/protected/books/Books.js";
+import AddBook from "./components/backend/protected/books/AddBook.js";
+import EditBook from "./components/backend/protected/books/EditBook";
+import BooksCategories from "./components/backend/protected/books/Categories";
+import AddCategory from "./components/backend/protected/books/AddCategory";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,6 +47,26 @@ const App = () => {
             path="/admin/books/:slug/edit"
             component={EditBook}
           />
+          <AdminRoute
+            exact
+            path="/admin/books/categories"
+            component={BooksCategories}
+          />
+          <AdminRoute
+            exact
+            path="/admin/books/categories/add"
+            component={AddCategory}
+          />
+          <AdminRoute
+            exact
+            path="/admin/logout"
+            render={() => {
+              cookies.removeItem("adminAccessToken");
+              cookies.removeItem("_adminAccessSession");
+              dispatch(adminLogout());
+            }}
+          />
+
           {/* Private Frontend Routes */}
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/mybook" component={MyBook} />

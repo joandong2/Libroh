@@ -142,6 +142,49 @@ export const getAllCategories = () => dispatch => {
     });
 };
 
+export const postCategory = values => dispatch => {
+  dispatch({ type: START });
+
+  axiosWithAuth()
+    .post(`/categories`, {
+      name: values.name,
+      slug: values.name.toLowerCase().split(" ").join("-")
+    })
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
+export const deleteCategories = id => dispatch => {
+  dispatch({ type: START });
+  axiosWithAuth()
+    .delete(`/categories/${id}`)
+    .then(res => {
+      axiosWithAuth()
+        .get(`/categories/all`)
+        .then(res => {
+          dispatch({ type: GET_CATEGORIES, payload: res.data });
+        });
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
 export const updateBookRatingByUser =
   (book_slug, book_id, user_id, rating) => dispatch => {
     dispatch({ type: START });

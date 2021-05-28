@@ -24,12 +24,26 @@ const TopMenu = props => {
             Dashboard
           </a>
         </Menu.Item>
-        <Menu.Item key="books">
-          <i class="fas fa-book"></i>{" "}
-          <a href="/admin/books" rel="noopener noreferrer">
-            Books
-          </a>
-        </Menu.Item>
+        <SubMenu key="books" title=" Books" icon={<i class="fas fa-book"></i>}>
+          <Menu.Item key="books:1">
+            <i class="fas fa-book"></i>{" "}
+            <a href="/admin/books" rel="noopener noreferrer">
+              All Books
+            </a>
+          </Menu.Item>
+          <Menu.Item key="books:2">
+            <i class="fas fa-plus-circle"></i>{" "}
+            <a href="/admin/books/add" rel="noopener noreferrer">
+              Add New Book
+            </a>
+          </Menu.Item>
+          <Menu.Item key="books:3">
+            <i class="fas fa-coins"></i>{" "}
+            <a href="/admin/books/categories" rel="noopener noreferrer">
+              Categories
+            </a>
+          </Menu.Item>
+        </SubMenu>
         <Menu.Item key="authors">
           <i class="fas fa-user"></i>{" "}
           <a href="/admin/authors" rel="noopener noreferrer">

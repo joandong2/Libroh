@@ -1,3 +1,10 @@
+.ant-menu-sub {
+  li.ant-menu-item {
+    margin-bottom: 0 !important;
+    margin-top: 0;
+  }
+}
+
 .dashboard {
   .page-title {
     text-align: left;

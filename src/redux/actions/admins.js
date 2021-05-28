@@ -31,3 +31,23 @@ export const adminLogin = values => dispatch => {
       });
     });
 };
+
+export const adminLogout = () => dispatch => {
+  dispatch({ type: START });
+
+  axiosWithAuth()
+    .post("/users/logout")
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+      window.location.replace("/");
+    })
+    .catch(err => {
+      //console.log("err", err.response.status);
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};

@@ -31,6 +31,7 @@ const Header = () => {
           href="/"
           className="logo"
           src="https://res.cloudinary.com/johnoblenda/image/upload/v1609210738/libroh/logo_lwyvsj.png"
+          preview={false}
         />
       </Col>
       <Col span={12} align="right" className="navigation">

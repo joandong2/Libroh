@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
-import Header from "./Header";
-import Footer from "./Footer";
-import { getBooks, deleteBookById } from "../../../redux/actions/books";
+import Header from "../Header";
+import Footer from "../Footer";
+import {
+  getAllCategories,
+  deleteCategories
+} from "../../../../redux/actions/books";
 
-const Books = props => {
+const BookCategories = props => {
   //const { register, handleSubmit, errors } = useForm();
   const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
+  const categories = useSelector(state => state.books);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
-  const [delBook, setDelBook] = useState();
+  const [delCategory, setDelCategory] = useState();
 
   useEffect(() => {
-    dispatch(getBooks(undefined, undefined));
+    dispatch(getAllCategories());
   }, [dispatch]);
 
   const columns = [
@@ -24,30 +27,17 @@ const Books = props => {
       key: "id"
     },
     {
-      title: "ISBN",
-      dataIndex: "isbn",
-      key: "isbn"
+      title: "Name",
+      dataIndex: "name",
+      key: "name"
     },
+
     {
-      dataIndex: "cover",
-      key: "cover",
-      render: (text, record) => <Avatar src={record.cover} />
+      title: "Slug",
+      dataIndex: "slug",
+      key: "slug"
     },
-    {
-      title: "Title",
-      dataIndex: "title",
-      key: "title"
-    },
-    {
-      title: "Author",
-      dataIndex: "author",
-      key: "author"
-    },
-    {
-      title: "Publisher",
-      dataIndex: "publisher",
-      key: "publisher"
-    },
+
     {
       title: "Action",
       key: "action",
@@ -56,7 +46,7 @@ const Books = props => {
           <Button
             size="small"
             type="primary"
-            href={`/${record.slug}`}
+            href={`/category/${record.slug}`}
             target="_blank"
             rel="noopener"
           >
@@ -64,17 +54,9 @@ const Books = props => {
           </Button>
           <Button
             size="small"
-            type="primary"
-            href={`/admin/books/${record.slug}/edit`}
-          >
-            Edit
-          </Button>
-          <Button
-            size="small"
             type="danger"
-            //href={`/admin/book/${record.id}/delete`}
             onClick={() => {
-              setDelBook(record.id);
+              setDelCategory(record.id);
               setDelConfirm(true);
             }}
           >
@@ -86,20 +68,16 @@ const Books = props => {
   ];
 
   const data =
-    !notifications.loading &&
-    books.books &&
-    books.books.map(book => ({
-      id: book.id,
-      isbn: book.isbn,
-      title: book.title,
-      slug: book.slug,
-      cover: book.cover,
-      author: book.author_name,
-      publisher: book.publisher_name
-    }));
+    !notifications.loading && categories.categories !== null
+      ? categories.categories.categories.map(category => ({
+          id: category.id,
+          name: category.name,
+          slug: category.slug
+        }))
+      : null;
 
-  const deleteBook = id => {
-    dispatch(deleteBookById(id));
+  const deleteCategory = id => {
+    dispatch(deleteCategories(id));
     setDelConfirm(false);
   };
 
@@ -113,8 +91,12 @@ const Books = props => {
       <Row>
         <Col span={17} offset={3}>
           <h3 className="page-title">
-            Books{" "}
-            <Button size="small" type="primary" href="/admin/books/add">
+            Categories{" "}
+            <Button
+              size="small"
+              type="primary"
+              href="/admin/books/categories/add"
+            >
               Add New
             </Button>
           </h3>
@@ -140,16 +122,16 @@ const Books = props => {
         <Modal
           title="Modal"
           visible={delConfirm}
-          onOk={() => deleteBook(delBook)}
+          onOk={() => deleteCategory(delCategory)}
           onCancel={() => setDelConfirm(false)}
           okText="Ok"
           cancelText="Cancel"
         >
-          Delete Book?
+          Delete Category?
         </Modal>
       </Row>
     </div>
   );
 };
 
-export default Books;
+export default BookCategories;
