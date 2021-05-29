@@ -36,10 +36,11 @@ export const adminLogout = () => dispatch => {
   dispatch({ type: START });
 
   axiosWithAuth()
-    .post("/users/logout")
+    .post("/admins/logout")
     .then(res => {
-      dispatch({ type: SUCCESS, payload: res.data.message });
-      window.location.replace("/");
+      console.log(res);
+      dispatch({ type: SUCCESS });
+      window.location.replace("/admin");
     })
     .catch(err => {
       //console.log("err", err.response.status);

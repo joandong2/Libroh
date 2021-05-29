@@ -109,6 +109,8 @@ const Donate = props => {
                 <textarea
                   name="message"
                   placeholder="Message"
+                  rows="4"
+                  cols="50"
                   ref={register({
                     required: "Message is required."
                   })}

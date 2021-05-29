@@ -3,18 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
 import Header from "../Header";
 import Footer from "../Footer";
-import { getBooks, deleteBookById } from "../../../../redux/actions/books";
+import { getAuthors, deleteAuthor } from "../../../../redux/actions/authors";
 
-const Books = props => {
+const Authors = props => {
   //const { register, handleSubmit, errors } = useForm();
   const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
+  const authors = useSelector(state => state.authors);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
-  const [delBook, setDelBook] = useState();
+  const [delAuthor, setDelAuthor] = useState();
 
   useEffect(() => {
-    dispatch(getBooks(undefined, undefined));
+    dispatch(getAuthors());
   }, [dispatch]);
 
   const columns = [
@@ -24,29 +24,9 @@ const Books = props => {
       key: "id"
     },
     {
-      title: "ISBN",
-      dataIndex: "isbn",
-      key: "isbn"
-    },
-    {
-      dataIndex: "cover",
-      key: "cover",
-      render: (text, record) => <Avatar src={record.cover} />
-    },
-    {
-      title: "Title",
-      dataIndex: "title",
-      key: "title"
-    },
-    {
-      title: "Author",
-      dataIndex: "author",
-      key: "author"
-    },
-    {
-      title: "Publisher",
-      dataIndex: "publisher",
-      key: "publisher"
+      title: "Name",
+      dataIndex: "name",
+      key: "name"
     },
     {
       title: "Action",
@@ -55,8 +35,8 @@ const Books = props => {
         <Space size="middle">
           <Button
             size="small"
-            type="ghost"
-            href={`/${record.slug}`}
+            type="primary"
+            href={`/authors/${record.id}`}
             target="_blank"
             rel="noopener"
           >
@@ -64,16 +44,9 @@ const Books = props => {
           </Button>
           <Button
             size="small"
-            type="primary"
-            href={`/admin/books/${record.slug}/edit`}
-          >
-            Edit
-          </Button>
-          <Button
-            size="small"
             type="danger"
             onClick={() => {
-              setDelBook(record.id);
+              setDelAuthor(record.id);
               setDelConfirm(true);
             }}
           >
@@ -85,20 +58,15 @@ const Books = props => {
   ];
 
   const data =
-    !notifications.loading &&
-    books.books &&
-    books.books.map(book => ({
-      id: book.id,
-      isbn: book.isbn,
-      title: book.title,
-      slug: book.slug,
-      cover: book.cover,
-      author: book.author_name,
-      publisher: book.publisher_name
-    }));
+    !notifications.loading && authors.authors !== null
+      ? authors.authors.map(author => ({
+          id: author.id,
+          name: author.name
+        }))
+      : null;
 
-  const deleteBook = id => {
-    dispatch(deleteBookById(id));
+  const deleteCallback = id => {
+    dispatch(deleteAuthor(id));
     setDelConfirm(false);
   };
 
@@ -112,8 +80,8 @@ const Books = props => {
       <Row>
         <Col span={17} offset={3}>
           <h3 className="page-title">
-            Books{" "}
-            <Button size="small" type="primary" href="/admin/books/add">
+            Authors{" "}
+            <Button size="small" type="primary" href="/admin/authors/add">
               Add New
             </Button>
           </h3>
@@ -138,17 +106,17 @@ const Books = props => {
         </Col>
         <Modal
           title="Modal"
-          visible={delConfirm}
-          onOk={() => deleteBook(delBook)}
+          visible={delAuthor}
+          onOk={() => deleteCallback(delAuthor)}
           onCancel={() => setDelConfirm(false)}
           okText="Ok"
           cancelText="Cancel"
         >
-          Delete Book?
+          Delete Author?
         </Modal>
       </Row>
     </div>
   );
 };
 
-export default Books;
+export default Authors;

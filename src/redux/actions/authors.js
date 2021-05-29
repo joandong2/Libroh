@@ -36,7 +36,29 @@ export const getAuthors = () => dispatch => {
           authors: res.data.authors
         }
       });
-      //dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
+export const deleteAuthor = id => dispatch => {
+  dispatch({ type: START });
+  axiosWithAuth()
+    .delete(`/authors/${id}`)
+    .then(res => {
+      axiosWithAuth()
+        .get(`/authors`)
+        .then(res => {
+          dispatch({ type: GET_AUTHORS, payload: res.data });
+        });
+      dispatch({ type: SUCCESS, payload: res.data.message });
     })
     .catch(err => {
       dispatch({
