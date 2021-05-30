@@ -60,7 +60,7 @@ const App = () => {
             component={AddCategory}
           />
           <AdminRoute exact path="/admin/authors" component={Authors} />
-          <AdminRoute exact path="/admin//authors/add" component={AddAuthor} />
+          <AdminRoute exact path="/admin/authors/add" component={AddAuthor} />
           <Route
             exact
             path="/admin/logout"

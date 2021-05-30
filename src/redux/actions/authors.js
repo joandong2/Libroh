@@ -48,6 +48,27 @@ export const getAuthors = () => dispatch => {
     });
 };
 
+export const postAuthor = values => dispatch => {
+  dispatch({ type: START });
+
+  axiosWithAuth()
+    .post(`/authors`, {
+      name: values.name,
+      slug: values.name.toLowerCase().split(" ").join("-")
+    })
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
 export const deleteAuthor = id => dispatch => {
   dispatch({ type: START });
   axiosWithAuth()

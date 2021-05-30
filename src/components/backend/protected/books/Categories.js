@@ -14,7 +14,7 @@ const BookCategories = props => {
   const categories = useSelector(state => state.books);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
-  const [delCategory, setDelCategory] = useState();
+  const [delState, setdelState] = useState();
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -45,7 +45,7 @@ const BookCategories = props => {
         <Space size="middle">
           <Button
             size="small"
-            type="primary"
+            type="ghost"
             href={`/category/${record.slug}`}
             target="_blank"
             rel="noopener"
@@ -56,7 +56,7 @@ const BookCategories = props => {
             size="small"
             type="danger"
             onClick={() => {
-              setDelCategory(record.id);
+              setdelState(record.id);
               setDelConfirm(true);
             }}
           >
@@ -122,7 +122,7 @@ const BookCategories = props => {
         <Modal
           title="Modal"
           visible={delConfirm}
-          onOk={() => deleteCategory(delCategory)}
+          onOk={() => deleteCategory(delState)}
           onCancel={() => setDelConfirm(false)}
           okText="Ok"
           cancelText="Cancel"

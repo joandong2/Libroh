@@ -15,11 +15,11 @@ const Header = props => {
 
   return (
     <>
-      <Row gutter={16}>
-        <Col align="left" span={16}>
+      <Row gutter={24}>
+        <Col align="left" span={22}>
           <TopMenu />
         </Col>
-        <Col span={8} align="right" className="navigation">
+        <Col span={2} align="right" className="navigation">
           <a rel="noopener noreferrer" href="/admin/logout">
             Logout
           </a>

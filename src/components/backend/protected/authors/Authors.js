@@ -11,7 +11,7 @@ const Authors = props => {
   const authors = useSelector(state => state.authors);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
-  const [delAuthor, setDelAuthor] = useState();
+  const [delState, delDelState] = useState();
 
   useEffect(() => {
     dispatch(getAuthors());
@@ -29,14 +29,19 @@ const Authors = props => {
       key: "name"
     },
     {
+      title: "Slug",
+      dataIndex: "slug",
+      key: "slug"
+    },
+    {
       title: "Action",
       key: "action",
       render: (text, record) => (
         <Space size="middle">
           <Button
             size="small"
-            type="primary"
-            href={`/authors/${record.id}`}
+            type="ghost"
+            href={`/authors/${record.slug}`}
             target="_blank"
             rel="noopener"
           >
@@ -46,7 +51,7 @@ const Authors = props => {
             size="small"
             type="danger"
             onClick={() => {
-              setDelAuthor(record.id);
+              delDelState(record.id);
               setDelConfirm(true);
             }}
           >
@@ -61,7 +66,8 @@ const Authors = props => {
     !notifications.loading && authors.authors !== null
       ? authors.authors.map(author => ({
           id: author.id,
-          name: author.name
+          name: author.name,
+          slug: author.slug
         }))
       : null;
 
@@ -106,8 +112,8 @@ const Authors = props => {
         </Col>
         <Modal
           title="Modal"
-          visible={delAuthor}
-          onOk={() => deleteCallback(delAuthor)}
+          visible={delConfirm}
+          onOk={() => deleteCallback(delState)}
           onCancel={() => setDelConfirm(false)}
           okText="Ok"
           cancelText="Cancel"

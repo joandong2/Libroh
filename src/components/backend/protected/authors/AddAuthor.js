@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Row, Col, Form, Button, Alert, Select } from "antd";
+import { Row, Col, Form, Button, Alert } from "antd";
 import { useForm } from "react-hook-form";
-import { postCategory } from "../../../../redux/actions/books";
+import { postAuthor } from "../../../../redux/actions/authors";
 
 import Header from "../Header";
 import Footer from "../Footer";
 
-const AddCategory = props => {
+const AddAuthor = props => {
   const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
   const dispatch = useDispatch();
 
   const { register, errors, handleSubmit, watch, reset } = useForm();
 
   const onSubmit = (data, e) => {
     // alert(JSON.stringify(data));
-    dispatch(postCategory(data));
+    dispatch(postAuthor(data));
     reset();
   };
 
@@ -48,9 +47,9 @@ const AddCategory = props => {
                 <div className="ant-form-item-control">
                   <input
                     name="name"
-                    placeholder="Category Name"
+                    placeholder="Author Name"
                     ref={register({
-                      required: "Category Name is required."
+                      required: "Author Name is required."
                     })}
                     className="ant-input"
                   />
@@ -83,4 +82,4 @@ const AddCategory = props => {
   );
 };
 
-export default AddCategory;
+export default AddAuthor;
