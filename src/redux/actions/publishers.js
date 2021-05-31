@@ -47,3 +47,46 @@ export const getPublishers = () => dispatch => {
       });
     });
 };
+
+export const postPublisher = values => dispatch => {
+  dispatch({ type: START });
+
+  axiosWithAuth()
+    .post(`/publishers`, {
+      name: values.name,
+      slug: values.name.toLowerCase().split(" ").join("-")
+    })
+    .then(res => {
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
+
+export const deletePublisher = id => dispatch => {
+  dispatch({ type: START });
+  axiosWithAuth()
+    .delete(`/publishers/${id}`)
+    .then(res => {
+      axiosWithAuth()
+        .get(`/publishers`)
+        .then(res => {
+          dispatch({ type: GET_PUBLISHERS, payload: res.data });
+        });
+      dispatch({ type: SUCCESS, payload: res.data.message });
+    })
+    .catch(err => {
+      dispatch({
+        type: FAILED,
+        payload: err.response.data.message
+          ? err.response.data.message
+          : "Internal server issues. Please try again."
+      });
+    });
+};
