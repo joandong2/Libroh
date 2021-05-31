@@ -29,7 +29,7 @@ const AddAuthor = props => {
       </div>
       <Row>
         <Col span={17} offset={3}>
-          <h3 className="page-title">Add New Book</h3>
+          <h3 className="page-title">Add New Author</h3>
 
           <Col span={12} align="left">
             <div className="loader-wrapper" align="center">

@@ -36,7 +36,7 @@ export const getPublishers = () => dispatch => {
           publishers: res.data.publishers
         }
       });
-      //dispatch({ type: SUCCESS, payload: res.data.message });
+      dispatch({ type: SUCCESS });
     })
     .catch(err => {
       dispatch({

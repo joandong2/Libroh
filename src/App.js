@@ -29,8 +29,8 @@ import BooksCategories from "./components/backend/protected/books/Categories";
 import AddCategory from "./components/backend/protected/books/AddCategory";
 import Authors from "./components/backend/protected/authors/Authors";
 import AddAuthor from "./components/backend/protected/authors/AddAuthor";
-import Publishers from "./components/backend/protected/publishers/Publishers";
 import AddPublisher from "./components/backend/protected/publishers/AddPublisher";
+import Publishers from "./components/backend/protected/publishers/Publishers";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,10 +63,10 @@ const App = () => {
           />
           <AdminRoute exact path="/admin/authors" component={Authors} />
           <AdminRoute exact path="/admin/authors/add" component={AddAuthor} />
-          <AdminRoute exact path="/admin/authors" component={Publishers} />
+          <AdminRoute exact path="/admin/publishers" component={Publishers} />
           <AdminRoute
             exact
-            path="/admin/authors/add"
+            path="/admin/publishers/add"
             component={AddPublisher}
           />
           <Route

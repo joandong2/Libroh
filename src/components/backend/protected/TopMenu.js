@@ -44,19 +44,41 @@ const TopMenu = props => {
             </a>
           </Menu.Item>
         </SubMenu>
-        <Menu.Item key="authors">
-          <i class="fas fa-user"></i>{" "}
-          <a href="/admin/authors" rel="noopener noreferrer">
-            Authors
-          </a>
-        </Menu.Item>
+        <SubMenu
+          key="authors"
+          title=" Authors"
+          icon={<i class="fas fa-user-friends"></i>}
+        >
+          <Menu.Item key="author:1">
+            <i class="fas fa-user-friends"></i>{" "}
+            <a href="/admin/authors" rel="noopener noreferrer">
+              All Authors
+            </a>
+          </Menu.Item>
+          <Menu.Item key="author:2">
+            <i class="fas fa-plus-circle"></i>{" "}
+            <a href="/admin/authors/add" rel="noopener noreferrer">
+              Add New Author
+            </a>
+          </Menu.Item>
+        </SubMenu>
         <SubMenu
           key="publishers"
           title=" Publishers"
-          icon={<i class="fas fa-users-cog"></i>}
+          icon={<i class="fas fa-user-friends"></i>}
         >
-          <Menu.Item key="publisher:1">Option 1</Menu.Item>
-          <Menu.Item key="publisher:2">Option 2</Menu.Item>
+          <Menu.Item key="publisher:1">
+            <i class="fas fa-user-friends"></i>{" "}
+            <a href="/admin/publishers" rel="noopener noreferrer">
+              All Publisher
+            </a>
+          </Menu.Item>
+          <Menu.Item key="publisher:2">
+            <i class="fas fa-plus-circle"></i>{" "}
+            <a href="/admin/publishers/add" rel="noopener noreferrer">
+              Add New Publisher
+            </a>
+          </Menu.Item>
         </SubMenu>
         <SubMenu
           key="settings"

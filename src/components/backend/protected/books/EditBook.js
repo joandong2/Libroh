@@ -45,6 +45,8 @@ const EditBook = props => {
     }
   }, [books.book]);
 
+  console.log(dropDownValues);
+
   const handleDropDown = e => {
     setDropDownValues({
       ...dropDownValues,
@@ -297,9 +299,7 @@ const EditBook = props => {
                             defaultChecked={
                               //category.slug === "uncategorized" ? true : false
                               books.book !== null &&
-                              books.book[0].category_slug.includes(
-                                category.slug
-                              )
+                              books.book[0].category_ids.includes(category.id)
                                 ? true
                                 : false
                             }

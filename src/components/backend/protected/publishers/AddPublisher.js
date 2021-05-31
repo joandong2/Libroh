@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { Row, Col, Form, Button, Alert } from "antd";
 import { useForm } from "react-hook-form";
-import { postAuthor } from "../../../../redux/actions/authors";
+import { postPublisher } from "../../../../redux/actions/publishers";
 
 import Header from "../Header";
 import Footer from "../Footer";
 
-const AddAuthor = props => {
+const AddPublisher = props => {
   const notifications = useSelector(state => state.notifications);
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ const AddAuthor = props => {
 
   const onSubmit = (data, e) => {
     // alert(JSON.stringify(data));
-    dispatch(postAuthor(data));
+    dispatch(postPublisher(data));
     reset();
   };
 
@@ -29,7 +29,7 @@ const AddAuthor = props => {
       </div>
       <Row>
         <Col span={17} offset={3}>
-          <h3 className="page-title">Add New Book</h3>
+          <h3 className="page-title">Add New Publisher</h3>
 
           <Col span={12} align="left">
             <div className="loader-wrapper" align="center">
@@ -47,9 +47,9 @@ const AddAuthor = props => {
                 <div className="ant-form-item-control">
                   <input
                     name="name"
-                    placeholder="Author Name"
+                    placeholder="Publisher Name"
                     ref={register({
-                      required: "Author Name is required."
+                      required: "Publisher Name is required."
                     })}
                     className="ant-input"
                   />
@@ -82,4 +82,4 @@ const AddAuthor = props => {
   );
 };
 
-export default AddAuthor;
+export default AddPublisher;

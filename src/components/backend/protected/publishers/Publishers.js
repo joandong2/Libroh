@@ -3,18 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
 import Header from "../Header";
 import Footer from "../Footer";
-import { getAuthors, deleteAuthor } from "../../../../redux/actions/authors";
+import {
+  getPublishers,
+  deletePublisher
+} from "../../../../redux/actions/publishers";
 
 const Publishers = props => {
   //const { register, handleSubmit, errors } = useForm();
   const notifications = useSelector(state => state.notifications);
-  const authors = useSelector(state => state.authors);
+  const publishers = useSelector(state => state.publishers);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
   const [delState, delDelState] = useState();
 
   useEffect(() => {
-    dispatch(getAuthors());
+    dispatch(getPublishers());
   }, [dispatch]);
 
   const columns = [
@@ -41,7 +44,7 @@ const Publishers = props => {
           <Button
             size="small"
             type="ghost"
-            href={`/authors/${record.slug}`}
+            href={`/publisher/${record.slug}`}
             target="_blank"
             rel="noopener"
           >
@@ -63,16 +66,16 @@ const Publishers = props => {
   ];
 
   const data =
-    !notifications.loading && authors.authors !== null
-      ? authors.authors.map(author => ({
-          id: author.id,
-          name: author.name,
-          slug: author.slug
+    !notifications.loading && publishers.publishers !== null
+      ? publishers.publishers.map(publisher => ({
+          id: publisher.id,
+          name: publisher.name,
+          slug: publisher.slug
         }))
       : null;
 
   const deleteCallback = id => {
-    dispatch(deleteAuthor(id));
+    dispatch(deletePublisher(id));
     setDelConfirm(false);
   };
 
@@ -87,7 +90,7 @@ const Publishers = props => {
         <Col span={17} offset={3}>
           <h3 className="page-title">
             Authors{" "}
-            <Button size="small" type="primary" href="/admin/authors/add">
+            <Button size="small" type="primary" href="/admin/publishers/add">
               Add New
             </Button>
           </h3>
@@ -118,7 +121,7 @@ const Publishers = props => {
           okText="Ok"
           cancelText="Cancel"
         >
-          Delete Author?
+          Delete Publisher?
         </Modal>
       </Row>
     </div>
