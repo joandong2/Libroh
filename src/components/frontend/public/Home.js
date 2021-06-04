@@ -69,7 +69,7 @@ const Home = props => {
                             // }}
                           )}
                         <a
-                          href={`http://localhost:3000/${book.slug}`}
+                          href={`/${book.slug}`}
                           className="title"
                         >
                           {book.title}

@@ -111,10 +111,7 @@ const Book = props => {
                             ""
                           )}
 
-                          <h1
-                            href={`http://localhost:3000/${book.slug}`}
-                            className="title"
-                          >
+                          <h1 href={`/${book.slug}`} className="title">
                             {book.title}
                           </h1>
                           {user.user && user.user.saved_books ? (

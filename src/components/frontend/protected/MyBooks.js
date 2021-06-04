@@ -68,10 +68,7 @@ const MyBook = props => {
                           user.user.saved_books.includes(book.id) && (
                             <i class="fas fa-bookmark"></i>
                           )}
-                        <a
-                          href={`http://localhost:3000/${book.slug}`}
-                          className="title"
-                        >
+                        <a href={`/${book.slug}`} className="title">
                           {book.title}
                         </a>{" "}
                       </p>
