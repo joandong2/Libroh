@@ -16,13 +16,14 @@ export const userLogin = values => dispatch => {
       password: values.password
     })
     .then(res => {
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("_user", res.data._user);
       dispatch({ type: SUCCESS, payload: res.data.message });
       setTimeout(() => {
         window.location.replace("/");
       }, 1000);
     })
     .catch(err => {
-      //console.log("err", err.response.status);
       dispatch({
         type: FAILED,
         payload: err.response.data.message
