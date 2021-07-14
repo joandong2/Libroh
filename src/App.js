@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { adminLogout } from "./redux/actions/admins";
+//import { adminLogout } from "./redux/actions/admins";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import cookies from "js-cookies";
 
@@ -72,9 +72,10 @@ const App = () => {
             exact
             path="/admin/logout"
             render={() => {
-              cookies.removeItem("adminAccessToken");
-              cookies.removeItem("_adminAccessSession");
-              dispatch(adminLogout());
+              localStorage.removeItem("_admin");
+              localStorage.removeItem("adminToken");
+              //dispatch(adminLogout());
+              window.location.replace("/admin");
             }}
           />
 
