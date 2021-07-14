@@ -7,12 +7,12 @@ import { getUser, updateUser } from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Footer from "../public/Footer";
 
-const Profile = props => {
+const Profile = (props) => {
   const { register, handleSubmit, errors, watch, setValue } = useForm();
-  const notifications = useSelector(state => state.notifications);
-  const user = useSelector(state => state.users.user);
+  const notifications = useSelector((state) => state.notifications);
+  const user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  let userId = cookies.getItem("_user");
+  let userId = localStorage.getItem("_user");
 
   useEffect(() => {
     if (userId) {
@@ -23,11 +23,11 @@ const Profile = props => {
   useEffect(() => {
     if (user) {
       const fields = ["name", "phone", "address", "email"];
-      fields.forEach(field => setValue(field, user[field]));
+      fields.forEach((field) => setValue(field, user[field]));
     }
   }, [user, setValue]);
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     dispatch(updateUser(userId, data));
   };
 
@@ -54,8 +54,8 @@ const Profile = props => {
                     required: "Name is required.",
                     minLength: {
                       value: 8,
-                      message: "Name must be minimum of 8 characters."
-                    }
+                      message: "Name must be minimum of 8 characters.",
+                    },
                   })}
                   className="ant-input"
                 />
@@ -79,10 +79,10 @@ const Profile = props => {
                       value: 8,
                       pattern: {
                         value: /[0-9]*/i,
-                        message: "Invalid phone number."
+                        message: "Invalid phone number.",
                       },
-                      message: "Phone Number must be minimum of 8 characters."
-                    }
+                      message: "Phone Number must be minimum of 8 characters.",
+                    },
                   })}
                   className="ant-input"
                 />
@@ -104,8 +104,8 @@ const Profile = props => {
                     required: "Address is required.",
                     minLength: {
                       value: 8,
-                      message: "Address must be minimum of 8 characters."
-                    }
+                      message: "Address must be minimum of 8 characters.",
+                    },
                   })}
                   className="ant-input"
                 />
@@ -128,8 +128,8 @@ const Profile = props => {
                     required: "Email address is required.",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address."
-                    }
+                      message: "Invalid email address.",
+                    },
                   })}
                   className="ant-input"
                 />
@@ -146,8 +146,8 @@ const Profile = props => {
                   ref={register({
                     minLength: {
                       value: 8,
-                      message: "Password must be minimum of 8 characters."
-                    }
+                      message: "Password must be minimum of 8 characters.",
+                    },
                   })}
                   className="ant-input"
                 />
@@ -170,10 +170,10 @@ const Profile = props => {
                     minLength: {
                       value: 8,
                       message:
-                        "Confirm Password must be minimum of 8 characters."
+                        "Confirm Password must be minimum of 8 characters.",
                     },
-                    validate: value =>
-                      value === watch("password") || "Passwords don't match."
+                    validate: (value) =>
+                      value === watch("password") || "Passwords don't match.",
                   })}
                   className="ant-input"
                 />

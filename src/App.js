@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { userLogout } from "./redux/actions/users";
 import { adminLogout } from "./redux/actions/admins";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import cookies from "js-cookies";
@@ -41,7 +40,7 @@ const App = () => {
           <Route
             exact
             path="/admin"
-            render={props => <AdminLogin {...props} />}
+            render={(props) => <AdminLogin {...props} />}
           />
           <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
           <AdminRoute exact path="/admin/books" component={Books} />
@@ -82,31 +81,45 @@ const App = () => {
           {/* Private Frontend Routes */}
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/mybook" component={MyBook} />
-          <Route exact path="/" render={props => <Home {...props} />} />
+          <Route exact path="/" render={(props) => <Home {...props} />} />
           <Route
             exact
             path="/category/:category"
-            render={props => <Home {...props} />}
+            render={(props) => <Home {...props} />}
           />
-          <Route exact path="/login" render={props => <Login {...props} />} />
-          <Route exact path="/signup" render={props => <Signup {...props} />} />
-          <Route exact path="/forget" render={props => <Forget {...props} />} />
+          <Route exact path="/login" render={(props) => <Login {...props} />} />
+          <Route
+            exact
+            path="/signup"
+            render={(props) => <Signup {...props} />}
+          />
+          <Route
+            exact
+            path="/forget"
+            render={(props) => <Forget {...props} />}
+          />
           <Route
             exact
             path="/reset-password"
-            render={props => <Reset {...props} />}
+            render={(props) => <Reset {...props} />}
           />
-          <Route exact path="/donate" render={props => <Donate {...props} />} />
+          <Route
+            exact
+            path="/donate"
+            render={(props) => <Donate {...props} />}
+          />
           <Route
             exact
             path="/logout"
             render={() => {
-              cookies.removeItem("userAccess");
-              dispatch(userLogout());
+              localStorage.removeItem("_user");
+              localStorage.removeItem("token");
+              //dispatch(userLogout());
+              window.location.replace("/");
             }}
           />
-          <Route path="/:title" render={props => <Book {...props} />} />
-          <Route path="/error" render={props => <Error {...props} />} />
+          <Route path="/:title" render={(props) => <Book {...props} />} />
+          <Route path="/error" render={(props) => <Error {...props} />} />
           {/** ADMIN */}
         </Switch>
       </div>

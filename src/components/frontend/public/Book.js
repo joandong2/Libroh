@@ -9,23 +9,25 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
-const Book = props => {
-  const notifications = useSelector(state => state.notifications);
-  const book = useSelector(state => state.books.book);
-  const user = useSelector(state => state.users);
+const Book = (props) => {
+  const notifications = useSelector((state) => state.notifications);
+  const book = useSelector((state) => state.books.book);
+  const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getBook(props.match.params.title));
-    if (cookies.getItem("_user")) {
-      dispatch(getUser(parseInt(cookies.getItem("_user"))));
+    if (localStorage.getItem("_user")) {
+      dispatch(getUser(parseInt(localStorage.getItem("_user"))));
     }
   }, [dispatch, props.match.params.title]);
 
-  const bookmarkBook = e => {
+  const bookmarkBook = (e) => {
     e.preventDefault();
     //console.log(book[0].id);
-    dispatch(updateUserBook(parseInt(cookies.getItem("_user")), book[0].id));
+    dispatch(
+      updateUserBook(parseInt(localStorage.getItem("_user")), book[0].id)
+    );
   };
 
   return (
@@ -45,7 +47,7 @@ const Book = props => {
             ) : (
               <Row gutter={16}>
                 {book &&
-                  book.map(book => {
+                  book.map((book) => {
                     return (
                       <>
                         <Col span={8} key={book.id}>
@@ -53,7 +55,7 @@ const Book = props => {
                         </Col>
                         <Col span={8}>
                           <div class="tags">
-                            {book.category_name.map(category => {
+                            {book.category_name.map((category) => {
                               return (
                                 <Tag color="red" key={category}>
                                   {category}
@@ -66,12 +68,12 @@ const Book = props => {
                             book.ratings == null ? (
                               <Rate
                                 defaultValue={parseInt(book.ratings.toFixed(0))}
-                                onChange={rating => {
+                                onChange={(rating) => {
                                   dispatch(
                                     updateBookRatingByUser(
                                       book.slug,
                                       book.id,
-                                      parseInt(cookies.getItem("_user")),
+                                      parseInt(localStorage.getItem("_user")),
                                       rating
                                     )
                                   );
@@ -82,12 +84,12 @@ const Book = props => {
                                 defaultValue={parseFloat(book.ratings).toFixed(
                                   0
                                 )}
-                                onChange={rating => {
+                                onChange={(rating) => {
                                   dispatch(
                                     updateBookRatingByUser(
                                       book.slug,
                                       book.id,
-                                      parseInt(cookies.getItem("_user")),
+                                      parseInt(localStorage.getItem("_user")),
                                       rating
                                     )
                                   );
@@ -137,7 +139,7 @@ const Book = props => {
 
                           <p
                             style={{
-                              marginBottom: 0
+                              marginBottom: 0,
                             }}
                           >
                             Author: {book.author_name}, {book.year}

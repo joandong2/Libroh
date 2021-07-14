@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col, Avatar, Image, Menu, Dropdown, Button } from "antd";
-import cookies from "js-cookies";
 
 const menu = (
   <Menu>
@@ -35,7 +34,7 @@ const Header = () => {
         />
       </Col>
       <Col span={12} align="right" className="navigation">
-        {!cookies.getItem("_user") ? (
+        {!localStorage.getItem("_user") ? (
           <>
             <Button as="a" compact href="/">
               <i class="fas fa-home"></i> Home
@@ -59,7 +58,7 @@ const Header = () => {
               <a
                 href="#/"
                 className="ant-dropdown-link"
-                onClick={e => e.preventDefault()}
+                onClick={(e) => e.preventDefault()}
               >
                 <Avatar src="//res.cloudinary.com/johnoblenda/image/upload/v1606186222/libroh/pngtree-user-vector-avatar-png-image_1541962_i43ejo.jpg" />
               </a>

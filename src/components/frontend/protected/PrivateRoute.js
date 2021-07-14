@@ -4,31 +4,15 @@ import cookies from "js-cookies";
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const accessSession = cookies.getItem("_accessSession");
-  const refreshSession = cookies.getItem("_refreshSession");
+  const userSession = localStorage.getItem("_user");
 
   return (
     <Route
       {...rest}
-      render={props => {
-        if (!accessSession && !refreshSession) {
+      render={(props) => {
+        if (!userSession) {
           return <Redirect to="/login" />;
-        }
-
-        if (!accessSession && refreshSession) {
-          axiosWithAuth()
-            .post("/users/refresh-tokens")
-            .then(res => {
-              window.location.reload();
-            })
-            .catch(err => {
-              //console.log(err);
-              // if 403 redirect to login page
-              window.location.replace("/error");
-            });
-        }
-
-        if (accessSession) {
+        } else {
           return <Component {...props} />;
         }
       }}

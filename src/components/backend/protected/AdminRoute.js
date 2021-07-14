@@ -4,18 +4,15 @@ import cookies from "js-cookies";
 //import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 const AdminRoute = ({ component: Component, ...rest }) => {
-  const accessSession = cookies.getItem("_adminAccessSession");
-  const admin = cookies.getItem("_admin");
+  const adminSession = localStorage.getItem("_admin");
 
   return (
     <Route
       {...rest}
-      render={props => {
-        if (!accessSession) {
+      render={(props) => {
+        if (!adminSession) {
           return <Redirect to="/admin" />;
-        }
-
-        if (accessSession && admin) {
+        } else {
           return <Component {...props} />;
         }
       }}

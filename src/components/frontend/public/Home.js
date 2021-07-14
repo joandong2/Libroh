@@ -3,27 +3,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Image, Pagination, Rate } from "antd";
 import { getBooks } from "../../../redux/actions/books";
 import { getUser } from "../../../redux/actions/users";
-import cookies from "js-cookies";
 
 import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
 
-const Home = props => {
+const Home = (props) => {
   const [pageNum, setPageNum] = useState(1);
-  const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
-  const user = useSelector(state => state.users);
+  const notifications = useSelector((state) => state.notifications);
+  const books = useSelector((state) => state.books);
+  const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getBooks(props.match.params.category, pageNum));
-    if (cookies.getItem("_user")) {
-      dispatch(getUser(parseInt(cookies.getItem("_user"))));
+    if (localStorage.getItem("_user")) {
+      dispatch(getUser(parseInt(localStorage.getItem("_user"))));
     }
   }, [dispatch, props.match.params.category, pageNum]);
 
-  const paginationChange = page => {
+  const paginationChange = (page) => {
     setPageNum(parseInt(page));
   };
 
@@ -40,7 +39,7 @@ const Home = props => {
           ) : (
             <Row gutter={16}>
               {books.books &&
-                books.books.map(book => {
+                books.books.map((book) => {
                   return (
                     <Col span={4} className="book" key={book.id} align="center">
                       <Image
@@ -62,16 +61,13 @@ const Home = props => {
                             //   e.preventDefault();
                             //   dispatch(
                             //     updateUserBook(
-                            //       parseInt(cookies.getItem("_user")),
+                            //       parseInt(localStorage.getItem("_user")),
                             //       book.id
                             //     )
                             //   );
                             // }}
                           )}
-                        <a
-                          href={`/${book.slug}`}
-                          className="title"
-                        >
+                        <a href={`/${book.slug}`} className="title">
                           {book.title}
                         </a>{" "}
                       </p>

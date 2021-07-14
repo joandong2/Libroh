@@ -8,16 +8,16 @@ import Header from "../public/Header";
 import Sidebar from "../public/Sidebar";
 import Footer from "../public/Footer";
 
-const MyBook = props => {
-  const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
-  const user = useSelector(state => state.users);
+const MyBook = (props) => {
+  const notifications = useSelector((state) => state.notifications);
+  const books = useSelector((state) => state.books);
+  const user = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (cookies.getItem("_user")) {
-      dispatch(getUserBook(parseInt(cookies.getItem("_user"))));
+    if (localStorage.getItem("_user")) {
+      dispatch(getUserBook(parseInt(localStorage.getItem("_user"))));
     }
   }, [dispatch]);
 
@@ -39,7 +39,7 @@ const MyBook = props => {
           ) : (
             <Row gutter={16}>
               {books.books &&
-                books.books.map(book => {
+                books.books.map((book) => {
                   return (
                     <Col span={4} className="book" key={book.id} align="center">
                       <Image
@@ -50,12 +50,12 @@ const MyBook = props => {
                       />
                       <Rate
                         defaultValue={parseFloat(book.ratings).toFixed(0)}
-                        onChange={rating => {
+                        onChange={(rating) => {
                           dispatch(
                             updateBookRatingByUser(
                               book.slug,
                               book.id,
-                              parseInt(cookies.getItem("_user")),
+                              parseInt(localStorage.getItem("_user")),
                               rating
                             )
                           );
