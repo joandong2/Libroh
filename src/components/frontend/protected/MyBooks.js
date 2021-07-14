@@ -21,6 +21,8 @@ const MyBook = (props) => {
     }
   }, [dispatch]);
 
+  console.log(user);
+
   return (
     <>
       <Header />

@@ -24,7 +24,8 @@ const Book = (props) => {
 
   const bookmarkBook = (e) => {
     e.preventDefault();
-    //console.log(book[0].id);
+    //console.log("book", typeof book[0].id);
+    //console.log("user", typeof localStorage.getItem("_user"));
     dispatch(
       updateUserBook(parseInt(localStorage.getItem("_user")), book[0].id)
     );
@@ -116,7 +117,7 @@ const Book = (props) => {
                           <h1 href={`/${book.slug}`} className="title">
                             {book.title}
                           </h1>
-                          {user.user && user.user.saved_books ? (
+                          {user.user && user.user.saved_books !== null ? (
                             user.user.saved_books.includes(book.id) ? (
                               <Button
                                 size="small"
@@ -135,7 +136,15 @@ const Book = (props) => {
                                 Add to list
                               </Button>
                             )
-                          ) : null}
+                          ) : (
+                            <Button
+                              size="small"
+                              type="primary"
+                              onClick={bookmarkBook}
+                            >
+                              Add to list
+                            </Button>
+                          )}
 
                           <p
                             style={{
