@@ -67,7 +67,7 @@ const Book = (props) => {
                           {user.user != null ? (
                             book.ratings == null ? (
                               <Rate
-                                defaultValue={parseInt(book.ratings.toFixed(0))}
+                                defaultValue={0}
                                 onChange={(rating) => {
                                   dispatch(
                                     updateBookRatingByUser(
