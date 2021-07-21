@@ -63,21 +63,21 @@ const Book = (props) => {
                               );
                             })}
                           </div>
-
+                          {/* books rating */}
                           {user.user != null ? (
                             book.ratings == null ? (
                               <Rate
                                 defaultValue={parseInt(book.ratings.toFixed(0))}
                                 onChange={(rating) => {
-                                  // dispatch(
-                                  //   updateBookRatingByUser(
-                                  //     book.slug,
-                                  //     book.id,
-                                  //     parseInt(localStorage.getItem("_user")),
-                                  //     rating
-                                  //   )
-                                  // );
-                                  console.log(rating);
+                                  dispatch(
+                                    updateBookRatingByUser(
+                                      book.slug,
+                                      book.id,
+                                      parseInt(localStorage.getItem("_user")),
+                                      rating
+                                    )
+                                  );
+                                  //console.log(rating);
                                 }}
                               />
                             ) : (
@@ -94,6 +94,13 @@ const Book = (props) => {
                                       rating
                                     )
                                   );
+                                  // console.log("slug", book.slug);
+                                  // console.log("book id", book.id);
+                                  // console.log(
+                                  //   "user id",
+                                  //   parseInt(localStorage.getItem("_user"))
+                                  // );
+                                  // console.log("rating", rating);
                                 }}
                                 value={parseFloat(book.ratings).toFixed(0)}
                               />
@@ -101,6 +108,7 @@ const Book = (props) => {
                           ) : (
                             ""
                           )}
+
                           {user.user == null ? (
                             book.ratings == null ? (
                               <Tag color="#f50">No Ratings</Tag>

@@ -7,26 +7,26 @@ export const GET_BOOK = "GET_BOOK";
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 
-export const getBook = slug => dispatch => {
+export const getBook = (slug) => (dispatch) => {
   dispatch({ type: START });
 
   axiosWithAuth()
     .get(`/books/${slug}`)
-    .then(res => {
+    .then((res) => {
       dispatch({ type: GET_BOOK, payload: res.data.book });
       dispatch({ type: SUCCESS });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const getBooks = (category, pageNum) => dispatch => {
+export const getBooks = (category, pageNum) => (dispatch) => {
   dispatch({ type: START });
   axiosWithAuth()
     .get(
@@ -36,21 +36,21 @@ export const getBooks = (category, pageNum) => dispatch => {
         ? `/books?page=${parseInt(pageNum)}`
         : `/books/category/${category}?page=${parseInt(pageNum)}`
     )
-    .then(res => {
+    .then((res) => {
       dispatch({ type: GET_BOOKS, payload: res.data });
       dispatch({ type: SUCCESS });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const postBook = values => dispatch => {
+export const postBook = (values) => (dispatch) => {
   dispatch({ type: START });
 
   axiosWithAuth()
@@ -63,22 +63,22 @@ export const postBook = values => dispatch => {
       year: values.data.year,
       author_id: values.dropDownValues.author,
       publisher_id: values.dropDownValues.publisher,
-      categories: values.dropDownValues.categories
+      categories: values.dropDownValues.categories,
     })
-    .then(res => {
+    .then((res) => {
       dispatch({ type: SUCCESS, payload: res.data.message });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const updateBook = (slug, values) => dispatch => {
+export const updateBook = (slug, values) => (dispatch) => {
   dispatch({ type: START });
 
   axiosWithAuth()
@@ -91,146 +91,145 @@ export const updateBook = (slug, values) => dispatch => {
       year: values.data.year,
       author_id: values.dropDownValues.author,
       publisher_id: values.dropDownValues.publisher,
-      categories: values.dropDownValues.categories
+      categories: values.dropDownValues.categories,
     })
-    .then(res => {
+    .then((res) => {
       dispatch({ type: SUCCESS, payload: res.data.message });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const getCategories = () => dispatch => {
+export const getCategories = () => (dispatch) => {
   dispatch({ type: START });
   axiosWithAuth()
     .get("/categories")
-    .then(res => {
+    .then((res) => {
       dispatch({ type: GET_CATEGORIES, payload: res.data });
       dispatch({ type: SUCCESS });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const getAllCategories = () => dispatch => {
+export const getAllCategories = () => (dispatch) => {
   dispatch({ type: START });
   axiosWithAuth()
     .get("/categories/all")
-    .then(res => {
+    .then((res) => {
       dispatch({ type: GET_CATEGORIES, payload: res.data });
       dispatch({ type: SUCCESS });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const postCategory = values => dispatch => {
+export const postCategory = (values) => (dispatch) => {
   dispatch({ type: START });
 
   axiosWithAuth()
     .post(`/categories`, {
       name: values.name,
-      slug: values.name.toLowerCase().split(" ").join("-")
+      slug: values.name.toLowerCase().split(" ").join("-"),
     })
-    .then(res => {
+    .then((res) => {
       dispatch({ type: SUCCESS, payload: res.data.message });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
-export const deleteCategories = id => dispatch => {
+export const deleteCategories = (id) => (dispatch) => {
   dispatch({ type: START });
   axiosWithAuth()
     .delete(`/categories/${id}`)
-    .then(res => {
+    .then((res) => {
       axiosWithAuth()
         .get(`/categories/all`)
-        .then(res => {
+        .then((res) => {
           dispatch({ type: GET_CATEGORIES, payload: res.data });
         });
       dispatch({ type: SUCCESS, payload: res.data.message });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };
 
 export const updateBookRatingByUser =
-  (book_slug, book_id, user_id, rating) => dispatch => {
+  (book_slug, book_id, user_id, rating) => (dispatch) => {
     dispatch({ type: START });
     axiosWithAuth()
       .patch(`/books/${book_slug}/rating`, {
         book_id: book_id,
         user_id: user_id,
-        rating: rating
+        rating: rating,
       })
-      .then(res => {
+      .then((res) => {
         axiosWithAuth()
-          .get(`/users/${user_id}/books`)
-          .then(res => {
-            dispatch({ type: GET_BOOKS, payload: res.data });
+          .get(`/books/${book_slug}`)
+          .then((res) => {
+            dispatch({ type: GET_BOOK, payload: res.data.book });
           });
-
         dispatch({ type: SUCCESS, payload: res.data.message });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({
           type: FAILED,
           payload: err.response.data.message
             ? err.response.data.message
-            : "Internal server issues. Please try again."
+            : "Internal server issues. Please try again.",
         });
       });
   };
 
-export const deleteBookById = book_id => dispatch => {
+export const deleteBookById = (book_id) => (dispatch) => {
   dispatch({ type: START });
   axiosWithAuth()
     .delete(`/books/${book_id}/`)
-    .then(res => {
+    .then((res) => {
       dispatch({ type: SUCCESS, payload: res.data.message });
       axiosWithAuth()
         .get(`/books`)
-        .then(res => {
+        .then((res) => {
           dispatch({ type: GET_BOOKS, payload: res.data });
         });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: FAILED,
         payload: err.response.data.message
           ? err.response.data.message
-          : "Internal server issues. Please try again."
+          : "Internal server issues. Please try again.",
       });
     });
 };

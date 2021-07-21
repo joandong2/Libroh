@@ -34,7 +34,7 @@ const MyBook = (props) => {
           )}
 
           {notifications.loading ? (
-            <Row style={{ height: "10vh" }} verticalAlign="middle">
+            <Row style={{ height: "10vh" }}>
               <div className="loader"></div>
             </Row>
           ) : (
@@ -67,7 +67,7 @@ const MyBook = (props) => {
                         {user.user &&
                           user.user.saved_books &&
                           user.user.saved_books.includes(book.id) && (
-                            <i class="fas fa-bookmark"></i>
+                            <i className="fas fa-bookmark"></i>
                           )}
                         <a href={`/${book.slug}`} className="title">
                           {book.title}
