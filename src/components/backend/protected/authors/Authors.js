@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
+import { Row, Col, Table, Space, Button, Modal, Alert } from "antd";
 import Header from "../Header";
 import Footer from "../Footer";
 import { getAuthors, deleteAuthor } from "../../../../redux/actions/authors";
 
-const Authors = props => {
+const Authors = (props) => {
   //const { register, handleSubmit, errors } = useForm();
-  const notifications = useSelector(state => state.notifications);
-  const authors = useSelector(state => state.authors);
+  const notifications = useSelector((state) => state.notifications);
+  const authors = useSelector((state) => state.authors);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
   const [delState, delDelState] = useState();
@@ -21,17 +21,17 @@ const Authors = props => {
     {
       title: "Id",
       dataIndex: "id",
-      key: "id"
+      key: "id",
     },
     {
       title: "Name",
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
       title: "Slug",
       dataIndex: "slug",
-      key: "slug"
+      key: "slug",
     },
     {
       title: "Action",
@@ -58,20 +58,20 @@ const Authors = props => {
             Delete
           </Button>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   const data =
     !notifications.loading && authors.authors !== null
-      ? authors.authors.map(author => ({
+      ? authors.authors.map((author) => ({
           id: author.id,
           name: author.name,
-          slug: author.slug
+          slug: author.slug,
         }))
       : null;
 
-  const deleteCallback = id => {
+  const deleteCallback = (id) => {
     dispatch(deleteAuthor(id));
     setDelConfirm(false);
   };
@@ -105,7 +105,7 @@ const Authors = props => {
             dataSource={data}
             pagination={{
               pageSizeOptions: ["25", "50"],
-              showSizeChanger: true
+              showSizeChanger: true,
             }}
           />
           <Footer />

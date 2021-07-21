@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Menu, Image } from "antd";
+import { Menu } from "antd";
 
 // import Header from "../public/Header";
 // import Footer from "../public/Footer";
 
-const TopMenu = props => {
+const TopMenu = (props) => {
   const [current, setCurrent] = useState("mail");
   const { SubMenu } = Menu;
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     setCurrent(e.key);
   };
 

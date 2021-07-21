@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Row, Col, Form, Button, Alert, Select } from "antd";
+import { Row, Col, Form, Button, Alert } from "antd";
 import { useForm } from "react-hook-form";
 import { postCategory } from "../../../../redux/actions/books";
 
 import Header from "../Header";
 import Footer from "../Footer";
 
-const AddCategory = props => {
-  const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
+const AddCategory = (props) => {
+  const notifications = useSelector((state) => state.notifications);
+  // const books = useSelector(state => state.books);
   const dispatch = useDispatch();
 
-  const { register, errors, handleSubmit, watch, reset } = useForm();
+  const { register, errors, handleSubmit, reset } = useForm();
 
   const onSubmit = (data, e) => {
     // alert(JSON.stringify(data));
@@ -50,7 +50,7 @@ const AddCategory = props => {
                     name="name"
                     placeholder="Category Name"
                     ref={register({
-                      required: "Category Name is required."
+                      required: "Category Name is required.",
                     })}
                     className="ant-input"
                   />

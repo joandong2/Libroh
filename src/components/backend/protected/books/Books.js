@@ -5,10 +5,10 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { getBooks, deleteBookById } from "../../../../redux/actions/books";
 
-const Books = props => {
+const Books = (props) => {
   //const { register, handleSubmit, errors } = useForm();
-  const notifications = useSelector(state => state.notifications);
-  const books = useSelector(state => state.books);
+  const notifications = useSelector((state) => state.notifications);
+  const books = useSelector((state) => state.books);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
   const [delBook, setDelBook] = useState();
@@ -21,32 +21,32 @@ const Books = props => {
     {
       title: "Id",
       dataIndex: "id",
-      key: "id"
+      key: "id",
     },
     {
       title: "ISBN",
       dataIndex: "isbn",
-      key: "isbn"
+      key: "isbn",
     },
     {
       dataIndex: "cover",
       key: "cover",
-      render: (text, record) => <Avatar src={record.cover} />
+      render: (text, record) => <Avatar src={record.cover} />,
     },
     {
       title: "Title",
       dataIndex: "title",
-      key: "title"
+      key: "title",
     },
     {
       title: "Author",
       dataIndex: "author",
-      key: "author"
+      key: "author",
     },
     {
       title: "Publisher",
       dataIndex: "publisher",
-      key: "publisher"
+      key: "publisher",
     },
     {
       title: "Action",
@@ -80,24 +80,24 @@ const Books = props => {
             Delete
           </Button>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   const data =
     !notifications.loading &&
     books.books &&
-    books.books.map(book => ({
+    books.books.map((book) => ({
       id: book.id,
       isbn: book.isbn,
       title: book.title,
       slug: book.slug,
       cover: book.cover,
       author: book.author_name,
-      publisher: book.publisher_name
+      publisher: book.publisher_name,
     }));
 
-  const deleteBook = id => {
+  const deleteBook = (id) => {
     dispatch(deleteBookById(id));
     setDelConfirm(false);
   };
@@ -131,7 +131,7 @@ const Books = props => {
             dataSource={data}
             pagination={{
               pageSizeOptions: ["25", "50"],
-              showSizeChanger: true
+              showSizeChanger: true,
             }}
           />
           <Footer />

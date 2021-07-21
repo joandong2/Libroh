@@ -2,11 +2,10 @@ import React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { Row, Col } from "antd";
-import { Line } from "react-chartjs-2";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Dashboard = props => {
+const Dashboard = (props) => {
   //const { register, handleSubmit, errors } = useForm();
   //const notifications = useSelector((state) => state.notifications);
   //const dispatch = useDispatch();

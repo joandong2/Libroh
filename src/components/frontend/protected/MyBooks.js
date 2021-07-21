@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Image, Rate, Alert } from "antd";
-import cookies from "js-cookies";
 import { getUserBook } from "../../../redux/actions/users";
 import { updateBookRatingByUser } from "../../../redux/actions/books";
 import Header from "../public/Header";

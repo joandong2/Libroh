@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
+import { Row, Col, Table, Space, Button, Modal, Alert } from "antd";
 import Header from "../Header";
 import Footer from "../Footer";
 import {
   getPublishers,
-  deletePublisher
+  deletePublisher,
 } from "../../../../redux/actions/publishers";
 
-const Publishers = props => {
+const Publishers = (props) => {
   //const { register, handleSubmit, errors } = useForm();
-  const notifications = useSelector(state => state.notifications);
-  const publishers = useSelector(state => state.publishers);
+  const notifications = useSelector((state) => state.notifications);
+  const publishers = useSelector((state) => state.publishers);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
   const [delState, delDelState] = useState();
@@ -24,17 +24,17 @@ const Publishers = props => {
     {
       title: "Id",
       dataIndex: "id",
-      key: "id"
+      key: "id",
     },
     {
       title: "Name",
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
       title: "Slug",
       dataIndex: "slug",
-      key: "slug"
+      key: "slug",
     },
     {
       title: "Action",
@@ -61,20 +61,20 @@ const Publishers = props => {
             Delete
           </Button>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   const data =
     !notifications.loading && publishers.publishers !== null
-      ? publishers.publishers.map(publisher => ({
+      ? publishers.publishers.map((publisher) => ({
           id: publisher.id,
           name: publisher.name,
-          slug: publisher.slug
+          slug: publisher.slug,
         }))
       : null;
 
-  const deleteCallback = id => {
+  const deleteCallback = (id) => {
     dispatch(deletePublisher(id));
     setDelConfirm(false);
   };
@@ -108,7 +108,7 @@ const Publishers = props => {
             dataSource={data}
             pagination={{
               pageSizeOptions: ["25", "50"],
-              showSizeChanger: true
+              showSizeChanger: true,
             }}
           />
           <Footer />

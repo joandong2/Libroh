@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBook, updateBookRatingByUser } from "../../../redux/actions/books";
 import { getUser, updateUserBook } from "../../../redux/actions/users";
 import { Row, Col, Image, Rate, Alert, Tag, Button } from "antd";
-import cookies from "js-cookies";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -70,14 +69,15 @@ const Book = (props) => {
                               <Rate
                                 defaultValue={parseInt(book.ratings.toFixed(0))}
                                 onChange={(rating) => {
-                                  dispatch(
-                                    updateBookRatingByUser(
-                                      book.slug,
-                                      book.id,
-                                      parseInt(localStorage.getItem("_user")),
-                                      rating
-                                    )
-                                  );
+                                  // dispatch(
+                                  //   updateBookRatingByUser(
+                                  //     book.slug,
+                                  //     book.id,
+                                  //     parseInt(localStorage.getItem("_user")),
+                                  //     rating
+                                  //   )
+                                  // );
+                                  console.log(rating);
                                 }}
                               />
                             ) : (

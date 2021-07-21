@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Row, Col, Form, Button, Alert } from "antd";
-import cookies from "js-cookies";
 import { getUser, updateUser } from "../../../redux/actions/users";
 import Header from "../public/Header";
 import Footer from "../public/Footer";

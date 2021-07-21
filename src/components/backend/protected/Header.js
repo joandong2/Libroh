@@ -7,7 +7,7 @@ import TopMenu from "./TopMenu";
 // import Header from "../public/Header";
 // import Footer from "../public/Footer";
 
-const Header = props => {
+const Header = (props) => {
   //const { register, handleSubmit, errors } = useForm();
   //const notifications = useSelector((state) => state.notifications);
   //const dispatch = useDispatch();

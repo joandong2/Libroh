@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import cookies from "js-cookies";
 //import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 const AdminRoute = ({ component: Component, ...rest }) => {

@@ -8,11 +8,11 @@ import { postPublisher } from "../../../../redux/actions/publishers";
 import Header from "../Header";
 import Footer from "../Footer";
 
-const AddPublisher = props => {
-  const notifications = useSelector(state => state.notifications);
+const AddPublisher = (props) => {
+  const notifications = useSelector((state) => state.notifications);
   const dispatch = useDispatch();
 
-  const { register, errors, handleSubmit, watch, reset } = useForm();
+  const { register, errors, handleSubmit, reset } = useForm();
 
   const onSubmit = (data, e) => {
     // alert(JSON.stringify(data));
@@ -49,7 +49,7 @@ const AddPublisher = props => {
                     name="name"
                     placeholder="Publisher Name"
                     ref={register({
-                      required: "Publisher Name is required."
+                      required: "Publisher Name is required.",
                     })}
                     className="ant-input"
                   />

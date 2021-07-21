@@ -1,9 +1,6 @@
 import React from "react";
 import "./App.css";
-import { useDispatch } from "react-redux";
-//import { adminLogout } from "./redux/actions/admins";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import cookies from "js-cookies";
 
 import Home from "./components/frontend/public/Home.js";
 import Login from "./components/frontend/public/Login.js";
@@ -32,7 +29,6 @@ import AddPublisher from "./components/backend/protected/publishers/AddPublisher
 import Publishers from "./components/backend/protected/publishers/Publishers";
 
 const App = () => {
-  const dispatch = useDispatch();
   return (
     <Router>
       <div className="App">

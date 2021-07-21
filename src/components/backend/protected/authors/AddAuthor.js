@@ -8,11 +8,11 @@ import { postAuthor } from "../../../../redux/actions/authors";
 import Header from "../Header";
 import Footer from "../Footer";
 
-const AddAuthor = props => {
-  const notifications = useSelector(state => state.notifications);
+const AddAuthor = (props) => {
+  const notifications = useSelector((state) => state.notifications);
   const dispatch = useDispatch();
 
-  const { register, errors, handleSubmit, watch, reset } = useForm();
+  const { register, errors, handleSubmit, reset } = useForm();
 
   const onSubmit = (data, e) => {
     // alert(JSON.stringify(data));
@@ -49,7 +49,7 @@ const AddAuthor = props => {
                     name="name"
                     placeholder="Author Name"
                     ref={register({
-                      required: "Author Name is required."
+                      required: "Author Name is required.",
                     })}
                     className="ant-input"
                   />

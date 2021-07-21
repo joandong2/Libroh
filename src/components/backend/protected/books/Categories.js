@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Table, Avatar, Space, Button, Modal, Alert } from "antd";
+import { Row, Col, Table, Space, Button, Modal, Alert } from "antd";
 import Header from "../Header";
 import Footer from "../Footer";
 import {
   getAllCategories,
-  deleteCategories
+  deleteCategories,
 } from "../../../../redux/actions/books";
 
-const BookCategories = props => {
+const BookCategories = (props) => {
   //const { register, handleSubmit, errors } = useForm();
-  const notifications = useSelector(state => state.notifications);
-  const categories = useSelector(state => state.books);
+  const notifications = useSelector((state) => state.notifications);
+  const categories = useSelector((state) => state.books);
   const dispatch = useDispatch();
   const [delConfirm, setDelConfirm] = useState(false);
   const [delState, setdelState] = useState();
@@ -24,18 +24,18 @@ const BookCategories = props => {
     {
       title: "Id",
       dataIndex: "id",
-      key: "id"
+      key: "id",
     },
     {
       title: "Name",
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
 
     {
       title: "Slug",
       dataIndex: "slug",
-      key: "slug"
+      key: "slug",
     },
 
     {
@@ -63,20 +63,20 @@ const BookCategories = props => {
             Delete
           </Button>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   const data =
     !notifications.loading && categories.categories !== null
-      ? categories.categories.categories.map(category => ({
+      ? categories.categories.categories.map((category) => ({
           id: category.id,
           name: category.name,
-          slug: category.slug
+          slug: category.slug,
         }))
       : null;
 
-  const deleteCategory = id => {
+  const deleteCategory = (id) => {
     dispatch(deleteCategories(id));
     setDelConfirm(false);
   };
@@ -114,7 +114,7 @@ const BookCategories = props => {
             dataSource={data}
             pagination={{
               pageSizeOptions: ["25", "50"],
-              showSizeChanger: true
+              showSizeChanger: true,
             }}
           />
           <Footer />

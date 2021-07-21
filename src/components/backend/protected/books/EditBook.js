@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { Row, Col, Form, Button, Alert, Select } from "antd";
+import { Row, Col, Form, Button, Alert } from "antd";
 import { useForm } from "react-hook-form";
 
 import { getAuthors } from "../../../../redux/actions/authors";
@@ -9,24 +9,24 @@ import { getPublishers } from "../../../../redux/actions/publishers";
 import {
   getBook,
   updateBook,
-  getAllCategories
+  getAllCategories,
 } from "../../../../redux/actions/books";
 
 import Header from "../Header";
 import Footer from "../Footer";
 
-const EditBook = props => {
-  const notifications = useSelector(state => state.notifications);
-  const authors = useSelector(state => state.authors);
-  const publishers = useSelector(state => state.publishers);
-  const books = useSelector(state => state.books);
+const EditBook = (props) => {
+  const notifications = useSelector((state) => state.notifications);
+  const authors = useSelector((state) => state.authors);
+  const publishers = useSelector((state) => state.publishers);
+  const books = useSelector((state) => state.books);
   const [dropDownValues, setDropDownValues] = useState({
     author: "",
     publisher: "",
-    categories: [1]
+    categories: [1],
   });
   const dispatch = useDispatch();
-  const { register, errors, handleSubmit, watch, reset } = useForm();
+  const { register, errors, handleSubmit } = useForm();
 
   useEffect(() => {
     dispatch(getBook(props.match.params.slug));
@@ -40,31 +40,31 @@ const EditBook = props => {
       setDropDownValues({
         author: books.book[0].author_id,
         publisher: books.book[0].publisher_id,
-        categories: books.book[0].category_ids
+        categories: books.book[0].category_ids,
       });
     }
   }, [books.book]);
 
   console.log(dropDownValues);
 
-  const handleDropDown = e => {
+  const handleDropDown = (e) => {
     setDropDownValues({
       ...dropDownValues,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleCheckbox = e => {
+  const handleCheckbox = (e) => {
     let value = parseInt(e.target.value);
     if (dropDownValues.categories.includes(value)) {
       setDropDownValues({
         ...dropDownValues,
-        categories: dropDownValues.categories.filter(e => e !== value)
+        categories: dropDownValues.categories.filter((e) => e !== value),
       });
     } else {
       setDropDownValues({
         ...dropDownValues,
-        categories: [...dropDownValues.categories, value]
+        categories: [...dropDownValues.categories, value],
       });
     }
   };
@@ -104,7 +104,7 @@ const EditBook = props => {
                     name="title"
                     placeholder="Book Title"
                     ref={register({
-                      required: "Book Title is required."
+                      required: "Book Title is required.",
                     })}
                     className="ant-input"
                     value={books.book !== null ? books.book[0].title : null}
@@ -125,7 +125,7 @@ const EditBook = props => {
                     name="isbn"
                     placeholder="ISBN"
                     ref={register({
-                      required: "ISBN is required."
+                      required: "ISBN is required.",
                     })}
                     className="ant-input"
                     defaultValue={
@@ -150,7 +150,7 @@ const EditBook = props => {
                     name="description"
                     placeholder="Description"
                     ref={register({
-                      required: "Description is required."
+                      required: "Description is required.",
                     })}
                     className="ant-input"
                     defaultValue={
@@ -174,7 +174,7 @@ const EditBook = props => {
                     name="total_pages"
                     placeholder="Total Pages"
                     ref={register({
-                      required: "Total Pages is required."
+                      required: "Total Pages is required.",
                     })}
                     className="ant-input"
                     defaultValue={
@@ -198,7 +198,7 @@ const EditBook = props => {
                     name="year"
                     placeholder="Year"
                     ref={register({
-                      required: "Year is required."
+                      required: "Year is required.",
                     })}
                     className="ant-input"
                     defaultValue={
@@ -226,7 +226,7 @@ const EditBook = props => {
                       Select author
                     </option>
                     {authors.authors &&
-                      authors.authors.map(author => (
+                      authors.authors.map((author) => (
                         <option
                           value={author.id}
                           selected={
@@ -261,7 +261,7 @@ const EditBook = props => {
                       Select publisher
                     </option>
                     {publishers.publishers &&
-                      publishers.publishers.map(publisher => (
+                      publishers.publishers.map((publisher) => (
                         <option
                           value={publisher.id}
                           selected={
@@ -290,7 +290,7 @@ const EditBook = props => {
                   <legend>Categories</legend>
                   <Row style={{ padding: "0" }}>
                     {books.categories &&
-                      books.categories.categories.map(category => (
+                      books.categories.categories.map((category) => (
                         <Col span={24}>
                           <input
                             type="checkbox"
