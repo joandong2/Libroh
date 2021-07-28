@@ -53,18 +53,20 @@ const AddBook = (props) => {
     }
   };
 
-  const onSubmit = (data, e) => {
-    // alert(JSON.stringify(data));
-    dispatch(postBook({ data, dropDownValues }));
-    setDropDownValues({
-      author: "",
-      publisher: "",
-      categories: [1],
-    });
-    reset();
+  const handleImageUpload = (e) => {
+    console.log(e.target.files[0].name);
   };
 
-  console.log("val", dropDownValues);
+  const onSubmit = (data, e) => {
+    //alert(JSON.stringify(data));
+    // dispatch(postBook({ data, dropDownValues }));
+    // setDropDownValues({
+    //   author: "",
+    //   publisher: "",
+    //   categories: [1],
+    // });
+    // reset();
+  };
 
   return (
     <div className="dashboard">
@@ -239,6 +241,25 @@ const AddBook = (props) => {
                   <p className="errors">
                     <i class="fas fa-exclamation-triangle"></i>{" "}
                     {errors.publisher.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="ant-form-item">
+                <div className="ant-form-item-control">
+                  <input
+                    type="file"
+                    name="profile"
+                    placeholder="Profile Picture"
+                    className="ant-input"
+                    onChange={handleImageUpload}
+                  />
+                  <i aria-hidden="true" className="user icon"></i>
+                </div>
+                {errors.profile && (
+                  <p className="errors">
+                    <i class="fas fa-exclamation-triangle"></i>{" "}
+                    {errors.profile.message}
                   </p>
                 )}
               </div>

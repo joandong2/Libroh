@@ -77,7 +77,6 @@ const Book = (props) => {
                                       rating
                                     )
                                   );
-                                  //console.log(rating);
                                 }}
                               />
                             ) : (
